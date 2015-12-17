@@ -66,7 +66,7 @@ comments:
 ---
 <p>This post is going to assume you have used three.js to set up a basic scene with a camera and objects. The shaders can go in a script tag within the page and then can be referenced using the id of the script elements.</p>
 <p>&nbsp;</p>
-<p><strong>Vertex Shader:<&#47;strong></p>
+<p><strong>Vertex Shader:</strong></p>
 <pre>[code lang="glsl"]<br />
 varying vec2 vUv;<br />
 uniform float delta;<br />
@@ -77,16 +77,16 @@ uniform float alpha;</p>
     vUv = uv;<br />
     vec3 p = position;<br />
     p.z += sin(2.0 * p.y + delta) * 5.0;<br />
-    p.z += cos(2.0 * p.z + delta &#47; 2.0) * 5.0;<br />
+    p.z += cos(2.0 * p.z + delta / 2.0) * 5.0;<br />
     p.z += cos(2.0 * p.x + delta) * 5.0;<br />
-    p.x += sin(p.y + delta &#47; 2.0) * 10.0;<br />
+    p.x += sin(p.y + delta / 2.0) * 10.0;<br />
     vec4 mvPosition = modelViewMatrix * vec4(scale * p, 1.0 );<br />
     gl_Position = projectionMatrix * mvPosition;<br />
 }<br />
-[&#47;code]<&#47;pre><br />
+[/code]</pre><br />
 This is a pulsing vertex shader that will distort the geometry in a geometric wave like fashion based on the delta value.</p>
 <p>&nbsp;</p>
-<p><strong>Fragment Shader:<&#47;strong></p>
+<p><strong>Fragment Shader:</strong></p>
 <pre>[code lang="glsl"]<br />
 #ifdef GL_ES<br />
 precision highp float;<br />
@@ -104,11 +104,11 @@ varying vec2 vUv;        </p>
     vec4 color = vec4(rgb, alpha);<br />
 	gl_FragColor = color;<br />
 }<br />
-[&#47;code]<&#47;pre><br />
+[/code]</pre><br />
 This is a fragment shader that will transition from orange to red and back again based on the delta value.<br />
 We can set up our uniform values which correlate with our shader.</p>
 <pre>[code lang="javascript"]<br />
-&#47;&#47;these should reference their respective shaders<br />
+//these should reference their respective shaders<br />
 vertShader = document.getElementById('vertShader').innerHTML;<br />
 fragShader = document.getElementById('fragShader').innerHTML;<br />
 attributes = {};<br />
@@ -124,14 +124,14 @@ uniforms = {<br />
   fragmentShader: fragShader,<br />
   transparent: true<br />
 });</p>
-<p>&#47;&#47;create sphere geometry and apply our new material<br />
+<p>//create sphere geometry and apply our new material<br />
 var sphere = new THREE.Mesh( new THREE.SphereGeometry(3000, 20, 20), material);</p>
-<p>&#47;&#47;update the delta value on an interval,&nbsp;<br />
-&#47;&#47;we could also alter other values like alpha or scale<br />
+<p>//update the delta value on an interval,&nbsp;<br />
+//we could also alter other values like alpha or scale<br />
 function update() {<br />
 uniforms.delta.value += 0.1;<br />
 }</p>
-<p>&#47;&#47;set the interval<br />
+<p>//set the interval<br />
 setInterval(update, 100);<br />
-[&#47;code]<&#47;pre></p>
-<p>That should just about get you up and running with a basic vertex shader and fragment shader and an idea of how to manipulate values within them. &nbsp;For more ideas on what you can do with fragment shaders and glsl, check out the glsl sandbox&nbsp;<a title="glsl sandbox" href="http:&#47;&#47;mrdoob.com&#47;projects&#47;glsl_sandbox&#47;" target="_blank">glsl sandbox<&#47;a>.</p>
+[/code]</pre></p>
+<p>That should just about get you up and running with a basic vertex shader and fragment shader and an idea of how to manipulate values within them. &nbsp;For more ideas on what you can do with fragment shaders and glsl, check out the glsl sandbox&nbsp;<a title="glsl sandbox" href="http://mrdoob.com/projects/glsl_sandbox/" target="_blank">glsl sandbox</a>.</p>

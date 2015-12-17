@@ -31,8 +31,8 @@ comments: []
 	 selector:@selector(didRotate:)<br />
 	 name:@"UIDeviceOrientationDidChangeNotification"<br />
 	 object:nil];<br />
-[&#47;code]<br />
-<&#47;pre></p>
+[/code]<br />
+</pre></p>
 <p>Then in the method, I collect the device orientation and make my necessary changes based on the new orientation.</p>
 <pre>
 [code lang="c"]<br />
@@ -41,16 +41,16 @@ comments: []
 <p>	if (orientation == UIDeviceOrientationLandscapeLeft)<br />
 	{<br />
 		NSLog(@"Landscape Left!");<br />
-                &#47;&#47;landscape left code goes here<br />
-		&#47;&#47;interfaceView.transform = CGAffineTransformMakeRotation(180*M_PI&#47;180);<br />
+                //landscape left code goes here<br />
+		//interfaceView.transform = CGAffineTransformMakeRotation(180*M_PI/180);<br />
 	}<br />
 	else if (orientation == UIDeviceOrientationLandscapeRight)<br />
 	{<br />
 		NSLog(@"Landscape Right!");<br />
-                &#47;&#47;landscape right code goes here<br />
-		&#47;&#47;interfaceView.transform = CGAffineTransformMakeRotation(0*M_PI&#47;180);<br />
+                //landscape right code goes here<br />
+		//interfaceView.transform = CGAffineTransformMakeRotation(0*M_PI/180);<br />
 	}<br />
 }<br />
-[&#47;code]<br />
-<&#47;pre></p>
+[/code]<br />
+</pre></p>
 <p>It's that easy!</p>

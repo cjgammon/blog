@@ -80,14 +80,14 @@ comments:
 <p><code><br />
 var obj:Object = {param1:"myfirstparamvalue"}<br />
 for(var i in obj){<br />
-      trace(i); &#47;&#47;output: param1<br />
-      trace(obj[i]);  &#47;&#47;output: myfirstparamvalue<br />
+      trace(i); //output: param1<br />
+      trace(obj[i]);  //output: myfirstparamvalue<br />
 }<br />
-<&#47;code></p>
+</code></p>
 <p>so then we can just do this:<br />
 <code><br />
 for(var i in obj){<br />
 	MovieClip(myMovieClipWithTheseParams)[i] = obj[i];<br />
 }<br />
-<&#47;code></p>
+</code></p>
 <p>this is assuming of course that 'myMovieClipWithTheseParams' has whatever parameters you are updating set as public in it's class.</p>

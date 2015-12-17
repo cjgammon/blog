@@ -2,7 +2,7 @@
 layout: post
 status: publish
 published: true
-title: applescript to hide&#47;reveal hidden files
+title: applescript to hide/reveal hidden files
 author:
   display_name: cjgammon
   login: cjgammon
@@ -34,7 +34,7 @@ comments:
 <p>There are certain things I find I do now and again which would be nice to automate.  One of them is revealing hidden files, on a mac that means the file name begins with a period, like a .htaccess file.  Typically I would go into terminal, write a little shell command and then I'd have a messy desktop and file browsing until I got around to hiding hidden files again.  So I wrote the below shell script which will do this switch for me.  I've even set it up as a trigger in Quicksilver so I can toggle it on and off with a keyboard shortcut.  Pretty simple!</p>
 <pre>[code]<br />
 on run<br />
-	set hiddenState to (do shell script "&#47;usr&#47;bin&#47;defaults read com.apple.Finder AppleShowAllFiles")</p>
+	set hiddenState to (do shell script "/usr/bin/defaults read com.apple.Finder AppleShowAllFiles")</p>
 <p>	try<br />
 		tell application "Finder" to quit</p>
 <p>		if (hiddenState is "ON") then<br />
@@ -56,4 +56,4 @@ end run</p>
 		end if<br />
 	end tell<br />
 end FinderCheck<br />
-[&#47;code]<&#47;pre></p>
+[/code]</pre></p>

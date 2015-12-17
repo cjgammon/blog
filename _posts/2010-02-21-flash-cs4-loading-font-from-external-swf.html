@@ -35,7 +35,7 @@ comments:
     to an unrelated type Class.\r\nSource of font.as file that gets compiled to swf
     (yes, the relative path points to the .otf font)\r\n---\r\npackage\r\n{\r\n\timport
     flash.display.Sprite;\r\n\t\r\n\tpublic class Font_1 extends Sprite\r\n\t{\r\n\t\t[Embed(\tsource
-    = \"font_1&#47;MyFont.otf\",\r\n\t\t\tfontName = \"MyFont\",\r\n\t\t\tmimeType='application&#47;x-font',\r\n\t\t\tembedAsCFF='false'\r\n\t\t)]\r\n\t\tpublic
+    = \"font_1/MyFont.otf\",\r\n\t\t\tfontName = \"MyFont\",\r\n\t\t\tmimeType='application/x-font',\r\n\t\t\tembedAsCFF='false'\r\n\t\t)]\r\n\t\tpublic
     var MyFont:Class;\r\n\t\tpublic function Font_1():void\r\n\t\t{\r\n\t\t}\r\n\t}\r\n}\r\n---\r\n\r\n...
     and this is the source of .as file where I'm loading the font...\r\n\r\n---\r\nvar
     myLoader:Loader = new Loader();\r\nmyLoader.load(\"MyFont.otf\");\r\nvar font:Font
@@ -43,38 +43,38 @@ comments:
 ---
 <p>Here is a pretty basic overview of how to load fonts from a .swf, great for sites that have many languages, particularly asian characters, where you may need to specify characters or fonts while not wanting to load them all into a single swf.</p>
 <p>Note: this is for flash CS4 as it utilizes the mxmlc embed tag which gives you more control over font loading.</p>
-<p><strong>add embed tag in empty fla<&#47;strong></p>
+<p><strong>add embed tag in empty fla</strong></p>
 <pre>
 [code lang="actionscript"]<br />
 [Embed (systemFont="Arial" fontName="myFont")]<br />
 var myFont:Class<br />
-[&#47;code]<br />
-<&#47;pre></p>
+[/code]<br />
+</pre></p>
 <p>you can even specify what utf-8 characters to embed if you want non-roman characters</p>
-<p><strong>load the published font .swf into your .swf<&#47;strong></p>
+<p><strong>load the published font .swf into your .swf</strong></p>
 <pre>
 [code lang="actionscript"]<br />
 var myLoader:Loader = new Loader();<br />
 myLoader.load(...path to your font.swf)<br />
-[&#47;code]<br />
-<&#47;pre></p>
+[/code]<br />
+</pre></p>
 <p>...upon load...</p>
 <pre>
 [code lang="actionscript"]<br />
 var font:Font = MovieClip(myLoader.content).myFont as Font;<br />
-[&#47;code]<br />
-<&#47;pre><br />
+[/code]<br />
+</pre><br />
 ...you must register the font in order to use it...</p>
 <pre>
 [code lang="actionscript"]<br />
 Font.registerFont(font)<br />
-[&#47;code]<br />
-<&#47;pre><br />
+[/code]<br />
+</pre><br />
 ...then format you text as you normally would with an embedded font.</p>
 <pre>
 [code lang="actionscript"]<br />
 textFormat.font = font<br />
 textField.embedFonts = true;<br />
 textField.text = "text goes here"<br />
-textField.setTextFormat(textFormat);[&#47;code]<&#47;pre></p>
+textField.setTextFormat(textFormat);[/code]</pre></p>
 <p>hope that helps.</p>

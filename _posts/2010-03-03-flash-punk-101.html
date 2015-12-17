@@ -34,8 +34,8 @@ comments:
   content: '`,` I am very thankful to this topic because it really gives useful information
     :`:'
 ---
-<p>I've been playing recently with Chevy Ray's FlashPunk library, which can be found <a href="http:&#47;&#47;flashpunk.net&#47;">here<&#47;a>.  It's a 2d game library built on the premise of bitmapped data for all the speed and performance benefits that comes with using bitmaps versus vector data.  It has some neat little built in features which are perfect for platform style or arcade style 2d games, like collision detection, scrolling backgrounds, sprite mapping, and more.  They have some nice forums up, but I thought I'd do a little quick intro to how you can get started playing with it and making games.</p>
-<p><strong>first you need your base engine class which is provided<&#47;strong></p>
+<p>I've been playing recently with Chevy Ray's FlashPunk library, which can be found <a href="http://flashpunk.net/">here</a>.  It's a 2d game library built on the premise of bitmapped data for all the speed and performance benefits that comes with using bitmaps versus vector data.  It has some neat little built in features which are perfect for platform style or arcade style 2d games, like collision detection, scrolling backgrounds, sprite mapping, and more.  They have some nice forums up, but I thought I'd do a little quick intro to how you can get started playing with it and making games.</p>
+<p><strong>first you need your base engine class which is provided</strong></p>
 <pre>
 [code lang="actionscript"]<br />
 package<br />
@@ -53,10 +53,10 @@ package<br />
 		}<br />
 	}<br />
 }<br />
-[&#47;code]<br />
-<&#47;pre><br />
+[/code]<br />
+</pre><br />
 this is all very basic, but the showSplash() method displays the flashpunk splash screen, this is optional.  the super() method is describing your engine's dimensions: 500x250, frames per second: 60, scale: 2 (i like a little pixelation), and the initial World class that will be launching the game: Menu.  I have it launching menu as a world so that I can display my menu or splash screen before continuing on to the game.</p>
-<p><strong>now you need a world<&#47;strong></p>
+<p><strong>now you need a world</strong></p>
 <pre>
 [code lang="actionscript"]</p>
 <p>package<br />
@@ -74,7 +74,7 @@ this is all very basic, but the showSplash() method displays the flashpunk splas
 	import flash.geom.Point;<br />
 	public class Menu extends World<br />
 	{<br />
-		[Embed(source = 'data&#47;splash.png')] private var splashScreen:Class;<br />
+		[Embed(source = 'data/splash.png')] private var splashScreen:Class;<br />
 		public function Menu():void<br />
 		{<br />
 		}<br />
@@ -82,8 +82,8 @@ this is all very basic, but the showSplash() method displays the flashpunk splas
 		{<br />
 			Input.define("fire", Key.SPACE);<br />
 			var t:Text = new Text("PRESS [SPACE] TO START");<br />
-			t.x = FP.screen.width&#47;2;<br />
-			t.y = FP.screen.height&#47;2;<br />
+			t.x = FP.screen.width/2;<br />
+			t.y = FP.screen.height/2;<br />
 			t.center();<br />
 			t.color = 0xFFFFFF;<br />
                         add(t);<br />
@@ -101,7 +101,7 @@ this is all very basic, but the showSplash() method displays the flashpunk splas
 		}<br />
 	}<br />
 }<br />
-[&#47;code]<br />
-<&#47;pre><br />
+[/code]<br />
+</pre><br />
 so what we're doing here is making a custom splash screen, with 3 important things going on.  note you don't do anything in the world constructor, only in the override for the init method.  we add an input listener for the spacebar, add text telling the user to press the spacebar, and add a background image to make it look all pretty.  then in the update method when the spacebar is hit we switch worlds to the class that extends our game world.</p>
 <p>that's the basics, you would then create another class that extends world, in my example above it is called Space.  Then you can add Entities, Actors and Acrobats, which are all elements of your game and animate them by performing tasks in the World's or their own update methods. and soon enough you'll have something resembling a game!</p>

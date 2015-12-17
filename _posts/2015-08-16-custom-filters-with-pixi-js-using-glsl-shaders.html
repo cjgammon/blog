@@ -28,29 +28,29 @@ tags:
 - webgl
 comments: []
 ---
-<p><em>NOTE: This applies to Pixi v3<&#47;em></p>
-<p><a href="http:&#47;&#47;www.pixijs.com&#47;">Pixi.js<&#47;a> is <a href="https:&#47;&#47;twitter.com&#47;Doormat23">Mat Groves'<&#47;a> lightning fast 2D rendering engine for the web utilizing WebGL or 2D Canvas. When used with WebGL it supports filters, which are basically a simple way to leverage specific GLSL shaders. We can even write our own filters for Pixi.js using GLSL and javascript.</p>
-<p>To create your own GLSL filter download the source on github and follow the instructions to build, running <em>'npm install'<&#47;em> and then <em>'gulp'<&#47;em> from the command line. All the filters live in the <em>'src&#47;filters&#47;'<&#47;em> directory. To create your own filter you'll need to add a new directory for your filter name which will include at minimum two files. First, the javascript file that contains the browserify module for your filter. Second, the glsl fragment shader with the suffix <em>'.frag'<&#47;em>.</p>
-<p>Below is an example of a custom filter module I used for <a href="http:&#47;&#47;bytewrangler.blogspot.com&#47;2011&#47;10&#47;signed-distance-fields.html">Sined Distance Fields<&#47;a>, a way to visually vectorize specially created raster images. I'll walk through the different parts of the code.</p>
+<p><em>NOTE: This applies to Pixi v3</em></p>
+<p><a href="http://www.pixijs.com/">Pixi.js</a> is <a href="https://twitter.com/Doormat23">Mat Groves'</a> lightning fast 2D rendering engine for the web utilizing WebGL or 2D Canvas. When used with WebGL it supports filters, which are basically a simple way to leverage specific GLSL shaders. We can even write our own filters for Pixi.js using GLSL and javascript.</p>
+<p>To create your own GLSL filter download the source on github and follow the instructions to build, running <em>'npm install'</em> and then <em>'gulp'</em> from the command line. All the filters live in the <em>'src/filters/'</em> directory. To create your own filter you'll need to add a new directory for your filter name which will include at minimum two files. First, the javascript file that contains the browserify module for your filter. Second, the glsl fragment shader with the suffix <em>'.frag'</em>.</p>
+<p>Below is an example of a custom filter module I used for <a href="http://bytewrangler.blogspot.com/2011/10/signed-distance-fields.html">Sined Distance Fields</a>, a way to visually vectorize specially created raster images. I'll walk through the different parts of the code.</p>
 <pre>[code lang="javascript"]<br />
-var core = require('..&#47;..&#47;core');<br />
-&#47;&#47; @see https:&#47;&#47;github.com&#47;substack&#47;brfs&#47;issues&#47;25<br />
+var core = require('../../core');<br />
+// @see https://github.com/substack/brfs/issues/25<br />
 var fs = require('fs');</p>
-<p>&#47;**<br />
+<p>/**<br />
  * This applies a filter to vectorize Sined Distance Field Images.<br />
  *<br />
  * @class<br />
  * @extends AbstractFilter<br />
  * @memberof PIXI.filters<br />
- *&#47;<br />
+ */<br />
 function SDFFilter()<br />
 {<br />
     core.AbstractFilter.call(this,<br />
-        &#47;&#47; vertex shader<br />
+        // vertex shader<br />
         null,<br />
-        &#47;&#47; fragment shader<br />
-        fs.readFileSync(__dirname + '&#47;sdf.frag', 'utf8'),<br />
-        &#47;&#47; custom uniforms<br />
+        // fragment shader<br />
+        fs.readFileSync(__dirname + '/sdf.frag', 'utf8'),<br />
+        // custom uniforms<br />
         {<br />
             threshStart: {type: '1f', value: 0.5},<br />
             threshEnd: {type: '1f', value: 0.5},<br />
@@ -96,11 +96,11 @@ module.exports = SDFFilter;</p>
         }<br />
     }<br />
 });<br />
-[&#47;code]<&#47;pre><br />
-So the first thing we do is include necessary modules, including core and fs. Then we create our filter class. This is a subclass of AbstractFilter so we are calling the superclass passing in a reference to this shader, optionally a vertex shader (in this case we have none, so it is null), our fragment shader (this is the <em>'.frag'<&#47;em> file that will contain our glsl fragment shader),</p>
+[/code]</pre><br />
+So the first thing we do is include necessary modules, including core and fs. Then we create our filter class. This is a subclass of AbstractFilter so we are calling the superclass passing in a reference to this shader, optionally a vertex shader (in this case we have none, so it is null), our fragment shader (this is the <em>'.frag'</em> file that will contain our glsl fragment shader),</p>
 <pre>[code lang="javascript"]<br />
-        fs.readFileSync(__dirname + '&#47;sdf.frag', 'utf8'),<br />
-[&#47;code]<&#47;pre><br />
+        fs.readFileSync(__dirname + '/sdf.frag', 'utf8'),<br />
+[/code]</pre><br />
 and our custom uniforms (properties that will change).</p>
 <pre>[code lang="javascript"]<br />
 {<br />
@@ -108,7 +108,7 @@ and our custom uniforms (properties that will change).</p>
     threshEnd: {type: '1f', value: 0.5},<br />
     color: {type: '4f', value: [0.0, 0.0, 0.0, 1.0]},<br />
 }<br />
-[&#47;code]<&#47;pre><br />
+[/code]</pre><br />
 It's important to note that the different types passed into the uniforms require certain values associated with them, for example a vec4 will be an array of 4 points. It's important you use the correct value with the right type so you may want to find an example filter that uses the same type you're using for an example.</p>
 <p>The next bit of code just inherits properties from the superclass, defines our constructor and exports the module. After that we define the properties of our filter. These map to the uniforms we were passing in and each is an object with a get and set method that respective get and set the uniform value.</p>
 <p>We then need to create our fragment shader. This involves understanding the basics of glsl, but generally what you need to know is that the uniform values are then reflected in the shader as you defined them.</p>
@@ -124,5 +124,5 @@ uniform sampler2D uSampler;</p>
     vec4 sample = texture2D(uSampler, vTextureCoord);</p>
 <p>    gl_FragColor = color * smoothstep(threshStart, threshEnd, sample.r);<br />
 }<br />
-[&#47;code]<&#47;pre><br />
-After that you'll need to ensure your shader module is exported in the <em>src&#47;filters&#47;index.js<&#47;em> file. And that's basically it! Now you can create GLSL shaders and apply them to sprites within pixi.js. Also, don't forget to run gulp to compile your pixi build with your new filter.</p>
+[/code]</pre><br />
+After that you'll need to ensure your shader module is exported in the <em>src/filters/index.js</em> file. And that's basically it! Now you can create GLSL shaders and apply them to sprites within pixi.js. Also, don't forget to run gulp to compile your pixi build with your new filter.</p>

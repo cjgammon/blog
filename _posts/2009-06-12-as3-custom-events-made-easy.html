@@ -30,7 +30,7 @@ comments:
   date_gmt: '2014-02-05 09:18:48 -0600'
   content: "Actually the code you listed above is wrong you need to override the clone()
     method.\r\nIt works the first time but will fail if you re-dispatch the event
-    \r\n\r\nsee http:&#47;&#47;www.tink.ws&#47;blog&#47;custom-events-in-as-30-dont-forget-to-override-the-clone-method&#47;"
+    \r\n\r\nsee http://www.tink.ws/blog/custom-events-in-as-30-dont-forget-to-override-the-clone-method/"
 ---
 <p>I've seen a lot of tutorials on this and none of them seem so straightforward so here goes.  So let's say i have a class and i have another class that extends something like socket and i want to know when something happens in my socket class, like an event...</p>
 <p>i'll have to create a custom event class:<br />
@@ -47,7 +47,7 @@ super(type)<br />
 }<br />
 }<br />
 }<br />
-<&#47;code></p>
+</code></p>
 <p>so then in my class which extends Socket, I will simply dispatch this event when I want it to fire:<br />
 <code><br />
 package<br />
@@ -56,13 +56,13 @@ import flash.events.*<br />
 import flash.net.Socket<br />
 public class CustomSocket extends Socket<br />
 {<br />
-&#47;&#47;custom class goes here<br />
-&#47;&#47;run onLogin function when logged in<br />
+//custom class goes here<br />
+//run onLogin function when logged in<br />
 }<br />
 public function onLogin():void{<br />
 dispatchEvent(new ServerEvent("onLogin"))<br />
 }<br />
-<&#47;code></p>
+</code></p>
 <p>so then, when we instantiate our custom server class in our code we simply add an event listener like we normally would.<br />
 <code><br />
 package {<br />
@@ -78,5 +78,5 @@ socket.addEventListener(ServerEvent.ON_LOGIN, loggedIn)<br />
 public function loggedIn(e:ServerEvent):void{<br />
 trace("yay! custom event worked!")<br />
 }<br />
-<&#47;code><br />
+</code><br />
 seems easy right? awesome.</p>

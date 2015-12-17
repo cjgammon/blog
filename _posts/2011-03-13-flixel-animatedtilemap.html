@@ -46,15 +46,15 @@ comments:
 ---
 <p>So I was putting together a game where I wanted an animated tilemap in flixel, it did not seem to have this functionality natively, so I created a class for it and thought I'd share. It would be pretty simple to extend this to add animation features for randomly animating tilemaps or specify tile sequences for different positions.</p>
 <pre>[code lang="actionscript"]<br />
-&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;<br />
-&#47;&#47;	FlxAnimTilemap.as<br />
-&#47;&#47;	CREATED: Wed Mar 12 21:19:36 EDT 2008<br />
-&#47;&#47;	BY: cjgammon - cj.gammon@gmail.com<br />
-&#47;&#47;<br />
-&#47;&#47;	CLASS RESPONSIBILITES:<br />
-&#47;&#47;     tilemap of sprites that animate in a synchronized fashion<br />
-&#47;&#47;<br />
-&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;</p>
+///////////////////////////////////////////////////<br />
+//	FlxAnimTilemap.as<br />
+//	CREATED: Wed Mar 12 21:19:36 EDT 2008<br />
+//	BY: cjgammon - cj.gammon@gmail.com<br />
+//<br />
+//	CLASS RESPONSIBILITES:<br />
+//     tilemap of sprites that animate in a synchronized fashion<br />
+//<br />
+//////////////////////////////////////////////////</p>
 <p>package org.flixel<br />
 {</p>
 <p>import org.flixel.FlxAnimTilemap;</p>
@@ -62,17 +62,17 @@ comments:
 {<br />
 private var _animating:Boolean = true;<br />
 private var _animSpeedState:uint = 0;<br />
-private var _animState:uint = 1;                &#47;&#47;the first sprite of the animation sequence<br />
-private var spriteTotalTiles:uint = 5;         &#47;&#47;the last sprite of the animation<br />
-private var animIntervals:uint = 5;            &#47;&#47;speed of animation</p>
-<p>&#47;&#47;	CONSTRUCTOR<br />
+private var _animState:uint = 1;                //the first sprite of the animation sequence<br />
+private var spriteTotalTiles:uint = 5;         //the last sprite of the animation<br />
+private var animIntervals:uint = 5;            //speed of animation</p>
+<p>//	CONSTRUCTOR<br />
 public function FlxAnimTilemap($spriteTotalTiles:uint = 5, $animInterval:uint = 10):void<br />
 {<br />
 spriteTotalTiles = $spriteTotalTiles;<br />
 animIntervals = $animInterval;<br />
 super();<br />
 }</p>
-<p>&#47;&#47;	PUBLIC METHODS<br />
+<p>//	PUBLIC METHODS<br />
 override public function update():void<br />
 {<br />
 if (_animating)<br />
@@ -109,4 +109,4 @@ _animState=1;<br />
 }<br />
 }<br />
     }<br />
-}[&#47;code]<&#47;pre></p>
+}[/code]</pre></p>

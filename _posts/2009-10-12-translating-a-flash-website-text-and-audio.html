@@ -46,7 +46,7 @@ comments:
   date_gmt: '2009-10-31 10:13:49 -0500'
   content: Other variant is possible also
 ---
-<p><strong>Step 1: Text Class<&#47;strong></p>
+<p><strong>Step 1: Text Class</strong></p>
 <p>The Text Loader Class,<br />
 This is a class used for all the text in the site. It takes a few parameters, most notably your model, or whatever class you are storing the locale in, which I call _main, which is a MovieClip in this example. So it pulls a variable called 'loc' from the model which will be your locale ("en" for English, "de" for German, etc..). The defaultText parameter is a safety net and a fallback in case there are any problems finding the text from the server.  It also makes it quicker to load the english version of the text, since I use English as the default text.  The id references the table in the database table to pull the translated text which is organized with each column as a different language so an id can reference the same text and then matches it with the correct language.  The params parameter was just to allow more full control over the text layout so I could loop through the params variable and apply those attributes to the text being displayed, things like color, text size, alignment, etc..</p>
 <p><code><br />
@@ -99,7 +99,7 @@ for(var i in params){<br />
 Sprite(this)[i] = params[i];<br />
 }<br />
 if(loc!="en"){<br />
-&#47;&#47;load translation<br />
+//load translation<br />
 var textLoadVars:URLVariables = new URLVariables();<br />
 textLoadVars.id = this.id;<br />
 textLoadVars.loc = this.loc;<br />
@@ -112,7 +112,7 @@ textLoader.load(textLoadReq);<br />
 textLoader.addEventListener( Event.COMPLETE, vHandle_textLoader_COMPLETE );<br />
 textLoader.addEventListener( IOErrorEvent.IO_ERROR, vHandle_textLoader_IO_ERROR );<br />
 }else{<br />
-&#47;&#47;display default text<br />
+//display default text<br />
 addTextField(text)<br />
 }<br />
 }<br />
@@ -147,12 +147,12 @@ tf.height = _height;<br />
 tf.autoSize = autoSize;<br />
 tf.multiline = multiline;<br />
 tf.wordWrap = wordWrap;<br />
-&#47;&#47;tf.background = true;<br />
+//tf.background = true;<br />
 tf.htmlText = t;<br />
 tf.setTextFormat(textFormat);<br />
 addChild(tf)<br />
 }<br />
 }<br />
 }<br />
-<&#47;code></p>
+</code></p>
 <p>the rest to be continued...</p>

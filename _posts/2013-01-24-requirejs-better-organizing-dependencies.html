@@ -43,12 +43,12 @@ comments:
 ---
 <p>I love RequireJS. &nbsp;Javascript, with all it's flexibility and power, tends to lack a bit in organization and dependency management. ECMAScript 6 promises to fix with classes and modules, but until then we have RequireJS. &nbsp;I'm not going to go over in detail how RequireJS&nbsp;works, but in short, it allows you to create modules which you can then reference between each other. &nbsp;In some other languages this is akin to importing a class. &nbsp;These modules and their dependencies are created with a define method which takes as parameters an array of dependencies, and a method defining the module contents, so it looks like this:</p>
 <pre><code>define([ &lsquo;book&rsquo; ], function(book) {<br />
-&#47;&#47;content returning module<br />
+//content returning module<br />
 });<br />
-<&#47;code><&#47;pre><br />
+</code></pre><br />
 Here you can see we are passing in the array the path to the module we want to include, then as a parameter in the method we define a variable to reference that module. This works fine in simple cases, however when we have long lists of dependencies, managing the order of the array and variables passed into the method can get confusing. Fortunately RequireJS provides another way of including dependencies:</p>
 <pre><code>define([], function(require) {<br />
        var book = require('book');<br />
-&#47;&#47;content returning module<br />
-});<&#47;code><&#47;pre><br />
-Using the require method we can include this module as a dependency, along with others in a clearly defined way. This breaks out of the array-matching-parameter silliness that can occur when you have a long list of dependencies. It also makes it easier to move them around between modules since they're one line each. Read more about RequireJS <a href="http:&#47;&#47;requirejs.org&#47;docs&#47;start.html">here<&#47;a>.</p>
+//content returning module<br />
+});</code></pre><br />
+Using the require method we can include this module as a dependency, along with others in a clearly defined way. This breaks out of the array-matching-parameter silliness that can occur when you have a long list of dependencies. It also makes it easier to move them around between modules since they're one line each. Read more about RequireJS <a href="http://requirejs.org/docs/start.html">here</a>.</p>
