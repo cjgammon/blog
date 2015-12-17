@@ -1,0 +1,91 @@
+---
+layout: post
+status: publish
+published: true
+title: Parse XML for iPhone NSXMLParser
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+wordpress_id: 262
+wordpress_url: http://blog.cjgammon.com/?p=262
+date: '2010-12-13 19:36:32 -0600'
+date_gmt: '2010-12-14 02:36:32 -0600'
+categories:
+- iphone
+tags:
+- coding
+- iphone
+- xml
+comments: []
+---
+<p>so here's how you parse an xml file in objective c, you include the xml in you resources folder in xcode and then we'll create a class file which acts as an NXMLParserDelegate to parse the file and call specific methods we'll need to get the xml attributes.</p>
+<p>
+So if our xml looks something like this:<br />
+<&#47;p></p>
+<pre>
+[code lang="xml"]<br />
+<?xml version="1.0" encoding="UTF-8"?><br />
+<!DOCTYPE addresses SYSTEM "addresses.dtd"><br />
+<levels><br />
+    <level number = "1"><br />
+        <birds><br />
+		<bird color="red" &#47;><br />
+	<&#47;birds><br />
+    <&#47;level><br />
+<&#47;levels><br />
+[&#47;code]<&#47;pre></p>
+<p>We have to make a class that acts as an NXMLParserDelegate so the .h file would look something like this:</p>
+<pre>[code lang="c"]<br />
+@interface myXMLParser : NSObject <NSXMLParserDelegate><br />
+{<br />
+}<br />
+- (void)parseXMLFile:(NSString *)pathToFile;<br />
+@end<br />
+[&#47;code]<&#47;pre></p>
+<p>Then in the .m file we'll have the parseXMLFile method which takes a path to the xml file:</p>
+<pre>[code lang="c"]<br />
+- (void)parseXMLFile:(NSString *)pathToFile<br />
+{<br />
+    BOOL success;<br />
+	NSXMLParser *addressParser;</p>
+<p>    NSURL *xmlURL = [NSURL fileURLWithPath:pathToFile];<br />
+    if (addressParser) &#47;&#47; addressParser is an NSXMLParser instance variable<br />
+        [addressParser release];<br />
+    addressParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];<br />
+    [addressParser setDelegate:self];<br />
+    [addressParser setShouldResolveExternalEntities:YES];<br />
+    success = [addressParser parse]; &#47;&#47; return value not used<br />
+	&#47;&#47; if not successful, delegate is informed of error<br />
+}</p>
+<p>&#47;&#47; Start of element<br />
+- (void)parser:(NSXMLParser *)parser<br />
+didStartElement:(NSString *)elementName<br />
+  namespaceURI:(NSString *)namespaceURI<br />
+ qualifiedName:(NSString *)qName<br />
+	attributes:(NSDictionary *)attributeDict<br />
+{<br />
+    if ( [elementName isEqualToString:@"level"] ) {<br />
+        &#47;&#47;currentPerson = [[NSObject alloc] init];<br />
+        return;<br />
+    }</p>
+<p>	if ( [elementName isEqualToString:@"bird"] ) {<br />
+		NSString *color = [attributeDict objectForKey:@"color"];<br />
+		NSLog(@"bird %@", color);<br />
+        return;<br />
+    }<br />
+}<br />
+[&#47;code]<&#47;pre><br />
+So what we were doing is going through the elements and searching for the ones that match what we are looking for, then we can add them to objects or do whatever logic we need.</p>
+<p>
+To implement this class we just need to allocate it  and pass it the path to the file<br />
+<&#47;p></p>
+<pre>[code lang="c"]<br />
+BirdXML *birdXML = [BirdXML alloc];<br />
+[birdXML parseXMLFile:[[NSBundle mainBundle] pathForResource:@"myxmlfilename" ofType:@"xml"]];<br />
+[&#47;code]<&#47;pre></p>
+<p>That's pretty much the gist of it!</p>

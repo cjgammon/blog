@@ -1,0 +1,137 @@
+---
+layout: post
+status: publish
+published: true
+title: three.js custom shader material
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+wordpress_id: 392
+wordpress_url: http://blog.cjgammon.com/?p=392
+date: '2011-12-31 10:17:33 -0600'
+date_gmt: '2011-12-31 17:17:33 -0600'
+categories:
+- web
+- webgl
+tags:
+- web
+- html 5
+- webgl
+comments:
+- id: 1647
+  author: greg
+  author_email: greg.schorno@gmail.com
+  author_url: ''
+  date: '2012-02-08 15:39:45 -0600'
+  date_gmt: '2012-02-08 22:39:45 -0600'
+  content: Thanks for helping me finally get a shader working!
+- id: 1671
+  author: V02460
+  author_email: KaiAlexHiller@web.de
+  author_url: ''
+  date: '2012-05-04 02:31:48 -0500'
+  date_gmt: '2012-05-04 09:31:48 -0500'
+  content: "THREE.js has not the best documented api. It's not complicated, bust still
+    takes time to dig into it. So your post was really helpful, thanks!\r\n\r\nJust
+    one thing here: C&amp;Ping your code removes all line breaks, which is pretty
+    annoying to fix.\r\nIf you could look at that again, it would probably help some
+    people, who come to your site..."
+- id: 1690
+  author: Jack
+  author_email: jack@pryne.com
+  author_url: ''
+  date: '2012-09-16 10:06:00 -0500'
+  date_gmt: '2012-09-16 17:06:00 -0500'
+  content: "Thanks for the example. Could you provide more information, please?\r\n\r\nIs
+    there a working example of this where the entire source can be viewed? How about
+    a screen shot?\r\n\r\nWhat should the 'language' be in the script tags? 'GLSL'?\r\n\r\nHow
+    about some comments upon the code? \"This is a pulsing vertex shader that will
+    distort the geometry in a geometric wave like fashion based on the delta value\"
+    doesn't tell us much; what is 'vUv'? What does 'delta' represent? Is it time?"
+- id: 1692
+  author: cjgammon
+  author_email: cj.gammon@gmail.com
+  author_url: http://www.cjgammon.com
+  date: '2012-09-30 15:59:48 -0500'
+  date_gmt: '2012-09-30 22:59:48 -0500'
+  content: Thanks for the feedback. You're right this post is lacking a thorough working
+    example. This was really just a quick post to show that you could use custom materials
+    and update them dynamically. I'll try to put a post together with more detail
+    as I get time.
+---
+<p>This post is going to assume you have used three.js to set up a basic scene with a camera and objects. The shaders can go in a script tag within the page and then can be referenced using the id of the script elements.</p>
+<p>&nbsp;</p>
+<p><strong>Vertex Shader:<&#47;strong></p>
+<pre>[code lang="glsl"]<br />
+varying vec2 vUv;<br />
+uniform float delta;<br />
+uniform float scale;<br />
+uniform float alpha;</p>
+<p>void main()<br />
+{<br />
+    vUv = uv;<br />
+    vec3 p = position;<br />
+    p.z += sin(2.0 * p.y + delta) * 5.0;<br />
+    p.z += cos(2.0 * p.z + delta &#47; 2.0) * 5.0;<br />
+    p.z += cos(2.0 * p.x + delta) * 5.0;<br />
+    p.x += sin(p.y + delta &#47; 2.0) * 10.0;<br />
+    vec4 mvPosition = modelViewMatrix * vec4(scale * p, 1.0 );<br />
+    gl_Position = projectionMatrix * mvPosition;<br />
+}<br />
+[&#47;code]<&#47;pre><br />
+This is a pulsing vertex shader that will distort the geometry in a geometric wave like fashion based on the delta value.</p>
+<p>&nbsp;</p>
+<p><strong>Fragment Shader:<&#47;strong></p>
+<pre>[code lang="glsl"]<br />
+#ifdef GL_ES<br />
+precision highp float;<br />
+#endif<br />
+uniform float delta;<br />
+uniform float alpha;<br />
+varying vec2 vUv;        </p>
+<p>void main(void)<br />
+{<br />
+    vec2 position = vUv;<br />
+    float red = 1.0;<br />
+    float green = 0.25 + sin(delta) * 0.25;<br />
+    float blue = 0.0;<br />
+    vec3 rgb = vec3(red, green, blue);<br />
+    vec4 color = vec4(rgb, alpha);<br />
+	gl_FragColor = color;<br />
+}<br />
+[&#47;code]<&#47;pre><br />
+This is a fragment shader that will transition from orange to red and back again based on the delta value.<br />
+We can set up our uniform values which correlate with our shader.</p>
+<pre>[code lang="javascript"]<br />
+&#47;&#47;these should reference their respective shaders<br />
+vertShader = document.getElementById('vertShader').innerHTML;<br />
+fragShader = document.getElementById('fragShader').innerHTML;<br />
+attributes = {};<br />
+uniforms = {<br />
+  delta: {type: 'f', value: 0.0},<br />
+  scale: {type: 'f', value: 1.0},<br />
+  alpha: {type: 'f', value: 1.0}<br />
+};</p>
+<p>material = new THREE.ShaderMaterial({<br />
+  uniforms: uniforms,<br />
+  attributes: attributes,<br />
+  vertexShader: vertShader,<br />
+  fragmentShader: fragShader,<br />
+  transparent: true<br />
+});</p>
+<p>&#47;&#47;create sphere geometry and apply our new material<br />
+var sphere = new THREE.Mesh( new THREE.SphereGeometry(3000, 20, 20), material);</p>
+<p>&#47;&#47;update the delta value on an interval,&nbsp;<br />
+&#47;&#47;we could also alter other values like alpha or scale<br />
+function update() {<br />
+uniforms.delta.value += 0.1;<br />
+}</p>
+<p>&#47;&#47;set the interval<br />
+setInterval(update, 100);<br />
+[&#47;code]<&#47;pre></p>
+<p>That should just about get you up and running with a basic vertex shader and fragment shader and an idea of how to manipulate values within them. &nbsp;For more ideas on what you can do with fragment shaders and glsl, check out the glsl sandbox&nbsp;<a title="glsl sandbox" href="http:&#47;&#47;mrdoob.com&#47;projects&#47;glsl_sandbox&#47;" target="_blank">glsl sandbox<&#47;a>.</p>

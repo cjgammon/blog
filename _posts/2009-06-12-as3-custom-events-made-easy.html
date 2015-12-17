@@ -1,0 +1,82 @@
+---
+layout: post
+status: publish
+published: true
+title: as3 custom events made easy
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+wordpress_id: 64
+wordpress_url: http://blog.cjgammon.com/?p=64
+date: '2009-06-12 16:43:08 -0500'
+date_gmt: '2009-06-12 23:43:08 -0500'
+categories:
+- actionscript
+tags:
+- flash
+- actionscript
+- as3
+comments:
+- id: 9112
+  author: Stephen Buckley
+  author_email: flexfreelance@gmail.com
+  author_url: http://oi-media.co.uk
+  date: '2014-02-05 02:18:48 -0600'
+  date_gmt: '2014-02-05 09:18:48 -0600'
+  content: "Actually the code you listed above is wrong you need to override the clone()
+    method.\r\nIt works the first time but will fail if you re-dispatch the event
+    \r\n\r\nsee http:&#47;&#47;www.tink.ws&#47;blog&#47;custom-events-in-as-30-dont-forget-to-override-the-clone-method&#47;"
+---
+<p>I've seen a lot of tutorials on this and none of them seem so straightforward so here goes.  So let's say i have a class and i have another class that extends something like socket and i want to know when something happens in my socket class, like an event...</p>
+<p>i'll have to create a custom event class:<br />
+<code><br />
+package<br />
+{<br />
+import flash.events.Event<br />
+public class ServerEvent extends Event<br />
+{<br />
+public static const ON_LOGIN:String = "onLogin"<br />
+public function ServerEvent(type:String):void<br />
+{<br />
+super(type)<br />
+}<br />
+}<br />
+}<br />
+<&#47;code></p>
+<p>so then in my class which extends Socket, I will simply dispatch this event when I want it to fire:<br />
+<code><br />
+package<br />
+{<br />
+import flash.events.*<br />
+import flash.net.Socket<br />
+public class CustomSocket extends Socket<br />
+{<br />
+&#47;&#47;custom class goes here<br />
+&#47;&#47;run onLogin function when logged in<br />
+}<br />
+public function onLogin():void{<br />
+dispatchEvent(new ServerEvent("onLogin"))<br />
+}<br />
+<&#47;code></p>
+<p>so then, when we instantiate our custom server class in our code we simply add an event listener like we normally would.<br />
+<code><br />
+package {<br />
+import flash.display.Sprite<br />
+public class Sockets extends Sprite<br />
+{<br />
+public var socket:CustomSocket<br />
+public function Sockets()<br />
+{<br />
+socket = new CustomSocket()<br />
+socket.addEventListener(ServerEvent.ON_LOGIN, loggedIn)<br />
+}<br />
+public function loggedIn(e:ServerEvent):void{<br />
+trace("yay! custom event worked!")<br />
+}<br />
+<&#47;code><br />
+seems easy right? awesome.</p>

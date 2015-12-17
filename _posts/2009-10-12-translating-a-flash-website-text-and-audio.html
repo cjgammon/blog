@@ -1,0 +1,158 @@
+---
+layout: post
+status: publish
+published: true
+title: translating a flash website text and audio
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+wordpress_id: 116
+wordpress_url: http://blog.cjgammon.com/?p=116
+date: '2009-10-12 06:31:39 -0500'
+date_gmt: '2009-10-12 13:31:39 -0500'
+categories:
+- actionscript
+- web design
+tags:
+- actionscript
+- as3
+- linkedin
+comments:
+- id: 319
+  author: Polprav
+  author_email: polprav@mail.ru
+  author_url: http://polprav.blogspot.com/
+  date: '2009-10-15 13:47:52 -0500'
+  date_gmt: '2009-10-15 20:47:52 -0500'
+  content: "Hello from Russia!\r\nCan I quote a post in your blog with the link to
+    you?"
+- id: 321
+  author: cjgammon
+  author_email: cj.gammon@gmail.com
+  author_url: http://www.cjgammon.com
+  date: '2009-10-15 15:05:56 -0500'
+  date_gmt: '2009-10-15 22:05:56 -0500'
+  content: sure you can quote with a link. thanks for reading.
+- id: 370
+  author: nuhannemenefe
+  author_email: twenceerync@gmail.com
+  author_url: http://www.wmtools.net/
+  date: '2009-10-31 03:13:49 -0500'
+  date_gmt: '2009-10-31 10:13:49 -0500'
+  content: Other variant is possible also
+---
+<p><strong>Step 1: Text Class<&#47;strong></p>
+<p>The Text Loader Class,<br />
+This is a class used for all the text in the site. It takes a few parameters, most notably your model, or whatever class you are storing the locale in, which I call _main, which is a MovieClip in this example. So it pulls a variable called 'loc' from the model which will be your locale ("en" for English, "de" for German, etc..). The defaultText parameter is a safety net and a fallback in case there are any problems finding the text from the server.  It also makes it quicker to load the english version of the text, since I use English as the default text.  The id references the table in the database table to pull the translated text which is organized with each column as a different language so an id can reference the same text and then matches it with the correct language.  The params parameter was just to allow more full control over the text layout so I could loop through the params variable and apply those attributes to the text being displayed, things like color, text size, alignment, etc..</p>
+<p><code><br />
+package com.chuggington.utils.text<br />
+{<br />
+import flash.display.MovieClip;<br />
+import flash.display.Sprite;<br />
+import flash.events.Event;<br />
+import flash.events.IOErrorEvent;<br />
+import flash.net.URLLoader;<br />
+import flash.net.URLLoaderDataFormat;<br />
+import flash.net.URLRequest;<br />
+import flash.net.URLRequestMethod;<br />
+import flash.net.URLVariables;<br />
+import flash.text.AntiAliasType;<br />
+import flash.text.Font;<br />
+import flash.text.TextField;<br />
+import flash.text.TextFormat;<br />
+import flash.utils.getDefinitionByName;<br />
+public class LoadText extends Sprite<br />
+{<br />
+public var _main:MovieClip;<br />
+public var text:String;<br />
+public var loc:String;<br />
+public var _width:Number=50;<br />
+public var _height:Number=10;<br />
+public var embedFonts:Boolean = true;<br />
+public var mouseWheelEnabled:Boolean = false;<br />
+public var autoSize:String = "left";<br />
+public var multiline:Boolean = true;<br />
+public var wordWrap:Boolean = true;<br />
+public var font:String = "Gotham";<br />
+public var size:Number = 14;<br />
+public var color:Number = 0x000000;<br />
+public var align:String = "left";<br />
+public var translation:String = "";<br />
+public var id:int;<br />
+private var theFontClass:Class;<br />
+private var theFont:Font;<br />
+private var textFormat:TextFormat;<br />
+public var tf:TextField;<br />
+public function LoadText(main:MovieClip, defaultText:String ="", translationid:int=0, params:Object=null)<br />
+{<br />
+this._main = main;<br />
+this.loc = _main.loc;<br />
+this.id = translationid;<br />
+this.text = defaultText;<br />
+this.mouseEnabled = false;<br />
+for(var i in params){<br />
+Sprite(this)[i] = params[i];<br />
+}<br />
+if(loc!="en"){<br />
+&#47;&#47;load translation<br />
+var textLoadVars:URLVariables = new URLVariables();<br />
+textLoadVars.id = this.id;<br />
+textLoadVars.loc = this.loc;<br />
+var textLoadReq:URLRequest = new URLRequest(dir+"translateText.php");<br />
+textLoadReq.data = textLoadVars;<br />
+textLoadReq.method = URLRequestMethod.POST;<br />
+var textLoader:URLLoader = new URLLoader();<br />
+textLoader.dataFormat = URLLoaderDataFormat.TEXT;<br />
+textLoader.load(textLoadReq);<br />
+textLoader.addEventListener( Event.COMPLETE, vHandle_textLoader_COMPLETE );<br />
+textLoader.addEventListener( IOErrorEvent.IO_ERROR, vHandle_textLoader_IO_ERROR );<br />
+}else{<br />
+&#47;&#47;display default text<br />
+addTextField(text)<br />
+}<br />
+}<br />
+private function vHandle_textLoader_COMPLETE(e:Event):void<br />
+{<br />
+var foundVars:URLVariables = new URLVariables(e.target.data);<br />
+translation = foundVars.translation;<br />
+if(translation!="NULL"&amp;&amp;translation!=""){<br />
+addTextField(translation);<br />
+}else{<br />
+addTextField(text);<br />
+}<br />
+}<br />
+private function vHandle_textLoader_IO_ERROR(e:Event):void<br />
+{<br />
+trace("IOError:"+e);<br />
+}<br />
+private function addTextField(t:String)<br />
+{<br />
+theFontClass = getDefinitionByName(font) as Class;<br />
+theFont = new theFontClass() as Font;<br />
+textFormat = new TextFormat(theFont.fontName, size, color);<br />
+textFormat.align = align;<br />
+tf  = new TextField();<br />
+tf.antiAliasType = AntiAliasType.NORMAL;<br />
+tf.selectable = false;<br />
+tf.mouseEnabled = this.mouseEnabled;<br />
+tf.mouseWheelEnabled = mouseWheelEnabled;<br />
+tf.embedFonts = embedFonts;<br />
+tf.width = _width;<br />
+tf.height = _height;<br />
+tf.autoSize = autoSize;<br />
+tf.multiline = multiline;<br />
+tf.wordWrap = wordWrap;<br />
+&#47;&#47;tf.background = true;<br />
+tf.htmlText = t;<br />
+tf.setTextFormat(textFormat);<br />
+addChild(tf)<br />
+}<br />
+}<br />
+}<br />
+<&#47;code></p>
+<p>the rest to be continued...</p>

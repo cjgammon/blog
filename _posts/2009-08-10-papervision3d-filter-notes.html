@@ -1,0 +1,34 @@
+---
+layout: post
+status: publish
+published: true
+title: Papervision3D filter notes
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+wordpress_id: 91
+wordpress_url: http://blog.cjgammon.com/?p=91
+date: '2009-08-10 11:13:21 -0500'
+date_gmt: '2009-08-10 18:13:21 -0500'
+categories:
+- actionscript
+- design
+tags:
+- flash
+- actionscript
+- coding
+- 3d
+- as3
+- web
+- development
+- papervision
+comments: []
+---
+<p>Typically when adding filters in papervision you have to use ViewportLayers and apply the filters to them, however this can become messy and tedious if you are applying filters to a large number of objects.  So instead you can simply set the objects attribute useOwnContainer to true, and then apply filters directly to the object.</p>
+<p><code>useOwnContainer = true;<&#47;code></p>
+<p>When zooming in a great deal on an object which uses a filter or with many objects in a scene which have filters applied to them, if you do not turn the filters off during this zoom, the flash movie can have a tendency to freeze or lag the frame rate to just about zero.</p>

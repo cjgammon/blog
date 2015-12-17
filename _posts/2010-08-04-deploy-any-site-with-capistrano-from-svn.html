@@ -1,0 +1,169 @@
+---
+layout: post
+status: publish
+published: true
+title: deploy any site with capistrano from svn
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+wordpress_id: 226
+wordpress_url: http://blog.cjgammon.com/?p=226
+date: '2010-08-04 13:35:09 -0500'
+date_gmt: '2010-08-04 20:35:09 -0500'
+categories:
+- web
+tags:
+- web
+- linkedin
+comments:
+- id: 1726
+  author: DeployButton
+  author_email: contact@deploybutton.com
+  author_url: http://deploybutton.com
+  date: '2012-11-21 22:11:13 -0600'
+  date_gmt: '2012-11-22 05:11:13 -0600'
+  content: "Good stuff.  If you're interested in an easier way to deploy using Capistrano,
+    try us out, we have lots of people <a href=\"http:&#47;&#47;deploybutton.com\"
+    rel=\"nofollow\">deploying with Capistrano<&#47;a> every day over at DeployButton!\r\n\r\nI'm
+    not sure if we have anyone doing CodeIgniter yet -- We have quite a few using
+    Expression Engine, so I assume that CodeIgniter should work similarly.   \r\n\r\nIf
+    you end up using it, please drop us a line and give us your feedback! :)\r\n\r\nThanks,\r\nAsh\r\n\r\n--\r\nDeployButton.com
+    makes continuous delivery easy with a single button."
+- id: 130898
+  author: William
+  author_email: WilliamHerryChina@Gmail.com
+  author_url: http://williamherry.com
+  date: '2015-08-27 19:26:48 -0500'
+  date_gmt: '2015-08-28 02:26:48 -0500'
+  content: great resource, thanks
+---
+<p>Capistrano is a very cool web deployment tool initially built for the ruby on rails environment, more info can be found <a href="http:&#47;&#47;www.capify.org&#47;index.php&#47;Capistrano">here<&#47;a>.&nbsp; However you don't just have to be coding in Ruby to use it, it will work with any web environment. I had been working on a php site with codeigniter, which I deployed this way.  Of course you will need to have ruby installed on your server</p>
+<p>It's crazy easy to do, just create a config folder in the root of your project and add the deploy.rb with your deployment recipe an example may look like this:</p>
+<pre>[code]<br />
+# This defines a deployment "recipe" that you can feed to capistrano<br />
+# (http:&#47;&#47;manuals.rubyonrails.com&#47;read&#47;book&#47;17). It allows you to automate<br />
+# (among other things) the deployment of your application.</p>
+<p># =============================================================================<br />
+# REQUIRED VARIABLES<br />
+# =============================================================================<br />
+# You must always specify the application and repository for every recipe. The<br />
+# repository must be the URL of the repository you want this recipe to<br />
+# correspond to. The deploy_to path must be the path on each machine that will<br />
+# form the root of the application path.<br />
+require 'mt-capistrano'</p>
+<p>set :user, 'myusername'<br />
+set :password, 'mypassword'<br />
+set :site, "myserver.com"<br />
+set :webpath, "mywebsite.com"<br />
+set :domain, "#{site}"<br />
+set :application, "#{webpath}"</p>
+<p>set :scm_username, "svnusername"<br />
+set :scm_password, "svnpassword"<br />
+set :svn_username, "#{scm_username}"<br />
+set :svn_password, "#{scm_password}"</p>
+<p>set :repository,  "http:&#47;&#47;#{scm_username}@pathtosvnproject"</p>
+<p># =============================================================================<br />
+# ROLES<br />
+# =============================================================================<br />
+# You can define any number of roles, each of which contains any number of<br />
+# machines. Roles might include such things as :web, or :app, or :db, defining<br />
+# what the purpose of each machine is. You can also specify options that can<br />
+# be used to single out a specific subset of boxes in a particular role, like<br />
+# :primary => true.</p>
+<p>role :web, "#{domain}"<br />
+role :app, "#{domain}"<br />
+role :db,  "#{domain}", :primary => true</p>
+<p># =============================================================================<br />
+# OPTIONAL VARIABLES<br />
+# =============================================================================<br />
+# set :deploy_to, "&#47;path&#47;to&#47;app" # defaults to "&#47;u&#47;apps&#47;#{application}"<br />
+# set :user, "flippy"            # defaults to the currently logged in user<br />
+# set :scm, :darcs               # defaults to :subversion<br />
+# set :svn, "&#47;path&#47;to&#47;svn"       # defaults to searching the PATH<br />
+# set :darcs, "&#47;path&#47;to&#47;darcs"   # defaults to searching the PATH<br />
+# set :cvs, "&#47;path&#47;to&#47;cvs"       # defaults to searching the PATH<br />
+# set :gateway, "gate.host.com"  # default to no gateway</p>
+<p>set :use_sudo, false<br />
+set :deploy_to, "&#47;home&#47;#{site}&#47;domains&#47;#{webpath}&#47;deploy&#47;"<br />
+set :checkout, "export"</p>
+<p># =============================================================================<br />
+# SSH OPTIONS<br />
+# =============================================================================<br />
+# ssh_options[:keys] = %w(&#47;path&#47;to&#47;my&#47;key &#47;path&#47;to&#47;another&#47;key)<br />
+# ssh_options[:port] = 25</p>
+<p>ssh_options[:username] = "#{scm_username}"<br />
+ssh_options[:password] = "#{scm_password}"</p>
+<p>[&#47;code]<&#47;pre></p>
+<p>essentially you can set variables and what you're doing is telling it where your svn repository is, giving it access to the svn, then giving it access to the server and telling it where to deploy the files from svn onto the server.</p>
+<p>Then you can create a Capfile in the root directory of your project to do more detailed things like create shortcut links from files within the deployed directory to folders in and files in a shared directory.  The Capfile can look like the following:</p>
+<pre>
+[code]<br />
+load 'deploy' if respond_to?(:namespace) # cap2 differentiator<br />
+Dir['vendor&#47;plugins&#47;*&#47;recipes&#47;*.rb'].each { |plugin| load(plugin) }</p>
+<p>load 'config&#47;deploy' # remove this line to skip loading any of the default tasks</p>
+<p>#<br />
+#  Custom<br />
+#</p>
+<p># Deployment process<br />
+after "deploy:update", "deploy:cleanup"<br />
+after "deploy", "deploy:sort_files_and_directories"</p>
+<p># Custom deployment tasks<br />
+namespace :deploy do</p>
+<p>  desc "This is here to overide the original :restart"<br />
+  task :restart, :roles => :app do<br />
+    # do nothing but overide the default<br />
+  end</p>
+<p>  task :finalize_update, :roles => :app do<br />
+    run "chmod -R g+w #{latest_release}" if fetch(:group_writable, true)<br />
+    # overide the rest of the default method<br />
+  end</p>
+<p>  desc "Create additional directories and update permissions"<br />
+  task :sort_files_and_directories, :roles => :app do</p>
+<p>	# create syslink for globally accessed files and folders<br />
+	run "ln -s #{deploy_to}#{shared_dir}&#47;assets #{current_release}&#47;assets"<br />
+	run "ln -s #{deploy_to}#{shared_dir}&#47;uploads #{current_release}&#47;uploads"<br />
+	run "ln -s #{deploy_to}#{shared_dir}&#47;swf #{current_release}&#47;swf"<br />
+	run "ln -s #{deploy_to}#{shared_dir}&#47;js #{current_release}&#47;js"<br />
+	run "ln -s #{deploy_to}#{shared_dir}&#47;system&#47;application&#47;config&#47;config.php #{current_release}&#47;system&#47;application&#47;config&#47;config.php"<br />
+	run "ln -s #{deploy_to}#{shared_dir}&#47;system&#47;application&#47;config&#47;database.php #{current_release}&#47;system&#47;application&#47;config&#47;database.php"</p>
+<p>    # create upload and cache directories<br />
+    #run "mkdir #{latest_release}&#47;system&#47;cache"<br />
+    #run "mkdir #{latest_release}&#47;uploads&#47;"</p>
+<p>    # move config files<br />
+    #run "mv #{previous_release}&#47;system&#47;application&#47;config&#47;config.php #{latest_release}&#47;system&#47;application&#47;config&#47;config.php"<br />
+    #run "mv #{previous_release}&#47;system&#47;application&#47;config&#47;database.php #{latest_release}&#47;system&#47;application&#47;config&#47;database.php"</p>
+<p>    # move log files<br />
+    run "mv #{previous_release}&#47;system&#47;logs #{latest_release}&#47;system&#47;logs"</p>
+<p>    # set permissions<br />
+    #run "chmod 660 #{latest_release}&#47;system&#47;cache"<br />
+    #run "chmod 660 #{latest_release}&#47;system&#47;logs"<br />
+    #run "chmod 660 #{latest_release}&#47;uploads&#47;"<br />
+  end</p>
+<p>end<br />
+[&#47;code]<br />
+<&#47;pre></p>
+<p>In this example where you see, run "ln -s ...", i'm creating links in the current active directory to folders in my project's shared folder, this is for files I'm not keeping on svn for things like uploads, assets, or the database.php and config.php files which describe linkage to database and server variables.</p>
+<p>Then all you need to do is capify your project, in terminal navigate to the root of your project and run this command:</p>
+<pre>
+[code]<br />
+capify .<br />
+[&#47;code]<br />
+<&#47;pre></p>
+<p>Then to set up the remote file structure run this:</p>
+<pre>
+[code]<br />
+cap deploy:setup<br />
+[&#47;code]<br />
+<&#47;pre></p>
+<p>Then to actually deploy your website on the remote server run this:</p>
+<pre>
+[code]<br />
+cap deploy<br />
+[&#47;code]<br />
+<&#47;pre></p>
+<p>That's it, you should be sitting pretty!</p>

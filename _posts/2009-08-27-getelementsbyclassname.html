@@ -1,0 +1,37 @@
+---
+layout: post
+status: publish
+published: true
+title: getElementsByClassName
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+wordpress_id: 94
+wordpress_url: http://blog.cjgammon.com/?p=94
+date: '2009-08-27 15:33:31 -0500'
+date_gmt: '2009-08-27 22:33:31 -0500'
+categories:
+- Uncategorized
+tags:
+- coding
+- web
+- javascript
+- html 5
+comments: []
+---
+<p>getElementById had always been a nice way to reference attributes of an element in your html via javascript, but now with the dawn of HTML 5 you can update whole groups with the getElementsByClassName function which will collect all elements with the chosen class in an array for you to loop through and apply attributes to, or animate, or whatever.</p>
+<p>For example, if I want to loop through my page for all items with the class name "red" and change the background color of these items to red, i would simply do the following:</p>
+<p><code><br />
+var redItems = document.getElementsByClassName("red");<br />
+for (var i = 0; i < redItems.length; i++)<br />
+{<br />
+var redItem = redItems[i];<br />
+redItem.style.backgroundColor = "#FF0000";<br />
+}<br />
+<&#47;code></p>
+<p>note: be sure to put this code at the bottom of your web page, otherwise the items with this class will not have rendered and it will not find them.</p>

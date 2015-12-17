@@ -1,0 +1,25 @@
+---
+layout: post
+status: publish
+published: true
+title: 'Web Layers: Semantics & Graphics'
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+wordpress_id: 727
+wordpress_url: http://blog.cjgammon.com/?p=727
+date: '2013-08-24 13:02:39 -0500'
+date_gmt: '2013-08-24 20:02:39 -0500'
+categories:
+- web design
+- technology
+- web
+tags: []
+comments: []
+---
+<p>In the beginning the web was simply a semantic layer. It was comprised entirely of text and markup. As it evolved more layout and graphics capabilities were added but comprised little more than adding images. Flash on the other hand represented the complete opposite, it was not semantic at all but allowed rich animation and immersive graphical experiences, the possibilities of which seemed endless. Today, as we see the open web maturing, we have dedicated non-semantic layers like canvas with its 2d and 3d context. Where traditionally people were using CSS Transitions and Transforms for animating DOM elements for effects like parallax and animation, we can now create a dedicated graphical layer. This can be achieved by stacking layers having all your semantic DOM content in one layer and then rich graphical backgrounds and effects on another. You can also leverage scroll events and tie them to your canvas element, for example, moving a camera of a WebGL scene based on the scroll position of the page. &nbsp;This gives you direct mapping between your graphical layer and semantic layer, creating endless possibilities. The benefit of semantic content is great, because of it's indexable and searchable nature, but using the DOM for rich animation and graphics can be taxing on the browser and make your page appear slow. Delegating the rich graphical segments of your site to a dedicated graphic layer, like canvas not only allows more possibilities for GPU intensive effects but will also increase the performance of your site.</p>

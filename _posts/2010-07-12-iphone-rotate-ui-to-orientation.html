@@ -1,0 +1,56 @@
+---
+layout: post
+status: publish
+published: true
+title: iphone rotate ui to orientation
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+wordpress_id: 218
+wordpress_url: http://blog.cjgammon.com/?p=218
+date: '2010-07-12 20:58:29 -0500'
+date_gmt: '2010-07-13 03:58:29 -0500'
+categories:
+- iphone
+tags:
+- iphone
+- linkedin
+comments: []
+---
+<p>I found a lot of confusing descriptions on how to get iphone views rotated to orientation.  Most of them were using interface builder which doesn't help me as most of the applications I build are completely custom and not reliant upon the iphones pre-built components.  So this is how I got it to work for my needs.</p>
+<p>First I create a notification handler for orientation changes that calls a method in this instance it's 'didRotate'.</p>
+<pre>
+[code lang="c"]<br />
+[[NSNotificationCenter defaultCenter]<br />
+	 addObserver:self<br />
+	 selector:@selector(didRotate:)<br />
+	 name:@"UIDeviceOrientationDidChangeNotification"<br />
+	 object:nil];<br />
+[&#47;code]<br />
+<&#47;pre></p>
+<p>Then in the method, I collect the device orientation and make my necessary changes based on the new orientation.</p>
+<pre>
+[code lang="c"]<br />
+- (void) didRotate:(NSNotification *)notification{<br />
+	UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];</p>
+<p>	if (orientation == UIDeviceOrientationLandscapeLeft)<br />
+	{<br />
+		NSLog(@"Landscape Left!");<br />
+                &#47;&#47;landscape left code goes here<br />
+		&#47;&#47;interfaceView.transform = CGAffineTransformMakeRotation(180*M_PI&#47;180);<br />
+	}<br />
+	else if (orientation == UIDeviceOrientationLandscapeRight)<br />
+	{<br />
+		NSLog(@"Landscape Right!");<br />
+                &#47;&#47;landscape right code goes here<br />
+		&#47;&#47;interfaceView.transform = CGAffineTransformMakeRotation(0*M_PI&#47;180);<br />
+	}<br />
+}<br />
+[&#47;code]<br />
+<&#47;pre></p>
+<p>It's that easy!</p>

@@ -1,0 +1,54 @@
+---
+layout: post
+status: publish
+published: true
+title: RequireJS better organizing dependencies
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+wordpress_id: 667
+wordpress_url: http://blog.cjgammon.com/?p=667
+date: '2013-01-24 10:46:28 -0600'
+date_gmt: '2013-01-24 17:46:28 -0600'
+categories:
+- web
+- javascript
+tags:
+- coding
+- web
+- development
+- javascript
+- requirejs
+comments:
+- id: 30278
+  author: 台灣大樂透
+  author_email: afmsjksua@gmail.com
+  author_url: http://ts0215.com/
+  date: '2014-09-20 21:19:07 -0500'
+  date_gmt: '2014-09-21 04:19:07 -0500'
+  content: Wonderful article, thanks a lot !!
+- id: 129132
+  author: prabhu
+  author_email: murthyp@juniper.net
+  author_url: ''
+  date: '2015-08-20 23:43:00 -0500'
+  date_gmt: '2015-08-21 06:43:00 -0500'
+  content: thanks for this article. short and sweet. helped me in organizing my code
+    better
+---
+<p>I love RequireJS. &nbsp;Javascript, with all it's flexibility and power, tends to lack a bit in organization and dependency management. ECMAScript 6 promises to fix with classes and modules, but until then we have RequireJS. &nbsp;I'm not going to go over in detail how RequireJS&nbsp;works, but in short, it allows you to create modules which you can then reference between each other. &nbsp;In some other languages this is akin to importing a class. &nbsp;These modules and their dependencies are created with a define method which takes as parameters an array of dependencies, and a method defining the module contents, so it looks like this:</p>
+<pre><code>define([ &lsquo;book&rsquo; ], function(book) {<br />
+&#47;&#47;content returning module<br />
+});<br />
+<&#47;code><&#47;pre><br />
+Here you can see we are passing in the array the path to the module we want to include, then as a parameter in the method we define a variable to reference that module. This works fine in simple cases, however when we have long lists of dependencies, managing the order of the array and variables passed into the method can get confusing. Fortunately RequireJS provides another way of including dependencies:</p>
+<pre><code>define([], function(require) {<br />
+       var book = require('book');<br />
+&#47;&#47;content returning module<br />
+});<&#47;code><&#47;pre><br />
+Using the require method we can include this module as a dependency, along with others in a clearly defined way. This breaks out of the array-matching-parameter silliness that can occur when you have a long list of dependencies. It also makes it easier to move them around between modules since they're one line each. Read more about RequireJS <a href="http:&#47;&#47;requirejs.org&#47;docs&#47;start.html">here<&#47;a>.</p>

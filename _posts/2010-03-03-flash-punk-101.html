@@ -1,0 +1,107 @@
+---
+layout: post
+status: publish
+published: true
+title: flash punk 101
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+wordpress_id: 151
+wordpress_url: http://blog.cjgammon.com/?p=151
+date: '2010-03-03 20:55:00 -0600'
+date_gmt: '2010-03-04 03:55:00 -0600'
+categories:
+- actionscript
+- games
+tags:
+- flash
+- coding
+- as3
+- linkedin
+- game
+comments:
+- id: 1533
+  author: Granite Tiles
+  author_email: Omary@yahoo.com
+  author_url: http://www.granitetiles.info
+  date: '2011-01-27 21:13:59 -0600'
+  date_gmt: '2011-01-28 04:13:59 -0600'
+  content: '`,` I am very thankful to this topic because it really gives useful information
+    :`:'
+---
+<p>I've been playing recently with Chevy Ray's FlashPunk library, which can be found <a href="http:&#47;&#47;flashpunk.net&#47;">here<&#47;a>.  It's a 2d game library built on the premise of bitmapped data for all the speed and performance benefits that comes with using bitmaps versus vector data.  It has some neat little built in features which are perfect for platform style or arcade style 2d games, like collision detection, scrolling backgrounds, sprite mapping, and more.  They have some nice forums up, but I thought I'd do a little quick intro to how you can get started playing with it and making games.</p>
+<p><strong>first you need your base engine class which is provided<&#47;strong></p>
+<pre>
+[code lang="actionscript"]<br />
+package<br />
+{<br />
+	import punk.core.*;<br />
+	import punk.util.*;<br />
+	import punk.*;<br />
+	[SWF(width = "1000", height = "500")]<br />
+	public class Main extends Engine<br />
+	{<br />
+		public function Main()<br />
+		{<br />
+			showSplash(0x000000, 0xFFFFFF, .1, false);<br />
+			super(500, 250, 60, 2, Menu);<br />
+		}<br />
+	}<br />
+}<br />
+[&#47;code]<br />
+<&#47;pre><br />
+this is all very basic, but the showSplash() method displays the flashpunk splash screen, this is optional.  the super() method is describing your engine's dimensions: 500x250, frames per second: 60, scale: 2 (i like a little pixelation), and the initial World class that will be launching the game: Menu.  I have it launching menu as a world so that I can display my menu or splash screen before continuing on to the game.</p>
+<p><strong>now you need a world<&#47;strong></p>
+<pre>
+[code lang="actionscript"]</p>
+<p>package<br />
+{<br />
+	import punk.core.World;<br />
+	import punk.core.Entity;<br />
+	import punk.Acrobat;<br />
+	import punk.Backdrop;<br />
+	import Space;<br />
+	import punk.Text;<br />
+	import punk.util.Input;<br />
+	import punk.util.Key;<br />
+	import punk.Text;<br />
+	import punk.Actor;<br />
+	import flash.geom.Point;<br />
+	public class Menu extends World<br />
+	{<br />
+		[Embed(source = 'data&#47;splash.png')] private var splashScreen:Class;<br />
+		public function Menu():void<br />
+		{<br />
+		}<br />
+		override public function init():void<br />
+		{<br />
+			Input.define("fire", Key.SPACE);<br />
+			var t:Text = new Text("PRESS [SPACE] TO START");<br />
+			t.x = FP.screen.width&#47;2;<br />
+			t.y = FP.screen.height&#47;2;<br />
+			t.center();<br />
+			t.color = 0xFFFFFF;<br />
+                        add(t);<br />
+			var bg:Actor = new Actor()<br />
+			bg.sprite = FP.getSprite(splashScreen, 500, 250);<br />
+			add(bg);<br />
+		}<br />
+		override public function update():void<br />
+		{<br />
+			if (Input.check("fire"))<br />
+			{<br />
+				var space:Space = new Space()<br />
+				FP.goto = space;<br />
+			}<br />
+		}<br />
+	}<br />
+}<br />
+[&#47;code]<br />
+<&#47;pre><br />
+so what we're doing here is making a custom splash screen, with 3 important things going on.  note you don't do anything in the world constructor, only in the override for the init method.  we add an input listener for the spacebar, add text telling the user to press the spacebar, and add a background image to make it look all pretty.  then in the update method when the spacebar is hit we switch worlds to the class that extends our game world.</p>
+<p>that's the basics, you would then create another class that extends world, in my example above it is called Space.  Then you can add Entities, Actors and Acrobats, which are all elements of your game and animate them by performing tasks in the World's or their own update methods. and soon enough you'll have something resembling a game!</p>

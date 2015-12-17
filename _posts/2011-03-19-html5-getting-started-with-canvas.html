@@ -1,0 +1,65 @@
+---
+layout: post
+status: publish
+published: true
+title: HTML5 getting started with canvas
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+wordpress_id: 285
+wordpress_url: http://blog.cjgammon.com/?p=285
+date: '2011-03-19 14:49:24 -0500'
+date_gmt: '2011-03-19 21:49:24 -0500'
+categories:
+- web
+tags:
+- web
+- html 5
+- linkedin
+comments:
+- id: 8301
+  author: google
+  author_email: josefadietz@gmail.com
+  author_url: http://www.mediafire.com/
+  date: '2013-05-19 15:36:17 -0500'
+  date_gmt: '2013-05-19 22:36:17 -0500'
+  content: "Hi there! This is my first visit to your blog! We are a \r\ngroup of volunteers
+    and starting a new project \r\nin a community in the same niche. Your blog provided
+    \r\nus useful information to work on. You have done a marvellous job!"
+---
+<p>HTML5 and javascript are the next wave of web capabilities to do rich content without flash or any other plug-ins like unity. A big part of this is the canvas element which allows you to draw and manipulate content in 2D and in some browsers 3D with webGL. The canvas tag looks like the following:</p>
+<pre>[code lang="html"]<br />
+<canvas id="myCanvas">your browser does not support canvas<&#47;canvas><br />
+[&#47;code]<&#47;pre><br />
+Pretty basic right?<br />
+So to actually make things appear we need to reference this with javascript and then draw whatever we want.</p>
+<pre>[code lang="javascript"]<br />
+var canvas = document.getElementById("myCanvas");<br />
+var ctx = canvas.getContext("2d");<br />
+[&#47;code]<&#47;pre><br />
+Now we have the canvas and the context which is where we'll actually do the rendering, notice we specified 2d, if we're doing 3d drawing we would specify a different context to draw in. So now we can draw.</p>
+<pre>[code lang="javascript"]<br />
+ctx.fillRect(10, 10, 100, 50);<br />
+[&#47;code]<&#47;pre><br />
+If you are familiar with Flash's Drawing API this will look familiar. The properties look like this fillRect(x, y, width, height). You can reference the full canvas API <a href="http:&#47;&#47;dev.w3.org&#47;html5&#47;canvas-api&#47;canvas-2d-api.html">here<&#47;a>. You can also draw any HTML element like images or videos with the below method.</p>
+<pre>[code lang="javascript"]<br />
+var myImageElement = new Image();<br />
+myImageElement.src = "images&#47;image.png";<br />
+ctx.drawImage(myImageElement, 10, 10);<br />
+[&#47;code]<&#47;pre><br />
+What we're doing is creating an image element in javascript and then drawing it onto the canvas. Once you can do this we can start to unravel the true potential of canvas by animating it.</p>
+<pre>[code lang="javascript"]<br />
+var newX = 10;<br />
+setInterval("loop()", 100);</p>
+<p>function loop(){<br />
+newX++;<br />
+ctx.clearRect(0, 0, canvas.width, canvas.height);<br />
+ctx.drawImage(myImageElement, newX, 10);<br />
+}<br />
+[&#47;code]<&#47;pre><br />
+So now that we have animation we can do all sorts of magic! Using javascript you can capture events to change behavior for rich interactive experiences.</p>

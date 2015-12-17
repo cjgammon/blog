@@ -1,0 +1,59 @@
+---
+layout: post
+status: publish
+published: true
+title: applescript to hide&#47;reveal hidden files
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+wordpress_id: 246
+wordpress_url: http://blog.cjgammon.com/?p=246
+date: '2010-09-14 18:14:36 -0500'
+date_gmt: '2010-09-15 01:14:36 -0500'
+categories:
+- workflow
+tags:
+- linkedin
+- applescript
+- automation
+comments:
+- id: 1621
+  author: hide files
+  author_email: sunilc@gmail.com
+  author_url: http://www.concealfiles.com
+  date: '2011-06-13 06:42:15 -0500'
+  date_gmt: '2011-06-13 13:42:15 -0500'
+  content: This post rocks. I have also found a FREE utility to hide files under jpeg
+    image. I used it. It is a poor man's digital steganography application
+---
+<p>There are certain things I find I do now and again which would be nice to automate.  One of them is revealing hidden files, on a mac that means the file name begins with a period, like a .htaccess file.  Typically I would go into terminal, write a little shell command and then I'd have a messy desktop and file browsing until I got around to hiding hidden files again.  So I wrote the below shell script which will do this switch for me.  I've even set it up as a trigger in Quicksilver so I can toggle it on and off with a keyboard shortcut.  Pretty simple!</p>
+<pre>[code]<br />
+on run<br />
+	set hiddenState to (do shell script "&#47;usr&#47;bin&#47;defaults read com.apple.Finder AppleShowAllFiles")</p>
+<p>	try<br />
+		tell application "Finder" to quit</p>
+<p>		if (hiddenState is "ON") then<br />
+			do shell script "defaults write com.apple.finder AppleShowAllFiles OFF"<br />
+			delay 3<br />
+		else if (hiddenState is "OFF") then<br />
+			do shell script "defaults write com.apple.finder AppleShowAllFiles ON"<br />
+			delay 3<br />
+		end if</p>
+<p>	on error myError<br />
+		display dialog "problem:" &amp; myError<br />
+	end try</p>
+<p>	FinderCheck()<br />
+end run</p>
+<p>on FinderCheck()<br />
+	tell application "System Events"<br />
+		if (name of every process) does not contain "Finder" then<br />
+			tell application "Finder" to launch<br />
+		end if<br />
+	end tell<br />
+end FinderCheck<br />
+[&#47;code]<&#47;pre></p>

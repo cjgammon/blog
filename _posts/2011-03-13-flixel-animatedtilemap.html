@@ -1,0 +1,112 @@
+---
+layout: post
+status: publish
+published: true
+title: Flixel Animated TileMap
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+wordpress_id: 293
+wordpress_url: http://blog.cjgammon.com/?p=293
+date: '2011-03-13 08:26:52 -0500'
+date_gmt: '2011-03-13 15:26:52 -0500'
+categories:
+- actionscript
+- games
+tags:
+- flash
+- actionscript
+- coding
+- as3
+- linkedin
+- game
+- flixel
+comments:
+- id: 1581
+  author: Lina
+  author_email: infoweb@lonestarpharmtox.com
+  author_url: http://www.bing.com/
+  date: '2011-04-11 19:15:10 -0500'
+  date_gmt: '2011-04-12 02:15:10 -0500'
+  content: You've hit the ball out the park! Inrciebdle!
+- id: 1650
+  author: Steve Cochrane
+  author_email: steve@stevecochrane.com
+  author_url: http://stevecochrane.com
+  date: '2012-03-13 21:59:11 -0500'
+  date_gmt: '2012-03-14 04:59:11 -0500'
+  content: Awesome, this is exactly what I needed! Thanks! I've been trying to make
+    animated snowfall and I was using particles, but I was hitting a performance bottleneck.
+    Using this to tile an animated sprite does the trick.
+---
+<p>So I was putting together a game where I wanted an animated tilemap in flixel, it did not seem to have this functionality natively, so I created a class for it and thought I'd share. It would be pretty simple to extend this to add animation features for randomly animating tilemaps or specify tile sequences for different positions.</p>
+<pre>[code lang="actionscript"]<br />
+&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;<br />
+&#47;&#47;	FlxAnimTilemap.as<br />
+&#47;&#47;	CREATED: Wed Mar 12 21:19:36 EDT 2008<br />
+&#47;&#47;	BY: cjgammon - cj.gammon@gmail.com<br />
+&#47;&#47;<br />
+&#47;&#47;	CLASS RESPONSIBILITES:<br />
+&#47;&#47;     tilemap of sprites that animate in a synchronized fashion<br />
+&#47;&#47;<br />
+&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;&#47;</p>
+<p>package org.flixel<br />
+{</p>
+<p>import org.flixel.FlxAnimTilemap;</p>
+<p>public class FlxAnimTilemap extends FlxTilemap<br />
+{<br />
+private var _animating:Boolean = true;<br />
+private var _animSpeedState:uint = 0;<br />
+private var _animState:uint = 1;                &#47;&#47;the first sprite of the animation sequence<br />
+private var spriteTotalTiles:uint = 5;         &#47;&#47;the last sprite of the animation<br />
+private var animIntervals:uint = 5;            &#47;&#47;speed of animation</p>
+<p>&#47;&#47;	CONSTRUCTOR<br />
+public function FlxAnimTilemap($spriteTotalTiles:uint = 5, $animInterval:uint = 10):void<br />
+{<br />
+spriteTotalTiles = $spriteTotalTiles;<br />
+animIntervals = $animInterval;<br />
+super();<br />
+}</p>
+<p>&#47;&#47;	PUBLIC METHODS<br />
+override public function update():void<br />
+{<br />
+if (_animating)<br />
+{<br />
+_animSpeedState++<br />
+if (_animSpeedState%animIntervals==0)<br />
+{<br />
+animate();<br />
+}<br />
+}<br />
+}</p>
+<p>public function play():void<br />
+{<br />
+_animating = true;<br />
+}</p>
+<p>public function stop():void<br />
+{<br />
+_animating = false;<br />
+}</p>
+<p>public function animate():void<br />
+{<br />
+_animState++;<br />
+for (var i:int = 0; i < totalTiles; i++)<br />
+{<br />
+var tile:uint = getTileByIndex(i);<br />
+if (tile!=0)<br />
+{<br />
+setTileByIndex(i, _animState);<br />
+}<br />
+}<br />
+if (_animState==spriteTotalTiles)<br />
+{<br />
+_animState=1;<br />
+}<br />
+}<br />
+    }<br />
+}[&#47;code]<&#47;pre></p>

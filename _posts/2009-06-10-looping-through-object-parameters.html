@@ -1,0 +1,93 @@
+---
+layout: post
+status: publish
+published: true
+title: looping through object parameters
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+wordpress_id: 62
+wordpress_url: http://blog.cjgammon.com/?p=62
+date: '2009-06-10 14:01:40 -0500'
+date_gmt: '2009-06-10 21:01:40 -0500'
+categories:
+- actionscript
+tags:
+- flash
+- actionscript
+- as3
+comments:
+- id: 40
+  author: LenaShopogolik
+  author_email: ishopogolik@yandex.ru
+  author_url: http://ishopogolik.ru
+  date: '2009-08-06 02:59:17 -0500'
+  date_gmt: '2009-08-06 09:59:17 -0500'
+  content: Just wanted to say HI. I found your blog a few days ago on Technorati and
+    have been reading it over the past few days.
+- id: 287
+  author: doctorbiml
+  author_email: bimls@rambler.ru
+  author_url: http://biml.ru
+  date: '2009-09-24 15:15:58 -0500'
+  date_gmt: '2009-09-24 22:15:58 -0500'
+  content: Amazing news, thank you!
+- id: 295
+  author: blondinkaya
+  author_email: blondinkayat@rambler.ru
+  author_url: http://iblondy.ru
+  date: '2009-09-25 21:48:41 -0500'
+  date_gmt: '2009-09-26 04:48:41 -0500'
+  content: Thanks for post. Nice to see such good ideas.
+- id: 300
+  author: yapapanyatt
+  author_email: yapapanya@rambler.ru
+  author_url: http://vsemie.ru
+  date: '2009-09-27 09:30:42 -0500'
+  date_gmt: '2009-09-27 16:30:42 -0500'
+  content: The article is ver good. Put down desire more
+- id: 304
+  author: apeseadiA
+  author_email: valeriakittynice@rambler.ru
+  author_url: http://vrozovom.ru
+  date: '2009-09-29 19:57:38 -0500'
+  date_gmt: '2009-09-30 02:57:38 -0500'
+  content: I bookmarked this link. Thank you for good job!
+- id: 369
+  author: homemastergoga
+  author_email: homemastergo@yandex.ru
+  author_url: http://hmas.ru
+  date: '2009-10-30 23:32:04 -0500'
+  date_gmt: '2009-10-31 06:32:04 -0500'
+  content: "Hi, Congratulations to the site owner for this marvelous work you&rsquo;ve
+    done. It has lots of useful and interesting data.  \r\n blog.cjgammon.com - go
+    to my favorites!!!"
+- id: 161951
+  author: bridgetfogarty.com
+  author_email: florriegroce@gmx.de
+  author_url: http://bridgetfogarty.com/
+  date: '2015-12-07 17:16:46 -0600'
+  date_gmt: '2015-12-08 00:16:46 -0600'
+  content: "De fleste vagtselskaber tilbyder forskellige abonnementer, s&aring; du
+    kan tilpasse abonnementet \r\np&aring; din husalarm til lige netop dit behov."
+---
+<p>today i wanted to be able to pass an object into a function and have it apply the parameters of the object to my custom movieclip class, so I needed to loop through an object's paramters and attribute them to the movieclip's parameters.</p>
+<p><code><br />
+var obj:Object = {param1:"myfirstparamvalue"}<br />
+for(var i in obj){<br />
+      trace(i); &#47;&#47;output: param1<br />
+      trace(obj[i]);  &#47;&#47;output: myfirstparamvalue<br />
+}<br />
+<&#47;code></p>
+<p>so then we can just do this:<br />
+<code><br />
+for(var i in obj){<br />
+	MovieClip(myMovieClipWithTheseParams)[i] = obj[i];<br />
+}<br />
+<&#47;code></p>
+<p>this is assuming of course that 'myMovieClipWithTheseParams' has whatever parameters you are updating set as public in it's class.</p>

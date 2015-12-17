@@ -1,0 +1,68 @@
+---
+layout: post
+status: publish
+published: true
+title: 'swfaddress 2.3 problems: IE7 not loading parameters&#47;not updating URL'
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+wordpress_id: 114
+wordpress_url: http://blog.cjgammon.com/?p=114
+date: '2009-09-18 14:46:42 -0500'
+date_gmt: '2009-09-18 21:46:42 -0500'
+categories:
+- web design
+tags:
+- flash
+- web
+- development
+- javascript
+comments:
+- id: 316
+  author: Niklas M&ouml;ller
+  author_email: niklas@niklasmoller.com
+  author_url: http://www.niklasmoller.com
+  date: '2009-10-12 13:39:19 -0500'
+  date_gmt: '2009-10-12 20:39:19 -0500'
+  content: "haha! thanks for posting this.\r\nI was taring the hair off my head wondering
+    why I couldnt get the URL to update... found your post, switched to the swfaddress.js
+    file situated in samples&#47;cs3&#47;swfaddress and presto! it worked! \r\n\r\nSomething
+    sure seems to be not working with the file called SWFAddress...\r\n\r\nagain:
+    thanks for posting this!\r\n\r\n&#47;niklas"
+- id: 771
+  author: claim insurance
+  author_email: graydl1claiminsurance@yahoo.com
+  author_url: http://www.claiminsurance.org
+  date: '2010-07-03 02:12:26 -0500'
+  date_gmt: '2010-07-03 09:12:26 -0500'
+  content: I can see you happen to be an expert at your field! I am launching a website
+    soon, and your facts will likely be quite fascinating for me.. Thanks for all
+    your assist and wishing you all the success.
+- id: 1557
+  author: Rory Chenette
+  author_email: Eugley@freenet.com
+  author_url: http://www.siswptersiocui.com
+  date: '2011-02-01 11:47:12 -0600'
+  date_gmt: '2011-02-01 18:47:12 -0600'
+  content: Hello, this is a actually fascinating internet blog and ive loved reading
+    numerous from the articles or blog posts and posts contained upon the website,
+    sustain the wonderful do the job and hope to read a whole lot much more thrilling
+    articles in the time to arrive.
+- id: 8701
+  author: how to get a free iphone 4s
+  author_email: robbincanty@web.de
+  author_url: ''
+  date: '2013-07-30 20:06:06 -0500'
+  date_gmt: '2013-07-31 03:06:06 -0500'
+  content: "Woah! I'm really loving the template&#47;theme of this website. It's \r\nsimple,
+    yet effective. A lot of times it's challenging to get that \"perfect balance\"
+    between user friendliness and visual appearance. I must say you've done a superb
+    job with this.\r\nAlso, the blog loads super quick for me on Internet explorer.\r\nExceptional
+    Blog!"
+---
+<p>I have since reverted to using swfaddress 2.2, I should note I am also using swfobject 2.2.  First the confusion began when I noticed in the src folder when downloading the swfaddress package there are a bunch of javascript files including one titled "SWFAddress.js" while in the sample folder most if not all of the files reference "swfaddress.js" (note no capitals).  I had tested it with both of these files and both had different results, the "swfaddress.js" implementation works perfectly except for a bug that does not pass parameters into the swf in IE7.  The other file "SWFAddress.js" fixes this, except it does not display the correct url in the address bar and does not correctly work with the forward&#47;backwards buttons.  So my solution was to use "swfaddress.js" version 2.2 instead, which happily works wonderfully.</p>

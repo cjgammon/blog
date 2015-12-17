@@ -1,0 +1,111 @@
+---
+layout: post
+status: publish
+published: true
+title: translating flash site text and audio part 2
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+wordpress_id: 141
+wordpress_url: http://blog.cjgammon.com/?p=141
+date: '2009-10-15 16:30:27 -0500'
+date_gmt: '2009-10-15 23:30:27 -0500'
+categories:
+- actionscript
+tags:
+- flash
+- actionscript
+- as3
+comments: []
+---
+<p><strong>Step 2:Audio Class<&#47;strong></p>
+<p>The Audio Library Class,<br />
+this is a place to store all the references to the audio files to retrieve them and play them back with the getAudio(id) method. It loads the audio file names and id numbers from an xml file or a database. You then retrieve the audio file by the id. This way all the sounds are loaded so you don't have to wait for each file to load on hovers and whatnot.<br />
+<code><br />
+package com.chuggington.utils.audio<br />
+{<br />
+import flash.display.MovieClip;<br />
+import flash.events.Event;<br />
+import flash.events.IOErrorEvent;<br />
+import flash.media.Sound;<br />
+import flash.media.SoundChannel;<br />
+import flash.net.URLLoader;<br />
+import flash.net.URLRequest;<br />
+import flash.net.URLRequestMethod;<br />
+import flash.net.URLVariables;<br />
+public class AudioLibrary extends Object<br />
+{<br />
+public var loc:String;<br />
+public var list:Array = [];<br />
+private var dir:String=[directory for sound files];<br />
+private var xml:XML;<br />
+private var audioChannel:SoundChannel = new SoundChannel();<br />
+private var playing:Boolean = false;<br />
+public function AudioLibrary()<br />
+{<br />
+}<br />
+&#47;&#47;PUBLIC METHODS<br />
+public function load():void<br />
+{<br />
+&#47;&#47;load audio XML from database<br />
+var audioLoadVars:URLVariables = new URLVariables();<br />
+audioLoadVars.loc = this.loc;<br />
+var audioLoadReq:URLRequest = new URLRequest(_main.php+"translateAudio.php");<br />
+audioLoadReq.data = audioLoadVars;<br />
+audioLoadReq.method = URLRequestMethod.POST;<br />
+var audioLoader:URLLoader = new URLLoader();<br />
+&#47;&#47;audioLoader.dataFormat = URLLoaderDataFormat.VARIABLES;<br />
+audioLoader.load(audioLoadReq);<br />
+audioLoader.addEventListener( Event.COMPLETE, vHandle_audioLoader_COMPLETE );<br />
+audioLoader.addEventListener( IOErrorEvent.IO_ERROR, vHandle_audioLoader_IO_ERROR );<br />
+}<br />
+&#47;&#47;GETTERS<br />
+public function getAudio(id:Number):void<br />
+{<br />
+for(var i:int=0;i
+<list.length;i++)<br />
+{<br />
+if(list[i].id==id)<br />
+{<br />
+var snd:Sound = list[i].sound;<br />
+if(playing==false){<br />
+playing=true;<br />
+audioChannel = snd.play();<br />
+audioChannel.addEventListener(Event.SOUND_COMPLETE, vHandle_audioChannel_COMPLETE);<br />
+}<br />
+}<br />
+}<br />
+}<br />
+&#47;&#47;EVENT LISTENERS<br />
+private function vHandle_audioLoader_COMPLETE(e:Event):void<br />
+{<br />
+xml = XML(e.target.data);<br />
+var total:Number = xml.audio.length();<br />
+for (var i:Number =0; i<total;i++)<br />
+{<br />
+var id:String = xml.audio[i].attribute("id");<br />
+&#47;&#47;var desc:String = xml.audio[i].attribute("description");<br />
+var file:String = xml.audio[i].attribute("file");<br />
+var sound:Sound = new Sound();<br />
+sound.addEventListener(IOErrorEvent.IO_ERROR, vHandle_audioLoader_IO_ERROR);<br />
+sound.load(new URLRequest(dir+file));<br />
+list.push({id:id, desc:desc, file:file, sound:sound});<br />
+}<br />
+}<br />
+private function vHandle_audioChannel_COMPLETE(e:Event):void<br />
+{<br />
+playing=false;<br />
+}<br />
+private function vHandle_audioLoader_IO_ERROR(e:Event):void<br />
+{<br />
+trace("IOError:"+e);<br />
+}<br />
+}<br />
+}<br />
+<&#47;code><br />
+I did use php to convert the database to xml for the sound files and load data from the database, but hopefully if you are at this stage of things that stuff is simple enough to figure out on your own. I hope this is enough to point you in the right direction for a translation solution to flash websites.</p>

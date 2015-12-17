@@ -1,0 +1,25 @@
+---
+layout: post
+status: publish
+published: true
+title: unloadAndStop() to the rescue!
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+wordpress_id: 42
+wordpress_url: http://blog.cjgammon.com/?p=42
+date: '2009-05-25 06:46:38 -0500'
+date_gmt: '2009-05-25 13:46:38 -0500'
+categories:
+- actionscript
+tags:
+- actionscript
+- flash player 10
+comments: []
+---
+<p>So there's been this <a href="http:&#47;&#47;www.google.com&#47;search?q=as3+unload+sound&amp;ie=utf-8&amp;oe=utf-8&amp;aq=t&amp;rls=org.mozilla:en-US:official&amp;client=firefox-a">long existing problem<&#47;a> within flash and externally loaded .swf's where it will continue to play sounds and fire event listeners long after it has been removed from the stage.&nbsp; With Flash Player 10 they've finally brought about a solution with the unloadAndStop() function wich can be called by the Loader class.&nbsp; This in combination with the SoundMixer.stopAll(), should get your external content cleanly out of the way for more content to load.</p>

@@ -1,0 +1,27 @@
+---
+layout: post
+status: publish
+published: true
+title: don't forget to flush()
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+wordpress_id: 84
+wordpress_url: http://blog.cjgammon.com/?p=84
+date: '2009-07-18 11:35:47 -0500'
+date_gmt: '2009-07-18 18:35:47 -0500'
+categories:
+- Uncategorized
+tags:
+- flash
+- actionscript
+- development
+- socket
+comments: []
+---
+<p>This is sort of a personal reminder and assistance to anyone else wasting their time on this issue. I was having the problem where my socket was working and communicating as expected on Mac OS, but the socket was not working correctly on Windows systems. While a socket connection will write and read data from a sever correctly on a Mac or Linux system without using flush() on the socket data.  On a Windows browser it will only send your first write of data and all subsequent writes will not get sent. This puzzling phenomenon wasted quite a bit of my time, so always flush() after writing data to a socket! Unless you want to waste time trudging through a lot of crap.</p>

@@ -1,0 +1,30 @@
+---
+layout: post
+status: publish
+published: true
+title: implementing iAd Framework ADBannerView on iOS4
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+wordpress_id: 198
+wordpress_url: http://blog.cjgammon.com/?p=198
+date: '2010-07-07 15:56:41 -0500'
+date_gmt: '2010-07-07 22:56:41 -0500'
+categories:
+- iphone
+tags:
+- iphone
+- linkedin
+comments: []
+---
+<p>Putting ads in your iPhone app is as simple as adding an ADBannerView to your view.  You can alter the location of the view by changing CGRectZero to CGRectMake(x, y, 0, 0) or altering the position of the view.</p>
+<pre>
+[code lang="c"]ADBannerView *adView = [[ADBannerView alloc] initWithFrame:CGRectZero];<br />
+adView.currentContentSizeIdentifier = ADBannerContentSizeIdentifier320x50;<br />
+[self addSubview:adView];[&#47;code]<br />
+<&#47;pre></p>
