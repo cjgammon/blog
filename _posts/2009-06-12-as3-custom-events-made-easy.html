@@ -34,7 +34,7 @@ comments:
 ---
 <p>I've seen a lot of tutorials on this and none of them seem so straightforward so here goes.  So let's say i have a class and i have another class that extends something like socket and i want to know when something happens in my socket class, like an event...</p>
 <p>i'll have to create a custom event class:<br />
-<code>
+<pre>
 package
 {
   import flash.events.Event
@@ -47,9 +47,9 @@ package
     }
   }
 }
-</code></p>
+</pre></p>
 <p>so then in my class which extends Socket, I will simply dispatch this event when I want it to fire:<br />
-<code>
+<pre>
 package
 {
   import flash.events.*
@@ -63,9 +63,9 @@ package
     dispatchEvent(new ServerEvent("onLogin"))
   }
 }
-</code></p>
-<p>so then, when we instantiate our custom server class in our code we simply add an event listener like we normally would.<br />
-<code>
+</pre></p>
+<p>so then, when we instantiate our custom server class in our pre we simply add an event listener like we normally would.<br />
+<pre>
 package {
   import flash.display.Sprite
   public class Sockets extends Sprite
@@ -81,5 +81,5 @@ package {
     }
   }
 }
-</code>
+</pre>
 seems easy right? awesome.</p>
