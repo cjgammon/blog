@@ -34,49 +34,52 @@ comments:
 ---
 <p>I've seen a lot of tutorials on this and none of them seem so straightforward so here goes.  So let's say i have a class and i have another class that extends something like socket and i want to know when something happens in my socket class, like an event...</p>
 <p>i'll have to create a custom event class:<br />
-<code><br />
-package<br />
-{<br />
-import flash.events.Event<br />
-public class ServerEvent extends Event<br />
-{<br />
-public static const ON_LOGIN:String = "onLogin"<br />
-public function ServerEvent(type:String):void<br />
-{<br />
-super(type)<br />
-}<br />
-}<br />
-}<br />
+<code>
+package
+{
+  import flash.events.Event
+  public class ServerEvent extends Event
+  {
+    public static const ON_LOGIN:String = "onLogin"
+    public function ServerEvent(type:String):void
+    {
+      super(type)
+    }
+  }
+}
 </code></p>
 <p>so then in my class which extends Socket, I will simply dispatch this event when I want it to fire:<br />
-<code><br />
-package<br />
-{<br />
-import flash.events.*<br />
-import flash.net.Socket<br />
-public class CustomSocket extends Socket<br />
-{<br />
-//custom class goes here<br />
-//run onLogin function when logged in<br />
-}<br />
-public function onLogin():void{<br />
-dispatchEvent(new ServerEvent("onLogin"))<br />
-}<br />
+<code>
+package
+{
+  import flash.events.*
+  import flash.net.Socket
+  public class CustomSocket extends Socket
+  {
+    //custom class goes here
+    //run onLogin function when logged in
+  }
+  public function onLogin():void{
+    dispatchEvent(new ServerEvent("onLogin"))
+  }
+}
 </code></p>
 <p>so then, when we instantiate our custom server class in our code we simply add an event listener like we normally would.<br />
-<code><br />
-package {<br />
-import flash.display.Sprite<br />
-public class Sockets extends Sprite<br />
-{<br />
-public var socket:CustomSocket<br />
-public function Sockets()<br />
-{<br />
-socket = new CustomSocket()<br />
-socket.addEventListener(ServerEvent.ON_LOGIN, loggedIn)<br />
-}<br />
-public function loggedIn(e:ServerEvent):void{<br />
-trace("yay! custom event worked!")<br />
-}<br />
-</code><br />
+<code>
+package {
+  import flash.display.Sprite
+  public class Sockets extends Sprite
+  {
+    public var socket:CustomSocket
+    public function Sockets()
+    {
+      socket = new CustomSocket()
+      socket.addEventListener(ServerEvent.ON_LOGIN, loggedIn)
+    }
+    public function loggedIn(e:ServerEvent):void{
+      trace("yay! custom event worked!")
+    }
+  }
+}
+</code>
 seems easy right? awesome.</p>
