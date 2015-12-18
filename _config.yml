@@ -18,4 +18,5 @@ permalink: :title
 paginate: 3
 # Build settings
 markdown: kramdown
-gems: [jekyll-paginate]
+gems:
+- jekyll-paginate
