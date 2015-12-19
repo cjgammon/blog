@@ -34,6 +34,7 @@ comments: []
 <p>To create your own GLSL filter download the source on github and follow the instructions to build, running <em>'npm install'</em> and then <em>'gulp'</em> from the command line. All the filters live in the <em>'src/filters/'</em> directory. To create your own filter you'll need to add a new directory for your filter name which will include at minimum two files. First, the javascript file that contains the browserify module for your filter. Second, the glsl fragment shader with the suffix <em>'.frag'</em>.</p>
 <p>Below is an example of a custom filter module I used for <a href="http://bytewrangler.blogspot.com/2011/10/signed-distance-fields.html">Sined Distance Fields</a>, a way to visually vectorize specially created raster images. I'll walk through the different parts of the code.</p>
 <!--end_excerpt-->
+
 <pre>
 var core = require('../../core');
 // @see https://github.com/substack/brfs/issues/25
