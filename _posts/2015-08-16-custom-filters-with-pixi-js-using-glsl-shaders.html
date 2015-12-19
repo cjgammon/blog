@@ -32,7 +32,6 @@ comments: []
 <p><a href="http://www.pixijs.com/">Pixi.js</a> is <a href="https://twitter.com/Doormat23">Mat Groves'</a> lightning fast 2D rendering engine for the web utilizing WebGL or 2D Canvas. When used with WebGL it supports filters, which are basically a simple way to leverage specific GLSL shaders. We can even write our own filters for Pixi.js using GLSL and javascript.</p>
 <p>To create your own GLSL filter download the source on github and follow the instructions to build, running <em>'npm install'</em> and then <em>'gulp'</em> from the command line. All the filters live in the <em>'src/filters/'</em> directory. To create your own filter you'll need to add a new directory for your filter name which will include at minimum two files. First, the javascript file that contains the browserify module for your filter. Second, the glsl fragment shader with the suffix <em>'.frag'</em>.</p>
 <p>Below is an example of a custom filter module I used for <a href="http://bytewrangler.blogspot.com/2011/10/signed-distance-fields.html">Sined Distance Fields</a>, a way to visually vectorize specially created raster images. I'll walk through the different parts of the code.</p>
-<!--end_excerpt-->
 
 <pre>
 var core = require('../../core');
