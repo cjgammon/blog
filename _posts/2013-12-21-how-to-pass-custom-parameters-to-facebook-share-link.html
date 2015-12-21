@@ -1,0 +1,39 @@
+---
+layout: post
+status: publish
+published: true
+title: How to Pass Custom Parameters to Facebook Custom Share Link
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+date: '2013-12-21 21:44:57 -0500'
+date_gmt: '2013-12-21 04:44:57 -0500'
+categories:
+- web
+tags:
+- web
+comments: []
+---
+
+<p>
+  Facebook loves changing their platform and API's and discovering the correct way to do things isn't always easy.
+  So there used to be a sharer.php link you would pass parameters to, including images and other things that would be in the post.
+  This has been replaced with the below version which seems to have much more limited capabilities.
+  You can read more about it on the <a href="https://developers.facebook.com/docs/sharing/reference/share-dialog">Facebook developer center</a>.
+</p>
+
+<code>
+  https://www.facebook.com/dialog/share?
+    app_id=145634995501895
+    &amp;display=popup
+    &amp;href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2F
+    &amp;redirect_uri=https%3A%2F%2Fdevelopers.facebook.com%2Ftools%2Fexplorer
+</code>
+<p>
+  Note there is also an Open Graph method which would likely use any open graph tags within a page to use in the post, such as images, titles and descriptions.
+</p>
