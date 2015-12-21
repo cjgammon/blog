@@ -82,10 +82,12 @@ li {
  * Headings
  */
 h1, h2, h3, h4, h5, h6 {
-    font-weight: $base-font-weight;
+    font-weight: $light-font-weight;
 }
 
-
+em {
+  font-weight: $bold-font-weight;
+}
 
 /**
  * Links
@@ -100,7 +102,6 @@ a {
 
     &:hover {
         color: $text-color;
-        text-decoration: underline;
     }
 }
 
@@ -132,7 +133,7 @@ code {
     font-size: 15px;
     border: 1px solid $grey-color-light;
     border-radius: 3px;
-    background-color: #eef;
+    background-color: $code-bg-color;
 }
 
 code {

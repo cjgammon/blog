@@ -9,7 +9,7 @@
 title: cjgammon
 email: cj.gammon@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
-  This is the blog of cjgammon Creative Technologist.
+  This is the blog of cjgammon, discussing technology and creativity.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://blog.cjgammon.com" # the base hostname & protocol for your site
 twitter_username: cjgammon
