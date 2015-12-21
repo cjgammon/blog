@@ -29,15 +29,16 @@ comments: []
 ---
 
 <p>
-  Recently I've been interested in libraries, particularly rendering libraries for drawing content on the screen, like Snap.SVG and Pixi.js.
-  I've also been a big fan of Greensock's animation library, <a href="http://greensock.com/gsap">GSAP</a>.
-  And while they still have TweenLite they also used to have a Nano library which was even more optimized for things like banner ads when file size needs to be under a specific limit.
-  While file size is obviously important, with internet speeds we have today I feel it's often not as prioritized as it used to be but there are still cases when it's the deciding factor on whether to use a library.
+  I used to do a lot of flash banner ads.
+  Banner ads have tight requirements around file size so as not to bloat the hosting page's download.
+  With banner ads migrating to HTML this is even more of an issue with often lack of compression.
+  Jack Doyle of <a href="http://greensock.com">Greensock</a> wrote a <a href="http://greensock.com/html5-banners">great article</a> talking about these problems and possible solutions.
 </p>
-
 <p>
-  So I started looking at my rendering libraries and they're often filled with a lot of extras that I don't need.
-  This made me wonder how light of a library I could get if it only focused on rendering and nothing else with a razor like focus on light file size.
+  Often making these banner ads in HTML we're limited in what libraries we can use because of their file size.
+  However after looking into many of the libraries I use and how I use them, only a fraction of them are necessary for general use.
+  So I started looking at my rendering libraries (<a href="http://snapsvg.io">Snap.svg</a>, <a href="http://www.pixijs.com">Pixi.js</a>).
+  I then took a quick stab at rebuilding them with a focus on just drawing and moving objects, nothing else, to focus on small file size.
   So I started making them:
 </p>
 <h3>Element Libraries</h3>
