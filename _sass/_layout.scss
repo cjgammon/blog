@@ -2,25 +2,28 @@
  * Site header
  */
 .site-header {
-    border-top: 5px solid $grey-color-dark;
-    border-bottom: 1px solid $grey-color-light;
+    border-bottom: 1px solid #111;
     min-height: 56px;
 
     // Positioning context for the mobile navigation icon
     position: relative;
+    background: #333;
+    color: white;
 }
 
 .site-title {
     font-size: 26px;
-    font-weight: 300;
+    font-family: $header-font-family;
+    font-weight: $bold-font-weight;
     line-height: 56px;
+    text-transform: uppercase;
     letter-spacing: -1px;
     margin-bottom: 0;
     float: left;
 
     &,
     &:visited {
-        color: $grey-color-dark;
+        color: white;
     }
 }
 
@@ -33,7 +36,7 @@
     }
 
     .page-link {
-        color: $text-color;
+        color: white;
         line-height: $base-line-height;
 
         // Gaps between nav items, but not on the last one
@@ -239,4 +242,110 @@
             font-size: 18px;
         }
     }
+}
+
+
+/**
+* Feature page
+*/
+.feature{
+  display: flex;
+  width: 100%;
+  min-height: 300px;
+  box-sizing: border-box;
+  background: #000055;
+  padding: 100px 4rem 2rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+
+  a{
+    &,
+    &:visited{
+      color: white;
+    }
+  }
+
+}
+
+.main-container{
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+
+  &:nth-child(2n+1) {
+    flex-direction: row-reverse;
+  }
+
+  .main-half{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 2rem;
+    width: 50%;
+    height: 300px;
+    background: #336699;
+
+    a{
+      &,
+      &:visited{
+        color: white;
+      }
+    }
+  }
+
+  .main-quarter-container{
+    display: flex;
+    flex-direction: column;
+    background: white;
+    padding: 0;
+    width: 50%;
+    height: 300px;
+
+    h2{
+      font-size: 1.5em;
+    }
+  }
+
+  .main-quarter{
+    display: flex;
+    height: 150px;
+
+    &:nth-child(1n) {
+      background: #3355ff;
+    }
+
+    &:nth-child(2n) {
+      background: #3333cc;
+      flex-direction: row-reverse;
+    }
+  }
+
+  .main-quarter-img{
+    width: 50%;
+  }
+
+  .main-quarter-text{
+    box-sizing: border-box;
+    display: flex;
+    padding: 1em;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+    background: white;
+  }
+}
+
+.pagination{
+  margin-top: 50px;
+  a{
+    text-decoration: underline;
+  }
+}
+
+.read-more{
+  font-weight: bold;
+  text-decoration: underline;
 }

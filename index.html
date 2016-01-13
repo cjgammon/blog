@@ -4,27 +4,75 @@ layout: default
 
 <div class="home">
 
-      {% for post in paginator.posts %}
-      <article>
-        <a href="{{ post.url }}"><h2 class="post-title" itemprop="name headline">{{ post.title }}</h2></a>
-        <div class="post-content" itemprop="articleBody">
-          {{ post.excerpt }}
+      {% for post in paginator.posts limit:1 %}
+        <div class="feature">
+          <a href="{{ post.url }}">
+            <h2 class="post-title" itemprop="name headline">{{ post.title }}</h2>
+          </a>
+          <div class="post-content" itemprop="articleBody">
+            {{ post.excerpt }}
 
-          {% capture content_words %}
-          {{ post.content | number_of_words }}
-          {% endcapture %}
+            {% capture content_words %}
+            {{ post.content | number_of_words }}
+            {% endcapture %}
 
-          {% capture excerpt_words %}
-          {{ post.excerpt | number_of_words }}
-          {% endcapture %}
+            {% capture excerpt_words %}
+            {{ post.excerpt | number_of_words }}
+            {% endcapture %}
 
-          {% if excerpt_words != content_words %}
-            <a href="{{ post.url }}/#read-more">Read more...</a>
-          {% endif %}
+            {% if excerpt_words != content_words %}
+              <a href="{{ post.url }}/#read-more" class="read-more">Read more...</a>
+            {% endif %}
 
+          </div>
         </div>
-      </article>
       {% endfor %}
+
+      <div class="main-container">
+
+        {% for post in paginator.posts offset:1 limit:1 %}
+        <div class="main-half">
+          <a href="{{ post.url }}"><h2 class="post-title" itemprop="name headline">{{ post.title }}</h2></a>
+        </div>
+        {% endfor %}
+
+        <div class="main-quarter-container">
+          {% for post in paginator.posts offset:2 limit:2 %}
+          <div class="main-quarter">
+            <div class="main-quarter-img">
+
+            </div>
+            <div class="main-quarter-text">
+              <a href="{{ post.url }}"><h2 class="post-title" itemprop="name headline">{{ post.title }}</h2></a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+      </div>
+
+      <div class="main-container">
+
+        {% for post in paginator.posts offset:4 limit:1 %}
+        <div class="main-half">
+          <a href="{{ post.url }}"><h2 class="post-title" itemprop="name headline">{{ post.title }}</h2></a>
+        </div>
+        {% endfor %}
+
+        <div class="main-quarter-container">
+          {% for post in paginator.posts offset:5 %}
+          <div class="main-quarter">
+            <div class="main-quarter-img">
+
+            </div>
+            <div class="main-quarter-text">
+              <a href="{{ post.url }}"><h2 class="post-title" itemprop="name headline">{{ post.title }}</h2></a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+      </div>
 
     <div class="pagination">
       {% if paginator.previous_page %}
