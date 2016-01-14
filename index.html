@@ -32,8 +32,9 @@ layout: home
       {% endfor %}
 
       {% assign j = 1 %}
+      {% assign count = paginator.per_page | minus:1 | divided_by: 3 %}
 
-      {% for i in (1..2) %}
+      {% for i in (1..count) %}
       <div class="main-container">
 
         {% for post in paginator.posts offset:j limit:1 %}
@@ -45,7 +46,6 @@ layout: home
         {% endfor %}
 
         {% assign j = j | plus:1 %}
-
         <div class="main-quarter-container">
           {% for post in paginator.posts offset:j limit:2 %}
           <div class="main-quarter">
@@ -58,11 +58,11 @@ layout: home
           </div>
           {% endfor %}
         </div>
+
       </div>
-
       {% assign j = j | plus:2 %}
-
     {% endfor %}
+
     </div>
 
     <div class="pagination">
