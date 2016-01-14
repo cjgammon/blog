@@ -252,9 +252,10 @@
 .home{
   max-width: 850px;
   margin: auto;
+  margin-top: -$spacing-unit;
 
   .grid{
-    outline: 5px solid #ddddde;
+    box-shadow: 0px 1px 20px rgba(0, 0, 0, 0.5);
   }
 
   time{
