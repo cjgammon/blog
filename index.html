@@ -45,7 +45,6 @@ layout: home
           {% for post in paginator.posts offset:2 limit:2 %}
           <div class="main-quarter">
             <div class="main-quarter-img" {{ if post.image }}style="background-image: url('{{ post.image }}')" {{ endif }}>
-              <div class="image-gradient"></div>
             </div>
             <div class="main-quarter-text">
               <a href="{{ post.url }}"><h2 class="post-title" itemprop="name headline">{{ post.title }}</h2></a>
@@ -71,7 +70,6 @@ layout: home
           {% for post in paginator.posts offset:5 %}
           <div class="main-quarter">
             <div class="main-quarter-img" {{ if post.image }}style="background-image: url('{{ post.image }}')" {{ endif }}>
-              <div class="image-gradient"></div>
             </div>
             <div class="main-quarter-text">
               <a href="{{ post.url }}"><h2 class="post-title" itemprop="name headline">{{ post.title }}</h2></a>
