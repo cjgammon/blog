@@ -1,14 +1,17 @@
 ---
-layout: default
+layout: home
 ---
 
 <div class="home">
+    <div class="grid">
 
       {% for post in paginator.posts limit:1 %}
-        <div class="feature">
+        <div class="feature"  {{ if post.image }}style="background-image: url('{{ post.image }}')" {{ endif }}>
+          <div class="image-gradient darker"></div>
           <a href="{{ post.url }}">
             <h2 class="post-title" itemprop="name headline">{{ post.title }}</h2>
           </a>
+          <time>{{ post.date | date: "%b %-d, %Y" }}</time>
           <div class="post-content" itemprop="articleBody">
             {{ post.excerpt }}
 
@@ -31,19 +34,22 @@ layout: default
       <div class="main-container">
 
         {% for post in paginator.posts offset:1 limit:1 %}
-        <div class="main-half">
+        <div class="main-half" {{ if post.image }}style="background-image: url('{{ post.image }}')" {{ endif }}>
+          <div class="image-gradient"></div>
           <a href="{{ post.url }}"><h2 class="post-title" itemprop="name headline">{{ post.title }}</h2></a>
+          <time>{{ post.date | date: "%b %-d, %Y" }}</time>
         </div>
         {% endfor %}
 
         <div class="main-quarter-container">
           {% for post in paginator.posts offset:2 limit:2 %}
           <div class="main-quarter">
-            <div class="main-quarter-img">
-
+            <div class="main-quarter-img" {{ if post.image }}style="background-image: url('{{ post.image }}')" {{ endif }}>
+              <div class="image-gradient"></div>
             </div>
             <div class="main-quarter-text">
               <a href="{{ post.url }}"><h2 class="post-title" itemprop="name headline">{{ post.title }}</h2></a>
+              <time>{{ post.date | date: "%b %-d, %Y" }}</time>
             </div>
           </div>
           {% endfor %}
@@ -54,25 +60,29 @@ layout: default
       <div class="main-container">
 
         {% for post in paginator.posts offset:4 limit:1 %}
-        <div class="main-half">
+        <div class="main-half" {{ if post.image }}style="background-image: url('{{ post.image }}')" {{ endif }}>
+          <div class="image-gradient"></div>
           <a href="{{ post.url }}"><h2 class="post-title" itemprop="name headline">{{ post.title }}</h2></a>
+          <time>{{ post.date | date: "%b %-d, %Y" }}</time>
         </div>
         {% endfor %}
 
         <div class="main-quarter-container">
           {% for post in paginator.posts offset:5 %}
           <div class="main-quarter">
-            <div class="main-quarter-img">
-
+            <div class="main-quarter-img" {{ if post.image }}style="background-image: url('{{ post.image }}')" {{ endif }}>
+              <div class="image-gradient"></div>
             </div>
             <div class="main-quarter-text">
               <a href="{{ post.url }}"><h2 class="post-title" itemprop="name headline">{{ post.title }}</h2></a>
+              <time>{{ post.date | date: "%b %-d, %Y" }}</time>
             </div>
           </div>
           {% endfor %}
         </div>
 
       </div>
+    </div>
 
     <div class="pagination">
       {% if paginator.previous_page %}
