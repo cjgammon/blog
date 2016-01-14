@@ -31,9 +31,12 @@ layout: home
         </div>
       {% endfor %}
 
+      {% assign j = 1 %}
+
+      {% for i in (1..2) %}
       <div class="main-container">
 
-        {% for post in paginator.posts offset:1 limit:1 %}
+        {% for post in paginator.posts offset:j limit:1 %}
         <div class="main-half" {{ if post.image }}style="background-image: url('{{ post.image }}')" {{ endif }}>
           <div class="image-gradient"></div>
           <a href="{{ post.url }}"><h2 class="post-title" itemprop="name headline">{{ post.title }}</h2></a>
@@ -41,8 +44,10 @@ layout: home
         </div>
         {% endfor %}
 
+        {% assign j = j | plus:1 %}
+
         <div class="main-quarter-container">
-          {% for post in paginator.posts offset:2 limit:2 %}
+          {% for post in paginator.posts offset:j limit:2 %}
           <div class="main-quarter">
             <div class="main-quarter-img" {{ if post.image }}style="background-image: url('{{ post.image }}')" {{ endif }}>
             </div>
@@ -53,33 +58,11 @@ layout: home
           </div>
           {% endfor %}
         </div>
-
       </div>
 
-      <div class="main-container">
+      {% assign j = j | plus:2 %}
 
-        {% for post in paginator.posts offset:4 limit:1 %}
-        <div class="main-half" {{ if post.image }}style="background-image: url('{{ post.image }}')" {{ endif }}>
-          <div class="image-gradient"></div>
-          <a href="{{ post.url }}"><h2 class="post-title" itemprop="name headline">{{ post.title }}</h2></a>
-          <time>{{ post.date | date: "%b %-d, %Y" }}</time>
-        </div>
-        {% endfor %}
-
-        <div class="main-quarter-container">
-          {% for post in paginator.posts offset:5 %}
-          <div class="main-quarter">
-            <div class="main-quarter-img" {{ if post.image }}style="background-image: url('{{ post.image }}')" {{ endif }}>
-            </div>
-            <div class="main-quarter-text">
-              <a href="{{ post.url }}"><h2 class="post-title" itemprop="name headline">{{ post.title }}</h2></a>
-              <time>{{ post.date | date: "%b %-d, %Y" }}</time>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-
-      </div>
+    {% endfor %}
     </div>
 
     <div class="pagination">
