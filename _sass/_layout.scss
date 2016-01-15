@@ -277,6 +277,7 @@
   }
 
   .post-content{
+    margin-top: 1em;
     max-width: 700px;
   }
 
@@ -348,12 +349,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  background: radial-gradient(ellipse at center, rgba(38,47,57,0.25) 0%, rgba(38,47,57,1) 100%);
+  background-color: rgba(0, 1, 3, 0.7);
 
-  &.darker{
-    background: radial-gradient(ellipse at center, rgba(60,58,70,0.6) 0%, rgba(60,58,70,1) 100%);
-  }
 }
 
 .pagination{
