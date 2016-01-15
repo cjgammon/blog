@@ -3,7 +3,6 @@ layout: home
 ---
 
 <div class="home">
-    <div class="grid">
 
       {% for post in paginator.posts limit:1 %}
         <div class="feature"  {{ if post.image }}style="background-image: url('{{ post.image }}')" {{ endif }}>
@@ -30,6 +29,8 @@ layout: home
           </div>
         </div>
       {% endfor %}
+
+      <div class="grid">
 
       {% assign j = 1 %}
       {% assign count = paginator.per_page | minus:1 | divided_by: 3 %}
