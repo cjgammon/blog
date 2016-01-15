@@ -30,38 +30,23 @@ layout: home
         </div>
       {% endfor %}
 
-      <div class="grid">
+    <div class="grid">
 
-      {% assign j = 1 %}
-      {% assign count = paginator.per_page | minus:1 | divided_by: 3 %}
-
-      {% for i in (1..count) %}
-      <div class="main-container">
-
-        {% for post in paginator.posts offset:j limit:1 %}
-        <div class="main-half" {{ if post.image }}style="background-image: url('{{ post.image }}')" {{ endif }}>
-          <div class="image-gradient"></div>
-          <a href="{{ post.url }}"><h2 class="post-title" itemprop="name headline">{{ post.title }}</h2></a>
-          <time>{{ post.date | date: "%b %-d, %Y" }}</time>
-        </div>
-        {% endfor %}
-
-        {% assign j = j | plus:1 %}
-        <div class="main-quarter-container">
-          {% for post in paginator.posts offset:j limit:2 %}
-          <div class="main-quarter">
-            <div class="main-quarter-img" {{ if post.image }}style="background-image: url('{{ post.image }}')" {{ endif }}>
-            </div>
-            <div class="main-quarter-text">
-              <a href="{{ post.url }}"><h2 class="post-title" itemprop="name headline">{{ post.title }}</h2></a>
-              <time>{{ post.date | date: "%b %-d, %Y" }}</time>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-
+    {% for post in paginator.posts offset:1 %}
+    <div class="panel">
+      {{ if post.image }}
+        <a href="{{ post.url }}">
+          <div class="panel-img" style="background-image: url('{{ post.image }}')"></div>
+        </a>
+      {{ endif }}
+      <div class="panel-text">
+        <a href="{{ post.url }}">
+          <h2 class="post-title" itemprop="name headline">{{ post.title }}</h2>
+        </a>
+        <time>{{ post.date | date: "%b %-d, %Y" }}</time>
       </div>
-      {% assign j = j | plus:2 %}
+
+    </div>
     {% endfor %}
 
     </div>
