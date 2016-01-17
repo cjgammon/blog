@@ -316,6 +316,12 @@
     font-size: 2em;
   }
 
+  &:hover{
+    .panel-img{
+      transform: scale(1);
+    }
+  }
+
   a{
     &,
     &:visited{
@@ -333,6 +339,9 @@
   background-size: cover;
   background-position: center;
   background-color: #333;
+  transform-origin: bottom center;
+  transform: scale(1.1);
+  transition: transform .2s ease-in-out;
 }
 
 .panel-text{
