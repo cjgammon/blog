@@ -1,0 +1,65 @@
+---
+layout: post
+status: publish
+published: true
+title: Script Analog Game Design with SVG
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+date: '2016-1-4 21:44:57 -0500'
+date_gmt: '2016-1-4 04:44:57 -0500'
+image: img/covers/2016-1-21-game.png
+categories:
+- technology
+- web
+- svg
+tags:
+- coding
+- web
+- development
+- html 5
+- svg
+comments: []
+---
+<p>
+  I have a great passion for games of all kinds.
+  Since I was a kid board games were always something I enjoyed and I even would sketch out and make up my own out of cardboard.
+  So as my kids get older and we start playing games together I thought it would be fun to design our own.
+  To make this easier I made some tools and code snippets that are tools or templates for making various games using SVG.
+</p>
+
+<h2>Path Games</h2>
+<p>
+  Games like Life and Candy Land follow along a path of tiles to reach some ultimate goal.
+  So I made a path building tool using nodes and a path that masks a voronoi for breaking up the segments.
+  By dragging around nodes and hitting the + button you can fork the path to create branches.
+</p>
+<p data-height="268" data-theme-id="0" data-slug-hash="RWpYVj" data-default-tab="result" data-user="cjgammon" class='codepen'>See the Pen <a href='http://codepen.io/cjgammon/pen/RWpYVj/'>Candy Land Game Builder</a> by CJ Gammon (<a href='http://codepen.io/cjgammon'>@cjgammon</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<h2>Grid Games</h2>
+<p>
+  Chutes and Ladders and Checkers are games based more on a grid.
+  This is the kind of thing that's easy to do in SVG.
+  Then we can tack on numbers, color them, and programmatically add mappings like slides between various squares.
+</p>
+<p data-height="268" data-theme-id="0" data-slug-hash="dGRwem" data-default-tab="result" data-user="cjgammon" class='codepen'>See the Pen <a href='http://codepen.io/cjgammon/pen/dGRwem/'>Chutes and Ladders</a> by CJ Gammon (<a href='http://codepen.io/cjgammon'>@cjgammon</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<h2>Card Games</h2>
+<p>
+  Board games are cool but another classic analog game is cards.
+  We can use defs to repeat the symbols used to create our custom deck.
+  This way we can update a single heart or single spade design and have it propagate across the entire deck.
+  You could then save it as SVG and open it in Illustrator to tweak individually or make other adjustments.
+</p>
+<p data-height="268" data-theme-id="0" data-slug-hash="BjmOrY" data-default-tab="result" data-user="cjgammon" class='codepen'>See the Pen <a href='http://codepen.io/cjgammon/pen/BjmOrY/'>SVG Playing Cards</a> by CJ Gammon (<a href='http://codepen.io/cjgammon'>@cjgammon</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+<p>
+  It's neat to see how using a bit of code to automate designs can help with tooling and templates to make customizing your own games that much easier.
+</p>
