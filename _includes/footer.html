@@ -8,6 +8,10 @@
       <div class="footer-col footer-col-1">
         <ul class="contact-list">
           <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+          {% if site.homepage %}
+          <li><a href="{{ site.homepage }}">cjgammon.com</a></li>
+          {% endif %}
+
         </ul>
       </div>
 
