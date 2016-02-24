@@ -21,3 +21,4 @@ paginate: 10
 markdown: kramdown
 gems:
 - jekyll-paginate
+- jekyll-babel
