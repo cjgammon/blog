@@ -5,7 +5,10 @@ layout: home
 <div class="home">
 
       {% for post in paginator.posts limit:1 %}
-        <div class="feature"  {{ if post.image }}style="background-image: url('{{ post.image }}')" {{ endif }}>
+        <div class="feature">
+          {{ if post.image }}
+            <div class="feature-bg" style="background-image: url('{{site.baseurl}}/{{ post.image }}')"></div>
+          {{ endif }}
           <div class="image-gradient darker"></div>
           <a href="{{ post.url }}">
             <h2 class="post-title" itemprop="name headline">{{ post.title }}</h2>

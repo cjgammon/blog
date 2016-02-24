@@ -1,0 +1,46 @@
+---
+layout: post
+status: publish
+published: true
+title: New Site
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+date: '2016-2-23 21:44:57 -0500'
+date_gmt: '2016-2-23 04:44:57 -0500'
+image: img/covers/2016-2-24-site.jpg
+categories:
+- web
+tags:
+comments: []
+---
+<p>
+Recently I redesigned <a href="http://www.cjgammon.com">my website</a>. I like to keep it clean with some subtle animation and effects.
+One of these effects is a subtle WebGL background animation using white and off-white semi-transparent beams.
+I think this keeps the site clean while adding some visual interest or too much noise.
+</p>
+
+<p>
+  A key feature of the site is the hover effect applied to the projects.
+  You can see a codepen of one below.
+</p>
+<p data-height="340" data-theme-id="0" data-slug-hash="wMVBWR" data-default-tab="result" data-user="cjgammon" class='codepen'>See the Pen <a href='http://codepen.io/cjgammon/pen/wMVBWR/'>Mouseover Parallax</a> by CJ Gammon (<a href='http://codepen.io/cjgammon'>@cjgammon</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+<p>
+  This was achieved by using a subtle parallax effect inspired by the AppleTV UI.
+  SVG is used to draw the images and offset their transform relative to the mouse position.
+  We're also drawing a shadow gradient based on the angle of the mouse from the center.
+  This angle and distance from center is also used to rotate the element itself in 3D space.
+  The result is a fun visual effect to play with particularly when a bunch of these elements are aligned in a grid.
+</p>
+<p>
+  I used <a href="http://gulpjs.com/">gulp</a> and <a href="https://webpack.github.io/">webpack</a> to build and optimize the site in a modular fashion.
+  <a href="https://babeljs.io/">Babel</a> was also used to use the ES2015 javascript syntax giving nice class structure and other syntactic sugar.
+  <a href="http://sass-lang.com/">Sass</a> was used with <a href="http://compass-style.org/">compass</a> for generating stylesheets with variables and pre-defined mixins.
+  <a href="http://threejs.org/">Three.js</a> was used for the WebGL rendered portion of the site and <a href="http://greensock.com/gsap">Greensock</a> of course was used for scripted animations.
+</p>
