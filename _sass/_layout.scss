@@ -316,6 +316,7 @@
   flex-wrap: wrap;
   max-width: 1000px;
   margin: 20px auto;
+  -webkit-perspective: 2000;
 }
 
 .panel{
@@ -329,6 +330,10 @@
   background-color: #efefef;
   transform: translateZ(0);
   box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.2);
+
+  *{
+    pointer-events: none;
+  }
 
   h2{
     font-size: 2em;
