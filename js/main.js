@@ -13,6 +13,15 @@ class WorkItemView {
     this.el.addEventListener('mouseover', this.handle_mouseover.bind(this));
     this.el.addEventListener('mouseout', this.handle_mouseout.bind(this));
     this.el.addEventListener('mousemove', this.handle_mousemove.bind(this));
+    this.el.addEventListener('click', this.handle_click.bind(this));
+
+  }
+
+  handle_click(e) {
+    let link = this.el.querySelector('a');
+    let url = link.getAttribute('href');
+
+    window.location.href = url;
   }
 
     handle_mouseover(e) {
