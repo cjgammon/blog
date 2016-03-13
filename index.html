@@ -39,7 +39,7 @@ layout: home
     <div class="panel">
       {{ if post.image }}
         <a href="{{ post.url }}">
-          <div class="panel-img" style="background-image: url('{{ post.image }}')"></div>
+          <div class="panel-img" style="background-image: url({{site.baseurl}}'/{{ post.image }}')"></div>
         </a>
       {{ endif }}
       <div class="panel-text">
