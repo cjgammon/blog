@@ -10,6 +10,10 @@ class WorkItemView {
 
     TweenMax.set(this.el, {scale: 0.95, rotationY: 0, rotationX: 0});
 
+    console.log('hi');
+    
+
+    console.log(this.el);
     this.el.addEventListener('mouseover', this.handle_mouseover.bind(this));
     this.el.addEventListener('mouseout', this.handle_mouseout.bind(this));
     this.el.addEventListener('mousemove', this.handle_mousemove.bind(this));
