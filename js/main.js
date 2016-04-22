@@ -125,6 +125,7 @@ class App {
     var panels = document.getElementsByClassName('panel');
 
     for (var i = 0; i < panels.length; i += 1) {
+      console.log(i, panels[i]);
       new WorkItemView(panels[i]);
     }
   }
