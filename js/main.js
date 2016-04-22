@@ -123,6 +123,7 @@ class App {
 
     console.log('hi');
     var panels = document.getElementsByClassName('panel');
+    console.log(panels, panels.length);
 
     for (var i = 0; i < panels.length; i += 1) {
       console.log(i, panels[i]);
