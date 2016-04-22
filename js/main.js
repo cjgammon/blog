@@ -120,7 +120,6 @@ class WorkItemView {
 
 class App {
   constructor() {
-
     console.log('hi');
     var panels = document.getElementsByClassName('panel');
     console.log(panels, panels.length);
@@ -132,4 +131,6 @@ class App {
   }
 }
 
-new App();
+setTimeout(function () {
+  new App();
+}, 300);
