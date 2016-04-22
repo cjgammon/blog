@@ -18,10 +18,16 @@ class WorkItemView {
   }
 
   handle_click(e) {
+    console.log('a');
     let link = this.el.querySelector('a');
+    console.log('b', link);
+
     let url = link.getAttribute('href');
+    console.log('c', url);
 
     window.location.href = url;
+    console.log('d');
+
   }
 
     handle_mouseover(e) {

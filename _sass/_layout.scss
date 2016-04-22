@@ -97,6 +97,12 @@
 
 
 
+@media screen and (max-width: 600px){
+  .site-nav {
+    border: none;
+  }
+}
+
 /**
  * Site footer
  */
