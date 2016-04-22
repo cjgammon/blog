@@ -14,21 +14,14 @@ class WorkItemView {
     this.el.addEventListener('mouseout', this.handle_mouseout.bind(this));
     this.el.addEventListener('mousemove', this.handle_mousemove.bind(this));
     this.el.addEventListener('click', this.handle_click.bind(this));
-    this.el.addEventListener('touchstart', this.handle_click.bind(this));
+    //this.el.addEventListener('touchstart', this.handle_click.bind(this));
 
   }
 
   handle_click(e) {
-    console.log('a');
     var link = this.el.querySelector('a');
-    console.log('b', link);
-
     var url = link.getAttribute('href');
-    console.log('c', url);
-
     window.location.href = url;
-    console.log('d');
-
   }
 
     handle_mouseover(e) {
@@ -39,7 +32,6 @@ class WorkItemView {
       var dx = e.offsetX - (this.el.offsetWidth / 2);
       var dy = e.offsetY - (this.el.offsetHeight / 2);
 
-      console.log(dx, dy);
       TweenMax.to(this.el, 0.2, {rotationY: dx / 10, rotationX: -dy / 10});
 
       //this.updateGradient(e);
@@ -120,12 +112,9 @@ class WorkItemView {
 
 class App {
   constructor() {
-    console.log('hi');
     var panels = document.getElementsByClassName('panel');
-    console.log(panels, panels.length);
 
     for (var i = 0; i < panels.length; i += 1) {
-      console.log(i, panels[i]);
       new WorkItemView(panels[i]);
     }
   }
