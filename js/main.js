@@ -14,7 +14,7 @@ class WorkItemView {
     this.el.addEventListener('mouseout', this.handle_mouseout.bind(this));
     this.el.addEventListener('mousemove', this.handle_mousemove.bind(this));
     this.el.addEventListener('click', this.handle_click.bind(this));
-    this.el.addEventListener('touchend', this.handle_click.bind(this));
+    this.el.addEventListener('touchstart', this.handle_click.bind(this));
 
   }
 
