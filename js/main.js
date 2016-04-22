@@ -11,7 +11,7 @@ class WorkItemView {
     TweenMax.set(this.el, {scale: 0.95, rotationY: 0, rotationX: 0});
 
     console.log('hi');
-    
+
 
     console.log(this.el);
     this.el.addEventListener('mouseover', this.handle_mouseover.bind(this));
@@ -24,10 +24,10 @@ class WorkItemView {
 
   handle_click(e) {
     console.log('a');
-    let link = this.el.querySelector('a');
+    var link = this.el.querySelector('a');
     console.log('b', link);
 
-    let url = link.getAttribute('href');
+    var url = link.getAttribute('href');
     console.log('c', url);
 
     window.location.href = url;
@@ -40,8 +40,8 @@ class WorkItemView {
     }
 
     handle_mousemove(e) {
-      let dx = e.offsetX - (this.el.offsetWidth / 2);
-      let dy = e.offsetY - (this.el.offsetHeight / 2);
+      var dx = e.offsetX - (this.el.offsetWidth / 2);
+      var dy = e.offsetY - (this.el.offsetHeight / 2);
 
       console.log(dx, dy);
       TweenMax.to(this.el, 0.2, {rotationY: dx / 10, rotationX: -dy / 10});
@@ -63,12 +63,12 @@ class WorkItemView {
       this.g.attr({mask: this.mask});
     }
 
-    angleToPoints(angle) {
-    	let segment = Math.floor(angle / Math.PI * 2) + 2;
-    	let diagonal =  (1/2 * segment + 1/4) * Math.PI;
-    	let op = Math.cos(Math.abs(diagonal - angle)) * Math.sqrt(2);
-    	let x = op * Math.cos(angle);
-    	let y = op * Math.sin(angle);
+    angvaroPoints(angle) {
+    	var segment = Math.floor(angle / Math.PI * 2) + 2;
+    	var diagonal =  (1/2 * segment + 1/4) * Math.PI;
+    	var op = Math.cos(Math.abs(diagonal - angle)) * Math.sqrt(2);
+    	var x = op * Math.cos(angle);
+    	var y = op * Math.sin(angle);
 
     	return {
     		x1: x < 0 ? 1 : 0,
@@ -79,12 +79,12 @@ class WorkItemView {
     }
 
     updateGradient(e) {
-      let dx = e.offsetX - (this.w / 2);
-      let dy = e.offsetY - (this.h / 2);
-      let angle = Math.atan2(dy, dx);
-      let points = this.angleToPoints(angle);
+      var dx = e.offsetX - (this.w / 2);
+      var dy = e.offsetY - (this.h / 2);
+      var angle = Math.atan2(dy, dx);
+      var points = this.angvaroPoints(angle);
 
-      let _opacity = Math.sqrt((dx * dx) + (dy * dy));
+      var _opacity = Math.sqrt((dx * dx) + (dy * dy));
 
       this.grad.attr(points);
       TweenMax.to(this.gradEl.node, 0.1, {opacity: _opacity / this.h});
@@ -100,7 +100,7 @@ class WorkItemView {
     }
 
     getPath(a) {
-      let radius = 20,
+      var radius = 20,
           r,
           x,
           y,
@@ -124,9 +124,9 @@ class WorkItemView {
 
 class App {
   constructor() {
-    let panels = document.getElementsByClassName('panel');
+    var panels = document.getElementsByClassName('panel');
 
-    for (let i = 0; i < panels.length; i += 1) {
+    for (var i = 0; i < panels.length; i += 1) {
       new WorkItemView(panels[i]);
     }
   }
