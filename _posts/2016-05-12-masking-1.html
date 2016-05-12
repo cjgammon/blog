@@ -1,0 +1,39 @@
+---
+layout: post
+status: publish
+published: true
+title: Masking in Design Tools
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+date: '2016-5-11 13:44:57 -0500'
+date_gmt: '2016-5-11 01:44:57 -0500'
+image: img/covers/2016-5-12-masking.jpg
+categories:
+- design
+- web
+tags:
+- masking
+- web
+- development
+comments: []
+---
+<iframe width="100%" height="415" style="display: block; margin: auto;" src="https://www.youtube.com/embed/qscynkwrV9s" frameborder="0" allowfullscreen></iframe><br/>
+<p>
+  Before digital imaging similar effects to masking could be achieved through double exposure, where film is exposed to multiple negatives or shapes which combine the visible portion of the photographs. In digital media this uses the pixel values of one image to manipulate the transparency of the other.
+</p>
+
+<p>
+  The part of the image manipulated to adjust transparency is the alpha channel. A channel can be thought of as a grayscale representation of a single color spectrum of the image, red, green, blue and when transparency is applied alpha.
+</p>
+<p>
+  Masks can be defined differently depending on the context or application, but for simplicity we will define 3 types of masks, alpha masks, luma masks and vector masks.  Alpha masks use an image with an alpha channel and applies that alpha channel to the target image. Similarly Luma masks alter the alpha channel of the target image, but the luma mask itself does not have an alpha channel and instead uses it’s lightness to determine the alpha on a per pixel basis.  Where it is white the resulting target would be opaque, where it is black it would be transparent, and shades of gray determine semi-transparent results based on their lightness. Vector masks are geometric primitives that use their shape to determine the visible and transparent portions of their target, like a circular picture frame.
+</p>
+<p>
+  Masks are used in just about every digital design application. In the video above I cover how we create and use masks in a few applications to help us understand the concepts better and how they’re applied from a designer’s perspective.
+</p>
