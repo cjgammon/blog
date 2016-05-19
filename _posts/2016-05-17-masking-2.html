@@ -26,12 +26,15 @@ comments: []
 ---
 <iframe width="100%" height="415" style="display: block; margin: auto;" src="https://www.youtube.com/embed/jSmp3osrQiA" frameborder="0" allowfullscreen></iframe><br/>
 <p>
-  As far as CSS features go this is still relatively new. Because of this, support can be spotty.  So let’s check out caniuse.com.  Caniuse is a website created by a friend of mine Alexis Diveria, that shows you what features are supported on which browser versions.
+  As far as CSS features go this is still relatively new. Because of this, support can be spotty.
+  So let’s check out <a href="http://www.canuse.com">caniuse.com</a>.
+  Caniuse is a website created by a friend of mine Alexis Diveria, that shows you what features are supported on which browser versions.
 </p>
 
 <p>
   Today the only solid CSS implementation is in webkit, so we’re going to focus on this.
-  We’re going to cover basic masks in CSS and how you can use them.  Then get into some more advanced CSS masking features and what they enable.
+  We’re going to cover basic masks in CSS and how you can use them.
+  Then get into some more advanced CSS masking features and what they enable.
   Masking in the webkit implementation uses the webkit prefix for all it’s properties.
 </p>
 <p>
@@ -41,9 +44,85 @@ comments: []
 <p>
   Masking in webkit uses an inverted luminance mask so we can create this in photoshop.
   We can then apply this to any HTML content, like text in CSS.
+  The nice thing about using masking in CSS rather than layering images is that you can change the mask based on media queries or animate content inside the masked element.
 </p>
 <p>
-  In the video above I also discuss clip paths as well as more advanced CSS masking techniques using mask-composite and multiple mask image layers.
+  The shorthand for masking is:
+</p>
+<pre><code>-webkit-mask: url(../path/to/image);</code></pre>
+<p>
+  And the detailed properties are:
+</p>
+<pre><code>-webkit-mask-image: url(../path/to/image);
+-webkit-mask-size: cover;
+-webkit-mask-position: center;
+-webkit-mask-repeat: no-repeat;</code></pre>
+<p>
+  There’s also a composite property which we’ll discuss further later.  Using these properties you essentially have the same level of control over your mask as you would any background image applied to a CSS element.
+</p>
+
+<h4>Clip Paths</h4>
+<p>
+  Clip paths are another way to manipulate the transparent portions of content but rather than using an image, they use a CSS shape.
+  CSS shapes are vector shapes defined in CSS, these can be created by hand knowing the proper syntax or using a tool like <a href="http://bennettfeely.com/clippy/">clippy</a>.
+</p>
+<pre><code>-webkit-clip-path: polygon(50% 0%, 0% 100%, 100% 100%);</code></pre>
+<p>
+  Clip paths are neat because they allow you to create more interesting shapes than rectangles or rounded rectangles, but also because you can animate the shape from one to another using CSS transitions.
+</p>
+
+<h4>Compositing</h4>
+<p>
+  Because CSS masking is based off of CSS backgrounds it also supports multiple mask images.  This is where compositing comes in. The mask composite property allows you to adjust how the different mask image layers affect the transparency of the previous layers.
+</p>
+<pre><code>-webkit-mask-composite: source-over;</code></pre>
+<p>
+  It takes a number of values and these all manipulate the resulting output in a variety of ways.  The default value is source-over, meaning the source mask image (next layer) is rendered over the destination mask image (previous layer).  This basically adds any subsequent images to your mask. The current compositing values supported by webkit are as follows:
+</p>
+
+<ul>
+<li><b>clear</b><br/>
+Overlapping pixels in the source mask image and the destination mask image are cleared.</li>
+<li><b>copy</b><br/>
+The source mask image replaces the destination mask image.</li>
+<li><b>source-over</b><br/>
+The source mask image is rendered over the destination mask image.</li>
+<li><b>source-in</b><br/>
+Overlapping pixels in the source mask image and the destination mask image are replaced by the pixels of the source mask image; all other pixels are cleared.</li>
+<li><b>source-out</b><br/>
+Overlapping pixels in the source mask image and the destination mask image are cleared; all remaining pixels of the source mask image are rendered.</li>
+<li><b>source-atop</b><br/>
+The pixels of the destination mask image are rendered. The pixels of the source mask image are rendered only if they overlap a nontransparent portion of the destination mask image. This causes the source mask image to have no effect.</li>
+<li><b>destination-over</b><br/>
+The destination mask image is rendered over the source mask image.</li>
+<li><b>destination-in</b><br/>
+Overlapping pixels in the source mask image and the destination mask image remain the pixels of the destination mask image; all other pixels are cleared.</li>
+<li><b>destination-out</b><br/>
+Overlapping pixels in the source mask image and the destination mask image are cleared; all remaining pixels of the source mask image are rendered.</li>
+<li><b>destination-atop</b><br/>
+The pixels of the source mask image are rendered. The pixels of the destination mask image are rendered only if they overlap a nontransparent portion of the destination mask image. This causes the destination mask image to have no effect.</li>
+<li><b>xor</b><br/>
+Overlapping pixels in the source mask image and the destination mask image become fully transparent if they are both fully opaque.</li>
+</ul>
+<p>
+  However these are specific to the webkit implementation and the W3C specification currently lists different naming conventions for it’s values. The values listed by the W3C are below, with the webkit values they map to in parentheses:
+</p>
+
+
+<ul>
+<li><b>add</b> <i>(source-over)</i><br/>
+The mask image layer closer to the user is placed above the next mask image layer.</li>
+<li><b>subtract</b> <i>(source-out)</i><br/>
+The mask image layer closer to the user is placed where it falls outside of the next mask image layer.</li>
+<li><b>intersect</b> <i>(source-in)</i><br/>
+The parts of the mask image layer closer to the user that overlap the next mask image layer replace the parts of the next mask image layer.</li>
+<li><b>exclude</b> <i>(xor)</i><br/>
+The non-overlaping parts of the mask image layer closer to the user and the next mask image layer are combined.</li>
+</ul>
+
+<p>
+Using multiple mask layers and compositing can provide some very interesting results. Particularly when you combine them with mask position and animate individual layers based on interaction.
+Masks are a great way to leverage transparency on your designs in a more powerful way.
 </p>
 
 <a href="downloads/2016/2016-05-16-masking-2.zip" download>Click here to download the demo.</a>
