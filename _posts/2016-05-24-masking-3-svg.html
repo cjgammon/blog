@@ -1,0 +1,48 @@
+---
+layout: post
+status: publish
+published: true
+title: Masking in SVG
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+date: '2016-5-24 13:44:57 -0500'
+date_gmt: '2016-5-24 01:44:57 -0500'
+image: img/covers/2016-5-24-masking3.jpg
+categories:
+- design
+- web
+tags:
+- masking
+- svg
+- web
+- development
+comments: []
+---
+<iframe width="100%" height="415" style="display: block; margin: auto;" src="https://www.youtube.com/embed/Zx5ysWY25BA" frameborder="0" allowfullscreen></iframe><br/>
+<p>
+  Masking is really powerful in SVG in fact SVG has it's own mask element specific to this purpose.
+</p>
+
+<pre><code>&lt;mask id=“myMask"&gt;&lt;/mask&gt;</pre></code>
+<p>
+We can add this element into our <defs> tag and then any content we add inside of it will be used as a luminance mask. So black will become transparent and white remains opaque.  Then we simply add the <code>mask</code> property referencing our mask element by id.
+</p>
+<pre><code>&lt;rect mask=“url(#myMask)”/&gt;</pre></code>
+<p>
+SVG also supports clip paths, which work basically the same way as masks. We have our clip path element which contains the shape used as our clip path. Then we use the <code>clip-path</code> property to apply it to content within our SVG. The difference between clip paths and masks is that masks support semitransparent areas, such as gray colors and gradients, where clip paths just use the outline of the shape and make it either completely opaque or transparent.
+</p>
+<pre><code>&lt;clipPath id=“myClipPath”&gt;&lt;/clipPath&gt;
+&lt;rect clip-path=“url(#myClipPath)”/&gt;</pre></code>
+<p>
+These techniques allow for some interesting designs, but also allow interesting animation techniques as well.  For example, below is an animation I created that draws in text using a mask.  In the video above I describe how it was made.
+</p>
+<p data-height="265" data-theme-id="light" data-slug-hash="mPqRNL" data-default-tab="html,result" data-user="cjgammon" data-embed-version="2" class="codepen">See the Pen <a href="http://codepen.io/cjgammon/pen/mPqRNL/">Write In</a> by CJ Gammon (<a href="http://codepen.io/cjgammon">@cjgammon</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<a href="downloads/2016/2016-05-23-masking-3.zip" download>Click here to download the demo.</a>
