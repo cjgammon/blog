@@ -13,7 +13,7 @@ author_email: cj.gammon@gmail.com
 author_url: http://www.cjgammon.com
 date: '2016-5-31 13:44:57 -0500'
 date_gmt: '2016-5-31 01:44:57 -0500'
-image: img/covers/2016-5-24-masking4.jpg
+image: img/covers/2016-5-30-masking4.jpg
 categories:
 - design
 - web
@@ -24,9 +24,59 @@ tags:
 - development
 comments: []
 ---
-<iframe width="100%" height="415" style="display: block; margin: auto;" src="https://www.youtube.com/embed/Zx5ysWY25BA" frameborder="0" allowfullscreen></iframe><br/>
+<iframe width="100%" height="415" style="display: block; margin: auto;" src="https://www.youtube.com/embed/ywI-xAJMOhA" frameborder="0" allowfullscreen></iframe><br/>
 <p>
-
+  Because the canvas requires manual drawing through scripting we need to leverage the 2d canvas API, through the canvas’ 2d context.
 </p>
 
-<a href="downloads/2016/2016-05-31-masking-4.zip" download>Click here to download the demo.</a>
+<p>
+  Clip paths in canvas are pretty straight forward. First we simply draw a path using the beginPath method on our context, followed by the drawing commands, then closePath.
+</p>
+<pre><code>ctx.beginPath();
+ctx.arc(canvas.width / 2, canvas.height / 2, 200, 0, Math.PI * 2, false);
+ctx.closePath();
+ctx.clip();
+</code></pre>
+
+<p>
+  Then we call clip() on the context.  All the content we draw after this will be clipped by the path we just drew.
+</p>
+<p>
+  Masking in canvas works a little different in that there’s no specific mask property.  Instead you leverage the canvas context’s globalCompositeOperation property.  This can take a variety of values depending on how you want new content to influence the alpha channel or colors of the existing content. For a full list of the supported compositing operations check out MDN (https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation).
+</p>
+<p>
+  For normal luminance masks we use the value ‘destination-in’ and then proceed to draw our grayscale mask.
+</p>
+
+<pre><code>ctx.globalCompositeOperation = 'destination-in';
+ctx.drawImage(‘mylumamask’, 0, 0);
+</code></pre>
+
+<p>
+  It’s important to remember canvas retains this as a global value.  So when you’re done with your mask, you’ll need to set it back to the default, ‘source-over’ in order for things to draw correctly later.
+<p>
+
+<pre><code>ctx.globalCompositeOperation = ’source-over';</code></pre>
+
+<p>
+  The real power of canvas is that you can use it to dynamically draw content through interaction as well as use video. Combining these with masks can create some really interesting results. The issue with using video for masks though is that many browsers still do not support alpha channels in their videos.  This means that we have to manually convert a luminance mask video into an alpha mask in order to have a video mask content in canvas.
+</p>
+<p>
+  This can be done by drawing the video on a separate offscreen canvas for processing. We then draw the video onto the offscreen canvas. Then using getImageData we can collect and iterate over the pixels, determining their color values. Since it’s a grayscale image we can simply pick the red color value and set each pixel’s alpha to red value. Then we can call putImageData back on that offscreen canvas to draw the processed image.  We now have a video playing in our canvas converted from a luminance mask to an alpha mask. Then we can continue to draw that back into our original canvas with the ‘destination-in’ globalCompositeOperation. This is more performance intensive since we have to do per pixel reading and writing so it may have performance issues for large footage, but in lieu of alpha video support this will get the job done. Of course if the browser supports alpha video you can skip this step altogether.
+</p>
+
+<pre><code>function drawMask() {
+  videoctx.drawImage(video, 0, 0);
+  var imgd = videoctx.getImageData(0, 0, videocanvas.width, videocanvas.height),
+      pix = imgd.data,
+      i;
+
+  for (i = 0, n = pix.length; i < n; i += 4) {
+    pix[i + 3] = pix[i];
+  }
+
+  videoctx.putImageData(imgd, 0, 0);
+}
+</code></pre>
+
+<a href="downloads/2016/2016-05-30-masking-4.zip" download>Click here to download the demo.</a>
