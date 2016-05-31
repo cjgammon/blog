@@ -330,20 +330,12 @@
   flex-direction: column;
   width: 300px;
   margin: 1em;
-  border-radius: 5px;
   overflow: hidden;
   text-align: center;
-  background-color: #efefef;
-  transform: translateZ(0);
-  box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-
-  *{
-    pointer-events: none;
-  }
 
   h2{
     font-size: 2em;
+    margin-bottom: .25em;
   }
 
   a{
@@ -376,16 +368,16 @@
   background-position: center;
   background-color: #333;
   transform-origin: bottom center;
-  transform: scale(1.1);
-  transition: transform .2s ease-in-out;
 }
 
 .panel-text{
   flex: 1;
   padding: 1em;
   display: flex;
+  text-align: left;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  border-left: 2px solid #CCC;
 }
 
 .image-gradient{
