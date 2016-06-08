@@ -74,4 +74,11 @@ void main() {
 This requires that we pass some data from our vertex shader into our fragment shader. We do this by creating a variable to store the UV's. Then we access those UV's in our fragment shader and pass in our image as a Sampler2D. Then we call the method <code>texture2D()</code> which takes the Sampler2D and the UV coordinates and returns a vec4. We can then use a color channel of that texture and apply it to the alpha channel, in this case the red channel.
 </p>
 
+<p>
+You can see more details and examples of masking in GLSL in the video above. Below is one of the examples hosted on codepen.
+</p>
+
+<p data-height="265" data-theme-id="0" data-slug-hash="qNdVYB" data-default-tab="js,result" data-user="cjgammon" data-embed-version="2" class="codepen">See the Pen <a href="http://codepen.io/cjgammon/pen/qNdVYB/">Masking #4: Text</a> by CJ Gammon (<a href="http://codepen.io/cjgammon">@cjgammon</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
 <a href="https://github.com/cjgammon/diving-in/raw/master/masking/masking-5.zip" download>Click here to download the demo.</a>
