@@ -1,0 +1,77 @@
+---
+layout: post
+status: publish
+published: true
+title: Masking in GLSL
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+date: '2016-6-7 13:44:00 -0500'
+date_gmt: '2016-6-7 01:44:00 -0500'
+image: img/covers/2016-6-8-masking5.png
+categories:
+- design
+- web
+tags:
+- masking
+- canvas
+- glsl
+- web
+- development
+comments: []
+---
+<iframe width="100%" height="415" style="display: block; margin: auto;" src="https://www.youtube.com/embed/mcoqXej5f-0" frameborder="0" allowfullscreen></iframe><br/>
+<p>
+WebGL is complicated. Libraries like Three.js have made it more approachable but to do advanced effects you still need to understand the inner workings of WebGL, this includes GLSL shaders. Shaders are small programs that run on the GPU and they consist of two types, vertex shaders which draw the geometry and fragment shaders which draw the colors to present the final output.
+</p>
+
+<p>
+To mask content or manipulate the transparency of items in WebGL we are going to leverage the fragment shader. Because WebGL and Three.js are big topics I will cover how to use custom fragment shaders another time. For managing scope we will assume you already know how to do this and focus on the the shaders.
+</p>
+<p>
+To familiarize yourself with shaders I recommend checking out <a href="http://glslsandbox.com/">glslsandbox.com</a> or <a href="https://www.shadertoy.com/">shadertoy</a> which are web applications that do live GLSL rendering. We won’t be using them here because they don’t support alpha. This is because everything is done in one shader, so it would influence the transparency of everything.  But they are a good way to play around with GLSL and see what others can achieve.
+</p>
+<p>
+GLSL is similar to C/C++ with strict types and operators. The fragment shader which influences our color channels consists of a main method which sets a variable named gl_FragColor of type vec4 (a vector containing 4 floats), representing the red, green, blue, and alpha channels being drawn on the vertices.  The following example returns the color red:
+</p>
+<pre><code>void main() {
+     gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+}
+</code></pre>
+<p>
+To manipulate the alpha channel all we have to do is change that last value of the vec4.  So if we set it to 0.5 the returned color will be 50% transparent.
+</p>
+
+<p>
+To use images as masks we need to pass the texture along to our shaders.
+</p>
+
+<b>Vertex Shader</b>
+<pre><code>varying vec2 vUv;
+
+void main() {
+  vUv = uv;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}
+</code></pre>
+
+<b>Fragment Shader</b>
+<pre><code>varying vec2 vUv;
+uniform sampler2D texture1;
+
+void main() {
+  vec4 texture = texture2D(texture1, vUv);
+  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0-texture.r);
+}
+</code></pre>
+
+<p>
+This requires that we pass some data from our vertex shader into our fragment shader. We do this by creating a variable to store the UV's. Then we access those UV's in our fragment shader and pass in our image as a Sampler2D. Then we call the method <code>texture2D()</code> which takes the Sampler2D and the UV coordinates and returns a vec4. We can then use a color channel of that texture and apply it to the alpha channel, in this case the red channel.
+</p>
+
+<a href="https://github.com/cjgammon/diving-in/raw/master/masking/masking-5.zip" download>Click here to download the demo.</a>
