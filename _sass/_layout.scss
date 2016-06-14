@@ -416,6 +416,12 @@
       display: none;
     }
   }
+
+  .feature{
+    iframe{
+      height: 300px;
+    }
+  }
 }
 
 @media(max-width: 500px) {
@@ -425,5 +431,11 @@
 
   .main-quarter-container{
     width: 100%;
+  }
+
+  .feature{
+    iframe{
+      height: 80%;
+    }
   }
 }
