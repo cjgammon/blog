@@ -27,6 +27,7 @@
 }
 
 .hire-link{
+    margin: 0.5em;
     float: right;
     font-size: 26px;
     font-family: $header-font-family;
@@ -121,6 +122,11 @@
     margin-bottom: $spacing-unit;
     font-weight: 400;
     font-size: 1.2rem;
+
+    @include media-query($on-palm) {
+        font-size: 1rem;
+    }
+
 
     h2 {
         font-size: 32px;
