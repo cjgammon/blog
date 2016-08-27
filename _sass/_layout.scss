@@ -29,6 +29,7 @@
 .hire-link{
     margin: 0.5em;
     position: absolute;
+    top: 0;
     right: 0;
     font-size: 26px;
     font-family: $header-font-family;
@@ -50,7 +51,12 @@
     }
 
     @include media-query($on-palm) {
-        margin: 0;
+        display: inline-block;
+        position: relative;
+        font-size: 0.8em;
+        top: auto;
+        right: auto;
+        bottom: .5em;
     }
 
 }
