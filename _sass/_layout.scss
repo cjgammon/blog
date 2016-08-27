@@ -28,7 +28,9 @@
 
 .hire-link{
     margin: 0.5em;
-    float: right;
+    // float: right;
+    position: absolute;
+    right: 0;
     font-size: 26px;
     font-family: $header-font-family;
     font-weight: $bold-font-weight;
