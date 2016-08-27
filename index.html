@@ -4,64 +4,29 @@ layout: home
 
 <div class="home">
 
-    <div class="fature">
-        <div class="post-content" itemprop="articleBody">
-            Hi. I'm CJ Gammon, I'm passionate about design and technology. My goal is to showcase the creative potential of interactive media and to inspire the community through innovative applications and experiences.
-        </div>
-        <a href="https://twitter.com/cjgammon" class="twitter-follow-button" data-show-count="true">Follow @cjgammon</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-    </div>
-
-<!--
-      {% for post in paginator.posts limit:1 %}
-        <div class="feature">
-          {{ if post.image }}
-            <div class="feature-bg" style="background-image: url('{{site.baseurl}}/{{ post.image }}')"></div>
-          {{ endif }}
-          <div class="image-gradient darker"></div>
-          <a href="{{ post.url }}">
-            <h2 class="post-title" itemprop="name headline">{{ post.title }}</h2>
-          </a>
-          <time>{{ post.date | date: "%b %-d, %Y" }}</time>
-          <div class="post-content" itemprop="articleBody">
-            {{ post.excerpt }}
-
-            {% capture content_words %}
-            {{ post.content | number_of_words }}
-            {% endcapture %}
-
-            {% capture excerpt_words %}
-            {{ post.excerpt | number_of_words }}
-            {% endcapture %}
-
-            {% if excerpt_words != content_words %}
-              <a href="{{ post.url }}" class="read-more">Read more...</a>
-            {% endif %}
-
-          </div>
-        </div>
-      {% endfor %}
-      -->
-      
-    <div class="grid">
-
-    {% for post in paginator.posts offset:1 %}
+    {% for post in paginator.posts %}
     <div class="panel">
-      {{ if post.image }}
+        <div class="panel-text">
         <a href="{{ post.url }}">
-          <div class="panel-img" style="background-image: url('{{site.baseurl}}/{{ post.image }}')"></div>
+            <h2 class="post-title" itemprop="name headline">{{ post.title }}</h2>
         </a>
-      {{ endif }}
-      <div class="panel-text">
-        <a href="{{ post.url }}">
-          <h2 class="post-title" itemprop="name headline">{{ post.title }}</h2>
-        </a>
+      
         <time>{{ post.date | date: "%b %-d, %Y" }}</time>
+        {{ post.excerpt }}
+
+        {% capture content_words %}
+        {{ post.content | number_of_words }}
+        {% endcapture %}
+
+        {% if excerpt_words != content_words %}
+          <a href="{{ post.url }}" class="read-more">Read more...</a>
+        {% endif %}
+
       </div>
 
     </div>
     {% endfor %}
 
-    </div>
 
     <div class="pagination">
       {% if paginator.previous_page %}

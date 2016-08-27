@@ -10,9 +10,9 @@ $base-font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $header-font-family: 'Futura PT', "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 $base-font-size:   16px;
-$base-font-weight: 400;
+$base-font-weight: 100;
 $small-font-size:  $base-font-size * 0.875;
-$base-line-height: 1.5;
+$base-line-height: 2;
 
 $light-font-weight: 300;
 $bold-font-weight:  700;
@@ -21,7 +21,8 @@ $spacing-unit:     30px;
 
 $text-color:       #111;
 $background-color: #fdfdfd;
-$brand-color:      #1C9AA7;
+$brand-color:      #333;
+$link-color:        #24c6ff;
 
 $grey-color:       #828282;
 $grey-color-light: lighten($grey-color, 40%);
