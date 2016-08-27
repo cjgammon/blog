@@ -26,6 +26,28 @@
     margin-bottom: 0;
 }
 
+.hire-link{
+    float: right;
+    font-size: 26px;
+    font-family: $header-font-family;
+    font-weight: $bold-font-weight;
+    padding: 0.3em 0.4em;
+    line-height: 1;
+    border-radius: 5px;
+    transition: color .4s, background .4s;
+    
+    &,
+    &:visited{
+        color: white;
+        background-color: $callout-color;
+    }
+
+    &:hover{
+        color: lighten($callout-color, 50%);
+        background-color: darken($callout-color, 5%);
+    }
+}
+
 .twitter-follow-button{
     visibility: hidden;
     height: 28px;
