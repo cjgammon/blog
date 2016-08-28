@@ -1,0 +1,42 @@
+---
+layout: home
+---
+
+<div class="home">
+
+    {% for post in paginator.posts %}
+    <div class="panel">
+        <div class="panel-text">
+        <a href="{{ post.url }}">
+            <h2 class="post-title" itemprop="name headline">{{ post.title }}</h2>
+        </a>
+      
+        <time>{{ post.date | date: "%b %-d, %Y" }}</time>
+        {{ post.excerpt }}
+
+        {% capture content_words %}
+        {{ post.content | number_of_words }}
+        {% endcapture %}
+
+        {% if excerpt_words != content_words %}
+          <a href="{{ post.url }}" class="read-more">Read more...</a>
+        {% endif %}
+
+      </div>
+
+    </div>
+    {% endfor %}
+
+
+    <div class="pagination">
+      {% if paginator.previous_page %}
+        <a href="{{ paginator.previous_page_path }}" class="previous">Previous</a>
+      {% endif %}
+      <span class="page_number ">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
+      {% if paginator.next_page %}
+        <a href="{{ paginator.next_page_path }}" class="next">Next</a>
+      {% endif %}
+    </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.2/TweenMax.min.js"></script>
+</div>
