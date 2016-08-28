@@ -1,22 +1,32 @@
 
-<header class="about">
-    <a class="site-title" href="{{ site.baseurl }}/">CJ GAMMON</a>
-    <div class="about-content">
-        I have spent my career creating digital advertising, applications, and websites for top 
-        brands like Google and Adobe. I bring creativity and technology together to create amazing experiences.
-    </div>
-    <br/>
-    <a href="https://twitter.com/cjgammon" class="twitter-follow-button" data-size="large" data-show-count="true">Follow @cjgammon</a>    
-</header>
+<div class="top-section">
+    <header class="about">
+        <a class="site-title" href="{{ site.baseurl }}/">CJ GAMMON</a>
+        <div class="about-content">
+            I have spent my career creating digital advertising, applications, and websites for top 
+            brands like Google and Adobe. I bring creativity and technology together to create amazing experiences.
+        </div>
+        <br/>
+        <div class="twitter-container">
+            <a href="https://twitter.com/cjgammon" class="twitter-follow-button" data-size="large" data-show-count="true">Follow @cjgammon</a>    
+        </div>
+    </header>
 
-<nav class="main-nav">
-    <ul>
-       {% for my_page in site.pages %}
-          {% if my_page.title %}
-            <a class="page-link" href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.title }}</a>
-          {% endif %}
-        {% endfor %}
-    </ul>
-</nav>
+    {% assign pages = site.pages | sort:"weight"  %}
 
+    <nav class="main-nav">
+        <ul>
+            <li>
+                <a class="page-link" href="{{ site.baseurl }}/">Writing</a>
+            </li>
+            {% for my_page in pages %}
+                {% if my_page.title %}
+                    <li>
+                        <a class="page-link" href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.title }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </nav>
+</div>
 
