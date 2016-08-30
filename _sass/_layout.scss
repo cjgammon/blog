@@ -39,10 +39,15 @@ nav{
             color: black;
         }
 
+        &.active{
+            color: $callout-color;
+        }
+
         &:hover{
             color: darken($link-color, 20%);
-            transform: skew(-10deg);
+            transform: translateX(2px) skew(-10deg);
         }
+
     }
 }
 
