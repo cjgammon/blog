@@ -1,0 +1,184 @@
+---
+layout: post
+status: publish
+published: true
+title: Three.js Custom Materials with ShaderMaterial
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+date: '2016-9-28 13:44:00 -0500'
+date_gmt: '2016-9-28 01:44:00 -0500'
+image: img/covers/2016-9-28-threejs-intro.png
+categories:
+- design
+- web
+tags:
+- webgl
+- threejs
+- web
+- development
+comments: []
+---
+<iframe width="100%" height="415" class="youtube" src="https://www.youtube.com/embed/ABV1mK1CGOY" frameborder="0" allowfullscreen></iframe><br/>
+<p>
+Three.js comes with <a href="http://http://blog.cjgammon.com/threejs-materials">many materials</a> built in. All these materials drawn in WebGL utilize shaders. Shaders are small programs that run on the GPU written in <a href="https://www.opengl.org/documentation/glsl/">GLSL</a>. We can create our own custom materials in Three.js by writing our own shaders and passing them into a <code>ShaderMaterial</code>, which we can then use in our scene.
+</p>
+
+<p>
+There are two types of shaders. <b>Vertex</b> shaders, which handle the processing of individual vertices. This influences the shape of the geometry. <b>Fragment</b> shaders, take the rasterized geometry from the vertex shader and applies color to it. Between these two shaders we can influence how objects are drawn both their physical geometry and their color and texture.
+</p>
+<p>
+GLSL is it's own language and we're going to look at it and the code that make up these two different shader types. It is a high level typed programming language similar to C/C++. To learn more specifically about the syntax, type definitions, and how to use more deeply you can read the <a href="https://www.opengl.org/documentation/glsl/">documentation</a> and see examples people have written on <a href="http://glslsandbox.com/">GLSL Sandbox</a>. Some basic variable types it contains are:
+	<ul>
+		<li><b>float</b> - single-precision floating point number</li>
+		<li><b>vec2</b> - a vector containing two floats</li>
+		<li><b>vec3</b> - a vector containing three floats</li>
+		<li><b>vec4</b> - a vector containing four floats</li>
+		<li><b>mat2</b> - a matrix containing two columns and two rows</li>
+		<li><b>mat3</b> - a matrix containing three columns and three rows</li>
+		<li><b>mat4</b> - a matrix containing four columns and four rows</li>
+	</uL>
+</p>
+
+<p>
+Three special types of variables that we will focus on for the purpose of this post are <code>attribute</code>, <code>varying</code>, and <code>uniform</code>. These can generally be any of the above values types with some limitations on varyings.
+</p>
+
+<ul>
+	<li><b>attributes</b> - Attributes are per vertex properties. These are only defined in the vertex shader.</li>
+	<li><b>varying</b> - This is an interface between the vertex and fragment shader.
+	Defining a varying variable in a vertex shader allows you to access that value in the fragment shader.</li>
+	<li><b>uniforms</b> - Uniforms are variables that will change outside of the shader. They are a way of updating and passing values into your vertex and fragment shaders from your main application.</li>
+</ul>
+
+<p>
+Three.js has two types of shader materials the one we will focus on is <code>ShaderMaterial</code> which has some helpful built-in uniforms and attributes passed into our shaders. Things like <code>projectionMatrix</code> and <code>modelViewMatrix</code>, see a full list <a href="http://threejs.org/docs/api/renderers/webgl/WebGLProgram.html">here</a>. The other shader material <code>RawShaderMaterial</code> is basically the same but does not have these built-in variables, which means if you need access to these values you'll need to set up your own uniforms and attributes.
+</p>
+
+<h3>Vertex Shader</h3>
+<pre><code>void main() 
+{
+	vec4 modelViewPosition = modelViewMatrix * vec4(position, 1.0);
+	gl_Position = projectionMatrix * modelViewPosition;
+}
+</code></pre>
+<p>
+The vertex shader will always set a variable <code>gl_Position</code>. This bit of code is run on every vertex and applies the value of <code>gl_Position</code>, which is a vec4, to each one. The variables we are using are built-in Three.js variables. <code>modelViewMatrix</code> is camera position and orientation within the scene. <code>position</code> is a vec3 of each vertex position in space. <code>projectionMatrix</code> the projection fo the scene from the camera including field of view. This gets multiplied by the <code>modelViewPosition</code> to create the final value of the vertex from our camera. This is a basic example of a vertex shader in Three.js that will draw our objects as we've defined them relative to our camera.
+</p>
+
+<h3>Fragment Shader</h3>
+<pre><code>void main() {
+	gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+}
+</code></pre>
+<p>
+The fragment shader will always set a variable <code>gl_FragColor</code>. This bit of code is applied to every pixel on the fragment of our geometry drawn. It takes a type vec4 and this consists of four floats representing the RGBA (Red Green Blue and Alpha) colors. The example above will draw everything red since the red value is set to 1 and the alpha value is set to 1.
+</p>
+
+<h3>ShaderMaterial</h3>
+<p>
+Now that we have our shaders it's time to turn them into a material we can use in Three.js. We pass the shaders in as strings to our material. This means we can include them any number of ways. We can put them in our document inside of a script tag, we could have them as a literal string in our javascript or we could load the string from an external file. We then pass these strings in as parameters to our shader material.
+</p>
+<pre></code>var material = new THREE.ShaderMaterial({
+	vertexShader: document.getElementById( 'vertexShader' ).textContent,
+	fragmentShader: document.getElementById( 'fragmentShader' ).textContent
+});
+</code></pre>
+<p>
+This material can then be used as any other material in Three.js.
+</p>
+
+<h3>Dynamic Values</h3>
+<p>
+So we've created a simple <code>ShaderMaterial</code>, but it's pretty static. So let's pass some variables into our shaders and add some math to make things more interesting.
+</p>
+<pre><code>var customUniforms = {
+	delta: {value: 0}
+};
+
+var material = new THREE.ShaderMaterial({
+	uniforms: customUniforms,
+	vertexShader: document.getElementById( 'vertexShader' ).textContent,
+	fragmentShader: document.getElementById( 'fragmentShader' ).textContent
+});
+
+
+var vertexOpacity = new Float32Array(geometry.attributes.position.count);
+
+for (var i = 0; i &lt; vertexOpacity.length; i ++) {
+	vertexOpacity[i] = Math.sin(i);
+}
+
+geometry.addAttribute('vertexOpacity', new THREE.BufferAttribute(vertexOpacity, 1));
+</code></pre>
+<p>
+In our uniforms object, we have a <code>delta</code> uniform with a value of zero and we'll update this later. Then we simply pass our uniform object into our <code>ShaderMaterial</code>. In this case it's just a float, but we can also pass in other value types using some types provided in Three.js. For example, if we want a vec2 we can set the value to <code>new THREE.Vector2()</code>. For a listing of all the uniform types available in Three.js see the <a href="http://threejs.org/docs/index.html#Reference/Materials/ShaderMaterial">documentation</a>.
+</p>
+<p>
+Attributes work a bit differently. Because attributes only effect the vertex shader they are actually applied to geometry. In Three.js they must be applied to <code>BufferGeometry</code> and we create a Float32Array the size of the number of vertices in the geometry. Then for each vertex we can assign a value to our array. Then we add the attribut to the geometry by calling <code>addAttribute</code> which takes the attribute name and the <code>BufferAttribute</code> as parameters. The <code>BufferAttribute</code> takes the array and the number of items per vertex, because we just have a float it is only one, but if it were a vec3 it would be 3.
+</p>
+<h5>vertex shader</h5>
+<pre><code>attribute float vertexDisplacement;
+uniform float delta;
+varying float vOpacity;
+varying vec3 vUv;
+
+void main() 
+{
+    vUv = position;
+    vOpacity = vertexDisplacement;
+
+    vec3 p = position;
+
+    p.x += sin(vertexDisplacement) * 50.0;
+    p.y += cos(vertexDisplacement) * 50.0;
+
+	vec4 modelViewPosition = modelViewMatrix * vec4(p, 1.0);
+	gl_Position = projectionMatrix * modelViewPosition;
+}
+</code></pre>
+<p>
+In our vertex shader we first define the <code>vertexDisplacement</code> attribute we attached to the geometry. We then define the <code>delta</code> uniform. Then we're creating two varyings that we will pass along to the fragment shader. The first is called <code>vOpacity</code> and this will be used to manipulate the opacity of our fragment shader which we set to the same value as our <code>vertexDisplacement</code> attribute. The other is <code>vUv</code> which we set to collect the position of each vertex. After setting both of our varying values we then play around with the position of the vertices some on the x and y axis based on our <code>vertexDisplacement</code> value.
+</p>
+<h5>fragment shader</h5>
+<pre><code>uniform float delta;
+varying float vOpacity;
+varying vec3 vUv;
+
+void main() {
+
+    float r = 1.0 + cos(vUv.x * delta);
+    float g = 0.5 + sin(delta) * 0.5;
+    float b = 0.0;
+    vec3 rgb = vec3(r, g, b);
+
+	gl_FragColor = vec4(rgb, vOpacity);
+}
+</code></pre>
+<p>
+In our fragment shader we define our <code>delta</code> uniform. Then define the same varyings we created in the vertex shader. We use <code>vOpacity</code> to be the resulting alpha of our <code>gl_FragColor</code>. And we use the <code>delta</code> and <code>vUv</code> values along with some math to adjust the red and green values.
+</p>
+<p>
+We can continue to update our uniforms and attributes in a loop as shown below.
+</p>
+<pre><code>delta += 0.1;
+
+mesh.material.uniforms.delta.value = 0.5 + Math.sin(delta) * 0.5;
+
+for (var i = 0; i &lt; vertexDisplacement.length; i ++) {
+    vertexDisplacement[i] = 0.5 + Math.sin(i + delta) * 0.25;
+}
+
+mesh.geometry.attributes.vertexDisplacement.needsUpdate = true;
+</pre></code>
+<p>
+We simply update the uniform by directly accessing the uniform value we want to update and setting it to a new value. For the attribute we need to iterate through the array and adjust the values. Then we need to call needsUpdate on the attribute in the geometry.
+</p>
+<a href="https://github.com/cjgammon/diving-in/blob/master/threejs/threejs-4_shadermaterial.zip?raw=true" download>Click here to download the demo.</a>
+<br/><br/>
+<small>Note: these examples were created using Three.js v79. Three.js is known to update frequently and sometimes cause breaking changes to the API so it may be worth checking the version you are using.</small>
