@@ -26,8 +26,191 @@ comments: []
 ---
 <iframe width="100%" height="415" class="youtube" src="https://www.youtube.com/embed/3eGeh_aJxMI" frameborder="0" allowfullscreen></iframe><br/>
 <p>
-Geometry.
+Geometry defines the shape of the objects we draw in Three.js. Geometry is made up of a collection of vertices and often faces which combine three vertices into a triangle face. You can create your own custom geometry by defining these vertices and faces yourself, but Three.js also has a variety of common shapes for you to access and set properties of built in.
 </p>
+
+<h5>Base Geometry</h5>
+<p>
+There are two base types of geometry, the first is <code>Geometry</code>. You can add vertices to this by pushing vertices into it's <code>vertices</code> array. We can do the same thing with faces by referencing the vertices used in each face and pushing them into the geometry's <code>faces</code> array. In the example below we are just creating a single face made up of three vertices, so a triangle.
+</p>
+<pre><code>var geometry = new THREE.Geometry();
+geometry.vertices.push(
+	new THREE.Vector3(-10, 10, 0),
+	new THREE.Vector3(-10, -10, 0),
+	new THREE.Vector3(10, -10, 0)
+);
+geometry.faces.push( new THREE.Face3(0, 1, 2));
+</pre></code>
+<p>
+The other base geometry type is <code>BufferGeometry</code> which is more optimized for performance but the vertices aren't as directly accessible. In order to add vertices to <code>BufferGeometry</code> we need to create a Float32Array of the vertices and then add it to the position attribute of the geometry utilizing <code>BufferAttribute</code>.
+</p>
+<pre><code>var geometry = new THREE.BufferGeometry();
+var vertices = new Float32Array((
+	new THREE.Vector3(-10, 10, 0),
+	new THREE.Vector3(-10, -10, 0),
+	new THREE.Vector3(10, -10, 0)
+]);
+geometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
+</pre></code>
+<br/>
+
+<h5>Primitives</h5>
+<p>
+As mentioned Three.js has a bunch of built in geometric primitives and there are versions that extend both <code>Geometry</code> and <code>BufferGeometry</code> depending on your needs.
+</p>
+
+<pre><code>var geometry = new THREE.PlaneGeometry(100, 100);
+</code></pre>
+
+<pre><code>var geometry = new THREE.BoxGeometry(100, 100, 100);
+</code></pre>
+
+<pre><code>var geometry = new THREE.CircleGeometry(50);
+</code></pre>
+
+<pre><code>var geometry = new THREE.SphereGeometry(50);
+</code></pre>
+
+<pre><code>var geometry = new THREE.ConeGeometry(50, 100, 100);
+</code></pre>
+
+<pre><code>var geometry = new THREE.Cylinder(50, 50, 100);
+</code></pre>
+
+<pre><code>var geometry = new THREE.RingGeometry(50, 100);
+</code></pre>
+
+<pre><code>var geometry = new THREE.TorusGeometry(100, 30);
+</code></pre>
+
+<pre><code>var geometry = new THREE.TorusKnotGeometry(50, 100);
+</code></pre>
+
+<br/>
+<h5>Polyhedrons</h5>
+<p>
+The Polyhedron class is the base class for shapes like Dodecahedron or Tetrahedron. It takes an array of vertices and projects them onto a sphere, dividing them up to teh desired level of detail.
+</p>
+<pre><code>  var verticesOfCube = [
+    -1,-1,-1,    1,-1,-1,    1, 1,-1,    -1, 1,-1,
+    -1,-1, 1,    1,-1, 1,    1, 1, 1,    -1, 1, 1,
+];
+var indicesOfFaces = [
+    2,1,0,    0,3,2,
+    0,4,7,    7,3,0,
+    0,1,5,    5,4,0,
+    1,2,6,    6,5,1,
+    2,3,7,    7,6,2,
+    4,5,6,    6,7,4
+];
+var geometry = new THREE.PolyhedronGeometry(vertices, faces, 6, 2);
+</code></pre>
+<pre><code>var geometry = new THREE.DodecahedronGeometry(100, 0);
+</code></pre>
+<pre><code>var geometry = new THREE.IcosahedronGeometry(100, 0);
+</code></pre>
+<pre><code>var geometry = new THREE.OctahedronGeometry(100, 0);
+</code></pre>
+<pre><code>var geometry = new THREE.TetrahedronGeometry(100, 0);
+</code></pre>
+<br/>
+
+<h5>Text</h5>
+<p>
+Three.js also supports <code>TextGeometry</code>, but in order to do this we need to load in a JSON file that describes the geometry of the font we want to use. Fortunately Three.js comes packaged with some <a href="https://github.com/mrdoob/three.js/tree/dev/examples/fonts">fonts on github</a>. After including the JSON as a <code>fontJSON</code> variable we can then parse it with a <code>FontLoader</code>. Then we can proceed to use <code>TextGeometry</code> passing in the words we want to use as well as an object defining the font geometry, size, and height of our 3D text.
+</p>
+<pre><code>var loader = new THREE.FontLaoder();
+var loadedFont = loader.parse(fontJSON);
+var geometry = new THREE.TextGeometry("my custom text here", {font: loadedFont, size: 120, height: 10});
+</code></pre>
+
+<br/>
+<h5>Custom Shapes</h5>
+<p>
+Three.js allows you to create custom shapes using a 2D drawing API with the <code>Shape</code> class. Below is an example of how we can define a heart shape using <code>moveTo</code> and <code>bezierCurveTo</code>. There are also other simple drawing commands we can call on our shape, like <code>lineTo</code>.
+</p>
+<pre><code>var x = 0;
+var y = 0;
+var heartShape = new THREE.Shape();
+heartShape.moveTo( x + 25, y + 25 );
+heartShape.bezierCurveTo( x + 25, y + 25, x + 20, y, x, y );
+heartShape.bezierCurveTo( x - 30, y, x - 30, y + 35,x - 30,y + 35 );
+heartShape.bezierCurveTo( x - 30, y + 55, x - 10, y + 77, x + 25, y + 95 );
+heartShape.bezierCurveTo( x + 60, y + 77, x + 80, y + 55, x + 80, y + 35 );
+heartShape.bezierCurveTo( x + 80, y + 35, x + 80, y, x + 50, y );
+heartShape.bezierCurveTo( x + 35, y, x + 25, y + 25, x + 25, y + 25 );</code></pre>
+<p>
+We can then use this 2D shape and pass it into <code>ShapeGeometry</code> to draw this shape as a flat mesh.
+</p>
+<pre><code>var geometry = new THREE.ShapeGeometry(heartShape);
+</code></pre>
+<p>
+We can also extrude the shape into 3D by passing it into <code>ExtrudeGeometry</code> along with some parameters specifying how we want it to extrude.
+</p>
+<pre><code>var geometry = new THREE.ExtrudeGeometry(heartShape, {
+	amount: 8, 
+	bevelEnabled: true, 
+	bevelSegments: 2, 
+	steps: 2, 
+	bevelSize: 1, 
+	bevelThickness: 1 
+});
+</code></pre>
+
+<br/>
+<h5>Lathe</h5>
+<p>
+<code>LatheGeometry</code> is useful for shapes that have axial symmetry, so vase like forms with a symmetrical radius along the y-axis.
+</p>
+<pre><code>var points = [];
+for ( var i = 0; i < 10; i ++ ) {
+	points.push( new THREE.Vector2( 5 + Math.sin( i * 0.2 ) * 20, i * 10) );
+}
+var geometry = new THREE.LatheGeometry( points );
+</code></pre>
+
+<br/>
+<h5>Parametric</h5>
+<p>
+<code>ParemetricGeometery</code> is useful for rendering a flat surface that distortes based on a chart or graph function. It takes the value of a method which returns vectors and uses the UV values as parameters.
+</p>
+<pre><code>var points = [];
+var paramFunc = function(u, v){
+    var x = -100 + 200 * u;
+    var y = 0;
+    var z = (Math.sin(u* Math.PI) + Math.sin(v* Math.PI)) * (-60);
+    return new THREE.Vector3(x,y,z);
+}; 
+
+var geometry = new THREE.ParametricGeometry(paramFunc, 10, 10);
+</code></pre>
+
+<br/>
+<h5>Tube</h5>
+<p>
+We can also create <code>TubeGeometry</code> by passing in a path as the first parameter. Here we are creating a path with <code>SplineCurve3</code> which will create a curvy path through the vector's I pass into it. Then we can set properties on the <code>TubeGeometry</code> like the number of segments for the tube, the radius of the tube, the number of segments for the tube's radius and whether it's open or closed.
+</p>
+<pre><code>var curve = new THREE.SplineCurve3([
+    new THREE.Vector3( -10, 0, 10 ),
+    new THREE.Vector3( -5, 5, 5 ),
+    new THREE.Vector3( 0, 0, 0 ),
+    new THREE.Vector3( 5, -5, 5 ),
+	new THREE.Vector3( 10, 0, 10 )
+]);
+var geometry = new THREE.TubeGeometry(curve, 20, 2, 8, false);
+</code></pre>
+
+
+<br/>
+<h5>Updating Vertices</h5>
+<p>
+We can access vertices within our <code>Geoemetry</code> through the vertices array. After updating the value of one vertex we need to then set <code>verticesNeedUpdate</code> to true so that the renderer knows to use the updated geometry.
+</p>
+<pre><code>geometry.vertices[0].x = -100;
+geometry.verticesNeedUpdate = true;
+</code></pre>
+
+
 
 <br/>
 <a href="https://github.com/cjgammon/diving-in/blob/master/threejs/threejs-2_geometry.zip?raw=true" download>Click here to download the demo.</a>
