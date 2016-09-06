@@ -56,35 +56,54 @@ geometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
 
 <h5>Primitives</h5>
 <p>
-As mentioned Three.js has a bunch of built in geometric primitives and there are versions that extend both <code>Geometry</code> and <code>BufferGeometry</code> depending on your needs.
+As mentioned Three.js has a bunch of built in geometric primitives and there are versions that extend both <code>Geometry</code> and <code>BufferGeometry</code> depending on your needs. The parameters for the regular and buffer versions are identical.
 </p>
 
-<pre><code>var geometry = new THREE.PlaneGeometry(100, 100);
+<pre><code>var geometry = new THREE.PlaneGeometry(width, height, widthSegments, heightSegments);
 </code></pre>
-
-<pre><code>var geometry = new THREE.BoxGeometry(100, 100, 100);
+<p>
+<code>PlaneGeometry</code> takes the dimensions, width and height and the number of segments along each access the faces are broken into.
+</p>
+<pre><code>var geometry = new THREE.BoxGeometry(width, height, depth, widthSegments, heightSegments, depthSegments);
 </code></pre>
-
-<pre><code>var geometry = new THREE.CircleGeometry(50);
+<p>
+<code>BoxGeometry</code> works the same as a plane, only including depth for both the dimensions and segments that can be divided.
+</p>
+<pre><code>var geometry = new THREE.CircleGeometry(radius, segments, thetaStart, thetaLength);
 </code></pre>
-
-<pre><code>var geometry = new THREE.SphereGeometry(50);
+<p>
+<code>CircleGeometry</code> allows you to define the radius of the circle and the number of segments it is divided into. As well as the start angle and the angle defining the drawn segments.
+</p>
+<pre><code>var geometry = new THREE.SphereGeometry(radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength);
 </code></pre>
-
-<pre><code>var geometry = new THREE.ConeGeometry(50, 100, 100);
+<p>
+Sphere works the same as circle only adding two dimensions for segments as well as the ability to set the start angle and angle drawn along both dimensions. 
+</p>
+<pre><code>var geometry = new THREE.ConeGeometry(radius, height, radialSegments, heightSegments, openEnded, thetaStart, thetaLength);
 </code></pre>
-
-<pre><code>var geometry = new THREE.Cylinder(50, 50, 100);
+<p>
+<code>ConeGeometry</code> takes the radius, height, then segments for both as well as a boolean definining whether or not it is open ended or closed. Then the start and end angle for only drawing segments of the cone.
+</p>
+<pre><code>var geometry = new THREE.Cylinder(radiusTop, radiusBottom, height, radiusSegments, heightSegments, openEnded, thetaStart, thetaLength);
 </code></pre>
-
-<pre><code>var geometry = new THREE.RingGeometry(50, 100);
+<p>
+Cylinders allow you to specify the radius of the top and bottom independently as well as the height. Then the segments along the radius and height, a boolean defining whether it's open ended or not and the start and end degrees for drawing only segments of the circumference.
+</p>
+<pre><code>var geometry = new THREE.RingGeometry(innerRadius, outerRadius, thetaSegments, phiSegments, thetaStart, thetaLength);
 </code></pre>
-
-<pre><code>var geometry = new THREE.TorusGeometry(100, 30);
+<p>
+<code>RingGeometry</code> specifies the inner and outer radius. The segments broken into around the circumference as well as out from width of the ring. You can also specify the start and end angle for drawing partial sections of the ring.
+</p>
+<pre><code>var geometry = new THREE.TorusGeometry(radius, tube, radialSegments, tubularSegments, arc);
 </code></pre>
-
-<pre><code>var geometry = new THREE.TorusKnotGeometry(50, 100);
+<p>
+<code>TorusGeometry</code> is a tubular ring. It allows you to specify the radius of the ring, as well as the diameter of the tube. You can then specify the segments along the radius and tube. You can also specify the arc angle of the circumference to draw.
+</p>
+<pre><code>var geometry = new THREE.TorusKnotGeometry(radius, tube, tubularSegments, radialSegments, p, q);
 </code></pre>
+<p>
+<code>TorusKnotGeometry</code> draws a knot shape defined by <code>p</code> and <code>q</code>. It takes in a radius for the whole as well as the diameter of the tube. Then the segments along the tube and segments along the radius. <code>p</code> determines, how many times the geometry winds around its axis of rotational symmetry. <code></code> determines, how many times the geometry winds around a circle in the interior of the torus.
+</p>
 
 <br/>
 <h5>Polyhedrons</h5>
