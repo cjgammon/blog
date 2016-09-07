@@ -1,0 +1,91 @@
+---
+layout: post
+status: publish
+published: true
+title: Three.js Lights and Cameras
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+date: '2016-10-05 13:44:00 -0500'
+date_gmt: '2016-10-05 01:44:00 -0500'
+image: img/covers/2016-10-05-threejs-intro.png
+categories:
+- design
+- web
+tags:
+- webgl
+- threejs
+- web
+- development
+comments: []
+---
+<iframe width="100%" height="415" class="youtube" src="https://www.youtube.com/embed/ABV1mK1CGOY" frameborder="0" allowfullscreen></iframe><br/>
+<p>
+Lights can really make the difference between a seemingly flat scene and a visual masterpiece. Think of any photo-realistic painting or photograph and then imagine it with poor lighting and the impact is just not the same. Cameras change the way we view our scenes altogether, think of the different types of lenses photographers use and how they can influence the perspective and depth of a photo.
+</p>
+
+<h5>Lights</h5>
+<p>
+Lights are often an after thought, but lighting can really be the most important aspect of your scene. Three.js has a variety of built in lights to apply to materials like <code>MeshLambertMaterial</code> and <code>MeshPhongMaterial</code>. These lights effect the materials in different ways depending on the type of light and their properties as well as the properties of the materials themselves.
+</p>
+
+<h6>AmbientLight</h6>
+<p>
+The ambient light gets applied to all the objects in your scene globally. Ambient lights are often useful for filling parts of your scene not hit by other lights. This is because there's no relevant position or direction, it lights everything equally. You can set the color and the intensity of the ambient light.
+</p>
+<pre><code>var light = new THREE.AmbientLight(color, intensity);</code></pre>
+
+<h6>PointLight</h6>
+<p>
+Point lights are like light bulbs in your scene. They are positioned at a specific location and radiate light outwards in all directions from that postion. They have a color and intensity. Point lights allow you to set the distance from the light at which point it's intensity is zero. You can also set the decay which is the amount the light dims along the distance.
+</p>
+<pre><code>var light = new THREE.PointLight(color, intensity, distance, decay);</code></pre>
+
+<h6>DirectionalLight</h6>
+<p>
+Direcional lights resemble the Sun. They're a distant powerful light source pointing in one direction.
+</p>
+<pre><code>var light = new THREE.DirectionalLight(color, intensity);</code></pre>
+
+<h6>SpotLight</h6>
+<p>
+Spotlights are just that, spotlights. They are lights that point in one direction radiating out in a cone shape. We can pass an angle to the light as a parameter which is the maximum angle of the light cone in radians. Penumbra affects the intensity or softness of outer shadow or light fall-off as it fades to darkness.
+</p>
+<pre><code>var light = new THREE.SpotLight(color, intensity, distance, angle, penumbra, decay);</code></pre>
+
+<h6>HemisphereLight</h6>
+<p>
+Like ambient light, hemisphere light has no position or direction. But unlike ambient light it has two colors. One to simulate the color coming from above, like a sun or ceiling light source. The other is the color of light coming from below, to simulate the light reflected off the floor or ground surface. This is to provide a bit more realism than a globally applied ambient light.
+</p>
+<pre><code>var light = new THREE.HemisphereLight(skyColor, groundColor, intensity);</code></pre>
+
+<h6>Shadows</h6>
+
+
+<h6>God Rays</h6>
+
+
+<h5>Cameras</h5>
+<p>
+
+</p>
+
+
+<h6>PerspectiveCamera</h6>
+
+
+<h6>OrthographicCamera</h6>
+
+
+<h6>CubeCamera</h6>
+
+
+
+<a href="https://github.com/cjgammon/diving-in/blob/master/threejs/threejs-4_shadermaterial.zip?raw=true" download>Click here to download the demo.</a>
+<br/><br/>
+<small>Note: these examples were created using Three.js v79. Three.js is known to update frequently and sometimes cause breaking changes to the API so it may be worth checking the version you are using.</small>
