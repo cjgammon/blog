@@ -26,7 +26,7 @@ comments: []
 ---
 <iframe width="100%" height="415" class="youtube" src="https://www.youtube.com/embed/ABV1mK1CGOY" frameborder="0" allowfullscreen></iframe><br/>
 <p>
-Lights can really make the difference between a seemingly flat scene and a visual masterpiece. Think of any photo-realistic painting or photograph and then imagine it with poor lighting and the impact is just not the same. Cameras change the way we view our scenes altogether, think of the different types of lenses photographers use and how they can influence the perspective and depth of a photo.
+Lights can really make the difference between a seemingly flat scene and a visual masterpiece. Think of any photo-realistic painting or photograph and then imagine it with poor lighting and the impact is just not the same. Cameras change the way we view our scenes altogether, think of the different types of lenses photographers use and how they can influence the perspective and depth of a photo. Lights do not work on all materials. Lights do work with <code>MeshLambertMaterial</code>, <code>MeshPhongMaterial</code> and <code>MeshStandardMaterial</code>.
 </p>
 
 <h5>Lights</h5>
@@ -65,25 +65,72 @@ Like ambient light, hemisphere light has no position or direction. But unlike am
 <pre><code>var light = new THREE.HemisphereLight(skyColor, groundColor, intensity);</code></pre>
 
 <h6>Shadows</h6>
+<p>
+Shadows occur when certain kinds of lights are blocked by an object. They can be cast by and received by objects. And can be cast on any material that supports lights. Shadows can only be cast by a <code>DirectionalLight</code> or <code>SpotLight</code>. To support shadows you need to perform some configuration on your renderer. First we need to enable shadowMap on our renderer by setting <code>renderer.shadowMap.enabled</code> to true. Then we need to specify the type of shadowMap we want to use. The default is <code>PCFShadowMap</code>, but Three.js also supports <code>BasicShadowMap</code> and <code>PCFSoftShadowMap</code> which provide different results.
+</p>
 
+<pre><code>renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFShadowMap;</code></pre>
 
-<h6>God Rays</h6>
+<p>
+We then need to set up some properties on the light that will cast shadows. The first is to set the <code>castShadow</code> property to true.
+</p>
 
+<pre><code>light.castShadow = true;
+light.shadow = new THREE.LightShadow( new THREE.PerspectiveCamera( 50, 1, 1200, 2500 ) );
+light.shadow.bias = 0.0001;
+light.shadow.mapSize.width = 2048;
+light.shadow.mapSize.height = 1024;
+</code></pre>
+
+<p>
+We then need to define which objects will cast shadows and which will receive shadows. We do this by setting these properties to true on the relevant objects. In the example below the cube will cast shadows but not receive shadows. The floor will recieve shadows from all objects casting shadows. The sphere will both cast and receive shadows.
+</p>
+
+<pre><code>cube.castShadow = true;
+
+sphere.castShadow = true;
+sphere.receiveShadow = true;
+
+floor.receiveShadow = true;
+</code></pre>
+
+<p>
+Three.js also has a helper utility for visualizing what the shadow camera sees called <code>ShadowMapViewer</code>. Which can be found <a href="https://github.com/mrdoob/three.js/blob/dev/examples/js/utils/ShadowMapViewer.js">in their github repository</a>. It's usage will also require the inclusion of a special <code>UnpackDepthRGBAShader</code> shader found <a href="http://threejs.org/examples/js/shaders/UnpackDepthRGBAShader.js">in the github examples</a>. You then need to set up the viewer object by passing it a reference to your light and setting the position and size of the viewer. You then call the update method and add its render call, passing in your renderer, inside your render loop.
+</p>
+
+<pre><code>shadowMapViewer = new THREE.ShadowMapViewer( light );  
+shadowMapViewer.position.x = 10;
+shadowMapViewer.position.y = 10;
+shadowMapViewer.size.width = 2048 / 4;
+shadowMapViewer.size.height = 1024 / 4;
+shadowMapViewer.update();
+
+//Note: this goes inside render loop
+shadowMapViewer.render(renderer);
+</pre></code>
+<br/>
 
 <h5>Cameras</h5>
 <p>
-
+lookAt
 </p>
 
 
 <h6>PerspectiveCamera</h6>
-
+<p>
+Camera with perspective projection.	
+</p>
 
 <h6>OrthographicCamera</h6>
-
+<p>
+Camera with orthographic projection.
+</p>
 
 <h6>CubeCamera</h6>
-
+<p>
+This creates 6 cameras that render to a <code>WebGLRenderTargetCube</code>
+</p>
 
 
 <a href="https://github.com/cjgammon/diving-in/blob/master/threejs/threejs-4_shadermaterial.zip?raw=true" download>Click here to download the demo.</a>
