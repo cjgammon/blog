@@ -13,7 +13,7 @@ author_email: cj.gammon@gmail.com
 author_url: http://www.cjgammon.com
 date: '2016-9-14 13:44:00 -0500'
 date_gmt: '2016-9-14 01:44:00 -0500'
-image: img/covers/2016-9-14-threejs-intro.png
+image: img/2016/covers/2016-9-14-threejs-intro.png
 categories:
 - design
 - web
@@ -58,55 +58,55 @@ geometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
 <p>
 As mentioned Three.js has a bunch of built in geometric primitives and there are versions that extend both <code>Geometry</code> and <code>BufferGeometry</code> depending on your needs. The parameters for the regular and buffer versions are identical.
 </p>
-<img src="img/2016-09-14-threejs-geometry/plane.png"/><br/>
+<img src="img/2016/2016-09-14-threejs-geometry/plane.png"/><br/>
 <pre><code>var geometry = new THREE.PlaneGeometry(width, height, widthSegments, heightSegments);
 </code></pre>
 <p>
 <code>PlaneGeometry</code> takes the dimensions, width and height and the number of segments along each access the faces are broken into.
 </p>
-<img src="img/2016-09-14-threejs-geometry/box.png"/><br/>
+<img src="img/2016/2016-09-14-threejs-geometry/box.png"/><br/>
 <pre><code>var geometry = new THREE.BoxGeometry(width, height, depth, widthSegments, heightSegments, depthSegments);
 </code></pre>
 <p>
 <code>BoxGeometry</code> works the same as a plane, only including depth for both the dimensions and segments that can be divided.
 </p>
-<img src="img/2016-09-14-threejs-geometry/circle.png"/><br/>
+<img src="img/2016/2016-09-14-threejs-geometry/circle.png"/><br/>
 <pre><code>var geometry = new THREE.CircleGeometry(radius, segments, thetaStart, thetaLength);
 </code></pre>
 <p>
 <code>CircleGeometry</code> allows you to define the radius of the circle and the number of segments it is divided into. As well as the start angle and the angle defining the drawn segments.
 </p>
-<img src="img/2016-09-14-threejs-geometry/sphere.png"/><br/>
+<img src="img/2016/2016-09-14-threejs-geometry/sphere.png"/><br/>
 <pre><code>var geometry = new THREE.SphereGeometry(radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength);
 </code></pre>
 <p>
 Sphere works the same as circle only adding two dimensions for segments as well as the ability to set the start angle and angle drawn along both dimensions. 
 </p>
-<img src="img/2016-09-14-threejs-geometry/cone.png"/><br/>
+<img src="img/2016/2016-09-14-threejs-geometry/cone.png"/><br/>
 <pre><code>var geometry = new THREE.ConeGeometry(radius, height, radialSegments, heightSegments, openEnded, thetaStart, thetaLength);
 </code></pre>
 <p>
 <code>ConeGeometry</code> takes the radius, height, then segments for both as well as a boolean definining whether or not it is open ended or closed. Then the start and end angle for only drawing segments of the cone.
 </p>
-<img src="img/2016-09-14-threejs-geometry/cylinder.png"/><br/>
+<img src="img/2016/2016-09-14-threejs-geometry/cylinder.png"/><br/>
 <pre><code>var geometry = new THREE.Cylinder(radiusTop, radiusBottom, height, radiusSegments, heightSegments, openEnded, thetaStart, thetaLength);
 </code></pre>
 <p>
 Cylinders allow you to specify the radius of the top and bottom independently as well as the height. Then the segments along the radius and height, a boolean defining whether it's open ended or not and the start and end degrees for drawing only segments of the circumference.
 </p>
-<img src="img/2016-09-14-threejs-geometry/ring.png"/><br/>
+<img src="img/2016/2016-09-14-threejs-geometry/ring.png"/><br/>
 <pre><code>var geometry = new THREE.RingGeometry(innerRadius, outerRadius, thetaSegments, phiSegments, thetaStart, thetaLength);
 </code></pre>
 <p>
 <code>RingGeometry</code> specifies the inner and outer radius. The segments broken into around the circumference as well as out from width of the ring. You can also specify the start and end angle for drawing partial sections of the ring.
 </p>
-<img src="img/2016-09-14-threejs-geometry/torus.png"/><br/>
+<img src="img/2016/2016-09-14-threejs-geometry/torus.png"/><br/>
 <pre><code>var geometry = new THREE.TorusGeometry(radius, tube, radialSegments, tubularSegments, arc);
 </code></pre>
 <p>
 <code>TorusGeometry</code> is a tubular ring. It allows you to specify the radius of the ring, as well as the diameter of the tube. You can then specify the segments along the radius and tube. You can also specify the arc angle of the circumference to draw.
 </p>
-<img src="img/2016-09-14-threejs-geometry/torusknot.png"/><br/>
+<img src="img/2016/2016-09-14-threejs-geometry/torusknot.png"/><br/>
 <pre><code>var geometry = new THREE.TorusKnotGeometry(radius, tube, tubularSegments, radialSegments, p, q);
 </code></pre>
 <p>
@@ -132,24 +132,24 @@ var indicesOfFaces = [
 ];
 var geometry = new THREE.PolyhedronGeometry(vertices, faces, 6, 2);
 </code></pre><br/>
-<img src="img/2016-09-14-threejs-geometry/polyhedron.png"/><br/>
+<img src="img/2016/2016-09-14-threejs-geometry/polyhedron.png"/><br/>
 
 <pre><code>var geometry = new THREE.DodecahedronGeometry(100, 0);
 </code></pre><br/>
-<img src="img/2016-09-14-threejs-geometry/dodecahedron.png"/><br/>
+<img src="img/2016/2016-09-14-threejs-geometry/dodecahedron.png"/><br/>
 
 <pre><code>var geometry = new THREE.IcosahedronGeometry(100, 0);
 </code></pre><br/>
-<img src="img/2016-09-14-threejs-geometry/icosahedron.png"/><br/>
+<img src="img/2016/2016-09-14-threejs-geometry/icosahedron.png"/><br/>
 
 <pre><code>var geometry = new THREE.OctahedronGeometry(100, 0);
 </code></pre><br/>
-<img src="img/2016-09-14-threejs-geometry/octahedron.png"/><br/>
+<img src="img/2016/2016-09-14-threejs-geometry/octahedron.png"/><br/>
 
 <pre><code>var geometry = new THREE.TetrahedronGeometry(100, 0);
 </code></pre>
 <br/>
-<img src="img/2016-09-14-threejs-geometry/tetrahedron.png"/><br/>
+<img src="img/2016/2016-09-14-threejs-geometry/tetrahedron.png"/><br/>
 
 <h5>Text</h5>
 <p>
@@ -159,7 +159,7 @@ Three.js also supports <code>TextGeometry</code>, but in order to do this we nee
 var loadedFont = loader.parse(fontJSON);
 var geometry = new THREE.TextGeometry("my custom text here", {font: loadedFont, size: 120, height: 10});
 </code></pre>
-<img src="img/2016-09-14-threejs-geometry/text.png"/><br/>
+<img src="img/2016/2016-09-14-threejs-geometry/text.png"/><br/>
 
 <br/>
 <h5>Custom Shapes</h5>
@@ -181,7 +181,7 @@ We can then use this 2D shape and pass it into <code>ShapeGeometry</code> to dra
 </p>
 <pre><code>var geometry = new THREE.ShapeGeometry(heartShape);
 </code></pre>
-<img src="img/2016-09-14-threejs-geometry/shape.png"/><br/>
+<img src="img/2016/2016-09-14-threejs-geometry/shape.png"/><br/>
 
 <p>
 We can also extrude the shape into 3D by passing it into <code>ExtrudeGeometry</code> along with some parameters specifying how we want it to extrude.
@@ -195,7 +195,7 @@ We can also extrude the shape into 3D by passing it into <code>ExtrudeGeometry</
 	bevelThickness: 1 
 });
 </code></pre>
-<img src="img/2016-09-14-threejs-geometry/extrude.png"/><br/>
+<img src="img/2016/2016-09-14-threejs-geometry/extrude.png"/><br/>
 
 <h5>Lathe</h5>
 <p>
@@ -207,7 +207,7 @@ for ( var i = 0; i < 10; i ++ ) {
 }
 var geometry = new THREE.LatheGeometry( points );
 </code></pre>
-<img src="img/2016-09-14-threejs-geometry/lathe.png"/><br/>
+<img src="img/2016/2016-09-14-threejs-geometry/lathe.png"/><br/>
 
 <h5>Parametric</h5>
 <p>
@@ -223,7 +223,7 @@ var paramFunc = function(u, v){
 
 var geometry = new THREE.ParametricGeometry(paramFunc, 10, 10);
 </code></pre>
-<img src="img/2016-09-14-threejs-geometry/parametric.png"/><br/>
+<img src="img/2016/2016-09-14-threejs-geometry/parametric.png"/><br/>
 
 <h5>Tube</h5>
 <p>
@@ -238,7 +238,7 @@ We can also create <code>TubeGeometry</code> by passing in a path as the first p
 ]);
 var geometry = new THREE.TubeGeometry(curve, 20, 2, 8, false);
 </code></pre>
-<img src="img/2016-09-14-threejs-geometry/tube.png"/><br/>
+<img src="img/2016/2016-09-14-threejs-geometry/tube.png"/><br/>
 
 <h5>Updating Vertices</h5>
 <p>
