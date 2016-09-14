@@ -108,13 +108,13 @@ var material = new THREE.ShaderMaterial({
 });
 
 
-var vertexOpacity = new Float32Array(geometry.attributes.position.count);
+var vertexDisplacement = new Float32Array(geometry.attributes.position.count);
 
-for (var i = 0; i &lt; vertexOpacity.length; i ++) {
-	vertexOpacity[i] = Math.sin(i);
+for (var i = 0; i &lt; vertexDisplacement.length; i ++) {
+	vertexDisplacement[i] = Math.sin(i);
 }
 
-geometry.addAttribute('vertexOpacity', new THREE.BufferAttribute(vertexOpacity, 1));
+geometry.addAttribute('vertexDisplacement', new THREE.BufferAttribute(vertexDisplacement, 1));
 </code></pre>
 <p>
 In our uniforms object, we have a <code>delta</code> uniform with a value of zero and we'll update this later. Then we simply pass our uniform object into our <code>ShaderMaterial</code>. In this case it's just a float, but we can also pass in other value types using some types provided in Three.js. For example, if we want a vec2 we can set the value to <code>new THREE.Vector2()</code>. For a listing of all the uniform types available in Three.js see the <a href="http://threejs.org/docs/index.html#Reference/Materials/ShaderMaterial">documentation</a>.

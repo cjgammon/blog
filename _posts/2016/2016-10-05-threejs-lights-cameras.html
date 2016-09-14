@@ -113,26 +113,30 @@ shadowMapViewer.render(renderer);
 
 <h5>Cameras</h5>
 <p>
-lookAt
+Cameras are a key tool for 3D influencing the user's vantage point and the range of their view. By manipulating the camera's position we can navigate our scene. Three.js has two basic types of cameras, the most common is <code>PerspectiveCamera</code> the other is <code>OrthographicCamera</code>
 </p>
-
 
 <h6>PerspectiveCamera</h6>
 <p>
-Camera with perspective projection.	
+This creates a camera with perspective projection. This is a normal camera type where objects get smaller the further away they are. The first parameter is the camera's vertical field of view, from the bottom to top in degrees. The next is the aspect ratio of the camera so the viewport width divided by the height. The near and far plane determine the planes at which clipping occurs when objects are too close or too far away from the camera.
 </p>
+<pre><code>var camera = new THREE.PerspectiveCamera(fov, aspect, near, far);</code></pre>
 
 <h6>OrthographicCamera</h6>
 <p>
-Camera with orthographic projection.
+An <code>OrthographicCamera</code> creates a camera with an orthographic projection, with no visible perspective. The result is an isometric view. This means that all lines along the z-axis of a cube will be drawn parallel. The properties passed here are the left, right, top, bottom, near and far frustum planes. So we're defining the visible area of our viewport.
 </p>
+<pre><code>var camera = new THREE.OrthographicCamera(left, right, top, bottom, near, far);</code></pre>
 
-<h6>CubeCamera</h6>
+
+<h6>CameraHelper</h6>
 <p>
-This creates 6 cameras that render to a <code>WebGLRenderTargetCube</code>
+Cameras can be difficult to test and debug. Because of this Three.js has a <code>CameraHelper</code> which allows you to visualize the camera in space as well as it's frustum (viewable area). To use it you just add your camera to your scene and then pass it to the <code>CameraHelper</code> object and add that to your scene.
 </p>
+<pre><code>let helper = new THREE.CameraHelper(camera);
+scene.add(helper);</code></pre>
+<br/>
 
-
-<a href="https://github.com/cjgammon/diving-in/blob/master/threejs/threejs-4_shadermaterial.zip?raw=true" download>Click here to download the demo.</a>
+<a href="https://github.com/cjgammon/diving-in/blob/master/threejs/threejs-5_lightscamera.zip?raw=true" download>Click here to download the demo.</a>
 <br/><br/>
 <small>Note: these examples were created using Three.js v79. Three.js is known to update frequently and sometimes cause breaking changes to the API so it may be worth checking the version you are using.</small>
