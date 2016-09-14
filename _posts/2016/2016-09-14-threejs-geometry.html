@@ -58,28 +58,27 @@ geometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
 <p>
 As mentioned Three.js has a bunch of built in geometric primitives and there are versions that extend both <code>Geometry</code> and <code>BufferGeometry</code> depending on your needs. The parameters for the regular and buffer versions are identical.
 </p>
+<img src="img/2016/2016-09-14-threejs-geometry/plane.png"/><br/>
 <pre><code>var geometry = new THREE.PlaneGeometry(width, height, widthSegments, heightSegments);
 </code></pre>
-<img src="img/2016/2016-09-14-threejs-geometry/plane.png"/><br/>
 <p>
 <code>PlaneGeometry</code> takes the dimensions, width and height and the number of segments along each access the faces are broken into.
 </p>
+<img src="img/2016/2016-09-14-threejs-geometry/box.png"/><br/>
 <pre><code>var geometry = new THREE.BoxGeometry(width, height, depth, widthSegments, heightSegments, depthSegments);
 </code></pre>
-<img src="img/2016/2016-09-14-threejs-geometry/box.png"/><br/>
 <p>
 <code>BoxGeometry</code> works the same as a plane, only including depth for both the dimensions and segments that can be divided.
 </p>
+<img src="img/2016/2016-09-14-threejs-geometry/circle.png"/><br/>
 <pre><code>var geometry = new THREE.CircleGeometry(radius, segments, thetaStart, thetaLength);
 </code></pre>
-<img src="img/2016/2016-09-14-threejs-geometry/circle.png"/><br/>
 <p>
 <code>CircleGeometry</code> allows you to define the radius of the circle and the number of segments it is divided into. As well as the start angle and the angle defining the drawn segments.
 </p>
+<img src="img/2016/2016-09-14-threejs-geometry/sphere.png"/><br/>
 <pre><code>var geometry = new THREE.SphereGeometry(radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength);
 </code></pre>
-<img src="img/2016/2016-09-14-threejs-geometry/sphere.png"/><br/>
-
 <p>
 Sphere works the same as circle only adding two dimensions for segments as well as the ability to set the start angle and angle drawn along both dimensions. 
 </p>
