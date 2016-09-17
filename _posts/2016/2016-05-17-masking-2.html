@@ -49,11 +49,11 @@ comments: []
 <p>
   The shorthand for masking is:
 </p>
-<pre><code>-webkit-mask: url(../path/to/image);</code></pre>
+<pre><code class="language-css">-webkit-mask: url(../path/to/image);</code></pre>
 <p>
   And the detailed properties are:
 </p>
-<pre><code>-webkit-mask-image: url(../path/to/image);
+<pre><code class="language-css">-webkit-mask-image: url(../path/to/image);
 -webkit-mask-size: cover;
 -webkit-mask-position: center;
 -webkit-mask-repeat: no-repeat;</code></pre>
@@ -66,7 +66,7 @@ comments: []
   Clip paths are another way to manipulate the transparent portions of content but rather than using an image, they use a CSS shape.
   CSS shapes are vector shapes defined in CSS, these can be created by hand knowing the proper syntax or using a tool like <a href="http://bennettfeely.com/clippy/">clippy</a>.
 </p>
-<pre><code>-webkit-clip-path: polygon(50% 0%, 0% 100%, 100% 100%);</code></pre>
+<pre><code class="language-css">-webkit-clip-path: polygon(50% 0%, 0% 100%, 100% 100%);</code></pre>
 <p>
   Clip paths are neat because they allow you to create more interesting shapes than rectangles or rounded rectangles, but also because you can animate the shape from one to another using CSS transitions.
 </p>
@@ -75,7 +75,7 @@ comments: []
 <p>
   Because CSS masking is based off of CSS backgrounds it also supports multiple mask images.  This is where compositing comes in. The mask composite property allows you to adjust how the different mask image layers affect the transparency of the previous layers.
 </p>
-<pre><code>-webkit-mask-composite: source-over;</code></pre>
+<pre><code class="language-css">-webkit-mask-composite: source-over;</code></pre>
 <p>
   It takes a number of values and these all manipulate the resulting output in a variety of ways.  The default value is source-over, meaning the source mask image (next layer) is rendered over the destination mask image (previous layer).  This basically adds any subsequent images to your mask. The current compositing values supported by webkit are as follows:
 </p>

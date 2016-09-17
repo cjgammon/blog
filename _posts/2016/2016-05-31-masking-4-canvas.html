@@ -32,7 +32,7 @@ comments: []
 <p>
   Clip paths in canvas are pretty straight forward. First we simply draw a path using the beginPath method on our context, followed by the drawing commands, then closePath.
 </p>
-<pre><code>ctx.beginPath();
+<pre><code class="language-js">ctx.beginPath();
 ctx.arc(canvas.width / 2, canvas.height / 2, 200, 0, Math.PI * 2, false);
 ctx.closePath();
 ctx.clip();
@@ -48,7 +48,7 @@ ctx.clip();
   For normal luminance masks we use the value ‘destination-in’ and then proceed to draw our grayscale mask.
 </p>
 
-<pre><code>ctx.globalCompositeOperation = 'destination-in';
+<pre><code class="language-js">ctx.globalCompositeOperation = 'destination-in';
 ctx.drawImage(‘mylumamask’, 0, 0);
 </code></pre>
 
@@ -56,7 +56,7 @@ ctx.drawImage(‘mylumamask’, 0, 0);
   It’s important to remember canvas retains this as a global value.  So when you’re done with your mask, you’ll need to set it back to the default, ‘source-over’ in order for things to draw correctly later.
 <p>
 
-<pre><code>ctx.globalCompositeOperation = ’source-over';</code></pre>
+<pre><code class="language-js">ctx.globalCompositeOperation = ’source-over';</code></pre>
 
 <p>
   The real power of canvas is that you can use it to dynamically draw content through interaction as well as use video. Combining these with masks can create some really interesting results. The issue with using video for masks though is that many browsers still do not support alpha channels in their videos.  This means that we have to manually convert a luminance mask video into an alpha mask in order to have a video mask content in canvas.
@@ -65,7 +65,7 @@ ctx.drawImage(‘mylumamask’, 0, 0);
   This can be done by drawing the video on a separate offscreen canvas for processing. We then draw the video onto the offscreen canvas. Then using getImageData we can collect and iterate over the pixels, determining their color values. Since it’s a grayscale image we can simply pick the red color value and set each pixel’s alpha to red value. Then we can call putImageData back on that offscreen canvas to draw the processed image.  We now have a video playing in our canvas converted from a luminance mask to an alpha mask. Then we can continue to draw that back into our original canvas with the ‘destination-in’ globalCompositeOperation. This is more performance intensive since we have to do per pixel reading and writing so it may have performance issues for large footage, but in lieu of alpha video support this will get the job done. Of course if the browser supports alpha video you can skip this step altogether.
 </p>
 
-<pre><code>function drawMask() {
+<pre><code class="language-js">function drawMask() {
   videoctx.drawImage(video, 0, 0);
   var imgd = videoctx.getImageData(0, 0, videocanvas.width, videocanvas.height),
       pix = imgd.data,

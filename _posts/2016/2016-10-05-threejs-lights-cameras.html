@@ -26,57 +26,57 @@ comments: []
 ---
 <iframe width="100%" height="415" class="youtube" src="https://www.youtube.com/embed/ABV1mK1CGOY" frameborder="0" allowfullscreen></iframe><br/>
 <p>
-Lights can really make the difference between a seemingly flat scene and a visual masterpiece. Think of any photo-realistic painting or photograph and then imagine it with poor lighting and the impact is just not the same. Cameras change the way we view our scenes altogether, think of the different types of lenses photographers use and how they can influence the perspective and depth of a photo. Lights do not work on all materials. Lights do work with <code>MeshLambertMaterial</code>, <code>MeshPhongMaterial</code> and <code>MeshStandardMaterial</code>.
+Lights can really make the difference between a seemingly flat scene and a visual masterpiece. Think of any photo-realistic painting or photograph and then imagine it with poor lighting and the impact is just not the same. Cameras change the way we view our scenes altogether, think of the different types of lenses photographers use and how they can influence the perspective and depth of a photo. Lights do not work on all materials. Lights do work with <code class="language-js">MeshLambertMaterial</code>, <code class="language-js">MeshPhongMaterial</code> and <code class="language-js">MeshStandardMaterial</code>.
 </p>
 
-<h5>Lights</h5>
+<h2>Lights</h2>
 <p>
-Lights are often an after thought, but lighting can really be the most important aspect of your scene. Three.js has a variety of built in lights to apply to materials like <code>MeshLambertMaterial</code> and <code>MeshPhongMaterial</code>. These lights effect the materials in different ways depending on the type of light and their properties as well as the properties of the materials themselves.
+Lights are often an after thought, but lighting can really be the most important aspect of your scene. Three.js has a variety of built in lights to apply to materials like <code class="language-js">MeshLambertMaterial</code> and <code class="language-js">MeshPhongMaterial</code>. These lights effect the materials in different ways depending on the type of light and their properties as well as the properties of the materials themselves.
 </p>
 
-<h6>AmbientLight</h6>
+<h3>AmbientLight</h3>
 <p>
 The ambient light gets applied to all the objects in your scene globally. Ambient lights are often useful for filling parts of your scene not hit by other lights. This is because there's no relevant position or direction, it lights everything equally. You can set the color and the intensity of the ambient light.
 </p>
-<pre><code>var light = new THREE.AmbientLight(color, intensity);</code></pre>
+<pre><code class="language-js">var light = new THREE.AmbientLight(color, intensity);</code></pre>
 
-<h6>PointLight</h6>
+<h3>PointLight</h3>
 <p>
 Point lights are like light bulbs in your scene. They are positioned at a specific location and radiate light outwards in all directions from that postion. They have a color and intensity. Point lights allow you to set the distance from the light at which point it's intensity is zero. You can also set the decay which is the amount the light dims along the distance.
 </p>
-<pre><code>var light = new THREE.PointLight(color, intensity, distance, decay);</code></pre>
+<pre><code class="language-js">var light = new THREE.PointLight(color, intensity, distance, decay);</code></pre>
 
-<h6>DirectionalLight</h6>
+<h3>DirectionalLight</h3>
 <p>
 Direcional lights resemble the Sun. They're a distant powerful light source pointing in one direction.
 </p>
-<pre><code>var light = new THREE.DirectionalLight(color, intensity);</code></pre>
+<pre><code class="language-js">var light = new THREE.DirectionalLight(color, intensity);</code></pre>
 
-<h6>SpotLight</h6>
+<h3>SpotLight</h3>
 <p>
 Spotlights are just that, spotlights. They are lights that point in one direction radiating out in a cone shape. We can pass an angle to the light as a parameter which is the maximum angle of the light cone in radians. Penumbra affects the intensity or softness of outer shadow or light fall-off as it fades to darkness.
 </p>
-<pre><code>var light = new THREE.SpotLight(color, intensity, distance, angle, penumbra, decay);</code></pre>
+<pre><code class="language-js">var light = new THREE.SpotLight(color, intensity, distance, angle, penumbra, decay);</code></pre>
 
-<h6>HemisphereLight</h6>
+<h3>HemisphereLight</h3>
 <p>
 Like ambient light, hemisphere light has no position or direction. But unlike ambient light it has two colors. One to simulate the color coming from above, like a sun or ceiling light source. The other is the color of light coming from below, to simulate the light reflected off the floor or ground surface. This is to provide a bit more realism than a globally applied ambient light.
 </p>
-<pre><code>var light = new THREE.HemisphereLight(skyColor, groundColor, intensity);</code></pre>
+<pre><code class="language-js">var light = new THREE.HemisphereLight(skyColor, groundColor, intensity);</code></pre>
 
-<h6>Shadows</h6>
+<h3>Shadows</h3>
 <p>
-Shadows occur when certain kinds of lights are blocked by an object. They can be cast by and received by objects. And can be cast on any material that supports lights. Shadows can only be cast by a <code>DirectionalLight</code> or <code>SpotLight</code>. To support shadows you need to perform some configuration on your renderer. First we need to enable shadowMap on our renderer by setting <code>renderer.shadowMap.enabled</code> to true. Then we need to specify the type of shadowMap we want to use. The default is <code>PCFShadowMap</code>, but Three.js also supports <code>BasicShadowMap</code> and <code>PCFSoftShadowMap</code> which provide different results.
+Shadows occur when certain kinds of lights are blocked by an object. They can be cast by and received by objects. And can be cast on any material that supports lights. Shadows can only be cast by a <code class="language-js">DirectionalLight</code> or <code class="language-js">SpotLight</code>. To support shadows you need to perform some configuration on your renderer. First we need to enable shadowMap on our renderer by setting <code class="language-js">renderer.shadowMap.enabled</code> to true. Then we need to specify the type of shadowMap we want to use. The default is <code class="language-js">PCFShadowMap</code>, but Three.js also supports <code class="language-js">BasicShadowMap</code> and <code class="language-js">PCFSoftShadowMap</code> which provide different results.
 </p>
 
-<pre><code>renderer.shadowMap.enabled = true;
+<pre><code class="language-js">renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFShadowMap;</code></pre>
 
 <p>
-We then need to set up some properties on the light that will cast shadows. The first is to set the <code>castShadow</code> property to true.
+We then need to set up some properties on the light that will cast shadows. The first is to set the <code class="language-js">castShadow</code> property to true.
 </p>
 
-<pre><code>light.castShadow = true;
+<pre><code class="language-js">light.castShadow = true;
 light.shadow = new THREE.LightShadow( new THREE.PerspectiveCamera( 50, 1, 1200, 2500 ) );
 light.shadow.bias = 0.0001;
 light.shadow.mapSize.width = 2048;
@@ -87,7 +87,7 @@ light.shadow.mapSize.height = 1024;
 We then need to define which objects will cast shadows and which will receive shadows. We do this by setting these properties to true on the relevant objects. In the example below the cube will cast shadows but not receive shadows. The floor will recieve shadows from all objects casting shadows. The sphere will both cast and receive shadows.
 </p>
 
-<pre><code>cube.castShadow = true;
+<pre><code class="language-js">cube.castShadow = true;
 
 sphere.castShadow = true;
 sphere.receiveShadow = true;
@@ -96,10 +96,10 @@ floor.receiveShadow = true;
 </code></pre>
 
 <p>
-Three.js also has a helper utility for visualizing what the shadow camera sees called <code>ShadowMapViewer</code>. Which can be found <a href="https://github.com/mrdoob/three.js/blob/dev/examples/js/utils/ShadowMapViewer.js">in their github repository</a>. It's usage will also require the inclusion of a special <code>UnpackDepthRGBAShader</code> shader found <a href="http://threejs.org/examples/js/shaders/UnpackDepthRGBAShader.js">in the github examples</a>. You then need to set up the viewer object by passing it a reference to your light and setting the position and size of the viewer. You then call the update method and add its render call, passing in your renderer, inside your render loop.
+Three.js also has a helper utility for visualizing what the shadow camera sees called <code class="language-js">ShadowMapViewer</code>. Which can be found <a href="https://github.com/mrdoob/three.js/blob/dev/examples/js/utils/ShadowMapViewer.js">in their github repository</a>. It's usage will also require the inclusion of a special <code class="language-js">UnpackDepthRGBAShader</code> shader found <a href="http://threejs.org/examples/js/shaders/UnpackDepthRGBAShader.js">in the github examples</a>. You then need to set up the viewer object by passing it a reference to your light and setting the position and size of the viewer. You then call the update method and add its render call, passing in your renderer, inside your render loop.
 </p>
 
-<pre><code>shadowMapViewer = new THREE.ShadowMapViewer( light );  
+<pre><code class="language-js">shadowMapViewer = new THREE.ShadowMapViewer( light );  
 shadowMapViewer.position.x = 10;
 shadowMapViewer.position.y = 10;
 shadowMapViewer.size.width = 2048 / 4;
@@ -111,29 +111,29 @@ shadowMapViewer.render(renderer);
 </pre></code>
 <br/>
 
-<h5>Cameras</h5>
+<h2>Cameras</h2>
 <p>
-Cameras are a key tool for 3D influencing the user's vantage point and the range of their view. By manipulating the camera's position we can navigate our scene. Three.js has two basic types of cameras, the most common is <code>PerspectiveCamera</code> the other is <code>OrthographicCamera</code>
+Cameras are a key tool for 3D influencing the user's vantage point and the range of their view. By manipulating the camera's position we can navigate our scene. Three.js has two basic types of cameras, the most common is <code class="language-js">PerspectiveCamera</code> the other is <code class="language-js">OrthographicCamera</code>
 </p>
 
-<h6>PerspectiveCamera</h6>
+<h3>PerspectiveCamera</h3>
 <p>
 This creates a camera with perspective projection. This is a normal camera type where objects get smaller the further away they are. The first parameter is the camera's vertical field of view, from the bottom to top in degrees. The next is the aspect ratio of the camera so the viewport width divided by the height. The near and far plane determine the planes at which clipping occurs when objects are too close or too far away from the camera.
 </p>
-<pre><code>var camera = new THREE.PerspectiveCamera(fov, aspect, near, far);</code></pre>
+<pre><code class="language-js">var camera = new THREE.PerspectiveCamera(fov, aspect, near, far);</code></pre>
 
-<h6>OrthographicCamera</h6>
+<h3>OrthographicCamera</h3>
 <p>
-An <code>OrthographicCamera</code> creates a camera with an orthographic projection, with no visible perspective. The result is an isometric view. This means that all lines along the z-axis of a cube will be drawn parallel. The properties passed here are the left, right, top, bottom, near and far frustum planes. So we're defining the visible area of our viewport.
+An <code class="language-js">OrthographicCamera</code> creates a camera with an orthographic projection, with no visible perspective. The result is an isometric view. This means that all lines along the z-axis of a cube will be drawn parallel. The properties passed here are the left, right, top, bottom, near and far frustum planes. So we're defining the visible area of our viewport.
 </p>
-<pre><code>var camera = new THREE.OrthographicCamera(left, right, top, bottom, near, far);</code></pre>
+<pre><code class="language-js">var camera = new THREE.OrthographicCamera(left, right, top, bottom, near, far);</code></pre>
 
 
-<h6>CameraHelper</h6>
+<h3>CameraHelper</h3>
 <p>
-Cameras can be difficult to test and debug. Because of this Three.js has a <code>CameraHelper</code> which allows you to visualize the camera in space as well as it's frustum (viewable area). To use it you just add your camera to your scene and then pass it to the <code>CameraHelper</code> object and add that to your scene.
+Cameras can be difficult to test and debug. Because of this Three.js has a <code class="language-js">CameraHelper</code> which allows you to visualize the camera in space as well as it's frustum (viewable area). To use it you just add your camera to your scene and then pass it to the <code class="language-js">CameraHelper</code> object and add that to your scene.
 </p>
-<pre><code>let helper = new THREE.CameraHelper(camera);
+<pre><code class="language-js">let helper = new THREE.CameraHelper(camera);
 scene.add(helper);</code></pre>
 <br/>
 

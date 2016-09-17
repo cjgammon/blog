@@ -29,16 +29,16 @@ comments: []
   Masking is really powerful in SVG in fact SVG has it's own mask element specific to this purpose.
 </p>
 
-<pre><code>&lt;mask id=“myMask"&gt;&lt;/mask&gt;</pre></code>
+<pre><code class="language-html">&lt;mask id="myMask"&gt;&lt;/mask&gt;</pre></code>
 <p>
 We can add this element into our <code>&lt;defs&gt;</code> tag and then any content we add inside of it will be used as a luminance mask. So black will become transparent and white remains opaque.  Then we simply add the <code>mask</code> property referencing our mask element by id.
 </p>
-<pre><code>&lt;rect mask=“url(#myMask)”/&gt;</pre></code>
+<pre><code class="language-html">&lt;rect mask="url(#myMask)"/&gt;</pre></code>
 <p>
 SVG also supports clip paths, which work basically the same way as masks. We have our clip path element which contains the shape used as our clip path. Then we use the <code>clip-path</code> property to apply it to content within our SVG. The difference between clip paths and masks is that masks support semitransparent areas, such as gray colors and gradients, where clip paths just use the outline of the shape and make it either completely opaque or transparent.
 </p>
-<pre><code>&lt;clipPath id=“myClipPath”&gt;&lt;/clipPath&gt;
-&lt;rect clip-path=“url(#myClipPath)”/&gt;</pre></code>
+<pre><code class="language-html">&lt;clipPath id="myClipPath"&gt;&lt;/clipPath&gt;
+&lt;rect clip-path="url(#myClipPath)"/&gt;</pre></code>
 <p>
 These techniques allow for some interesting designs, but also allow interesting animation techniques as well.  For example, below is an animation I created that draws in text using a mask.  In the video above I describe how it was made.
 </p>

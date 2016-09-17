@@ -39,7 +39,7 @@ To familiarize yourself with shaders I recommend checking out <a href="http://gl
 <p>
 GLSL is similar to C/C++ with strict types and operators. The fragment shader which influences our color channels consists of a main method which sets a variable named gl_FragColor of type vec4 (a vector containing 4 floats), representing the red, green, blue, and alpha channels being drawn on the vertices.  The following example returns the color red:
 </p>
-<pre><code>void main() {
+<pre><code class="language-glsl">void main() {
      gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
 }
 </code></pre>
@@ -52,7 +52,7 @@ To use images as masks we need to pass the texture along to our shaders.
 </p>
 
 <b>Vertex Shader</b>
-<pre><code>varying vec2 vUv;
+<pre><code class="language-glsl">varying vec2 vUv;
 
 void main() {
   vUv = uv;
@@ -61,7 +61,7 @@ void main() {
 </code></pre>
 
 <b>Fragment Shader</b>
-<pre><code>varying vec2 vUv;
+<pre><code class="language-glsl">varying vec2 vUv;
 uniform sampler2D texture1;
 
 void main() {
