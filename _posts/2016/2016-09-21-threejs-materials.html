@@ -29,53 +29,76 @@ comments: []
 Materials determine how the surface of our geometry is drawn in Three.js. If the Geometry is our skeleton, defining the shape, then the Material is our skin. There are a variety of different types of materials in Three.js all of which have different properties, like responding to lights, mapping textures, and adjusting opacity.
 </p>
 
+<h3>Basic Material</h3>
 <p>
 The most basic material is the <code class="language-js">MeshBasicMaterial</code>. You can pass a color in as a parameter to get a solid colored object, which has no shading. You can also adjust the opacity by passing in the opacity as a parameter with a value from 0 to 1 and setting transparent to true.
 </p>
 <pre><code class="language-js">var material = new THREE.MeshBasicMaterial({color: 0xff0000, transparent: true, opacity: 0.5});
 </code></pre>
+
+<h3>Normal Material</h3>
 <p>
 Another material we have is <code class="language-js">MeshNormalMaterial</code>. This colors the faces of the mesh differently based on the face's normal or what direction they are facing. 
 </p>
 <pre><code class="language-js">var material = new THREE.MeshNormalMaterial();
 </code></pre>
+
+<h3>Lambert Material</h3>
 <p>
 For allowing our material to respond to lights <code class="language-js">MeshLambertMaterial</code> will give our geometry shading with a dull surface. Lambert is a common material in most 3D applications. Just like before we can adjust the color. It also has an emissive property which adds a glow like color to the material.
 </p>
 <pre><code class="language-js">var material = new THREE.MeshLambertMaterial({color: 0xff0000, transparent: true, opacity: 0.5});
 </code></pre>
+
+<h3>Phong Material</h3>
 <p>
 Similar to Lambert <code class="language-js">MeshPhongMaterial</code> responds to lights but adds a metallic luster to the surface, reflecting light with more intensity. You can also add a specular color and adjust the shininess property of this material to adjust the intensity of the light reflection.
 </p>
 <pre><code class="language-js">var material = new THREE.MeshPhongMaterial({shininess: 1});
 </code></pre>
+
+<h3>Standard Material</h3>
 <p>
 <code class="language-js">MeshStandardMaterial</code> aims to combine Lambert and Phong into a single material. It has properties for roughness and metalness and adjusting these can create both dull or metallic looking surfaces.
 </p>
 <pre><code class="language-js">var material = new THREE.MeshStandardMaterial({metalness: 0, roughness: 0.5});
 </code></pre>
+
+<h3>Depth Material</h3>
 <p>
 A different kind of material is <code class="language-js">MeshDepthMaterial</code> which draws the meshes grayscale from black to white based on the depth of the content. This can be useful for passing in a grayscale image as a texture into a shader for depth based effects.
 </p>
 <pre><code class="language-js">var material = new THREE.MeshDepthMaterial();
 </code></pre>
+
 <p>
 All of the materials we have discussed so far are mesh materials because they are applied to meshes. However there are other kinds of geometric objects within Three.js which have their own special materials.
 </p>
+
+<h3>Line Material</h3>
 <p>
-Lines can be drawn using a <code class="language-js">LineBasicMaterial</code>. This works similarly to <code class="language-js">MeshBasicMaterial</code>. There is also a <code class="language-js">LineDashedMaterial</code>, which allows you to set the dashSize and gapSize on your line. For dashed lines to work however you need to call a method on your geometry called <code class="language-js">computeLineDistances()</code> which uses the distance of the line to draw the dashes the correct size.
+To draw a <code class="language-js">Line</code> we must utilize <code class="language-js">LineBasicMaterial</code>. This works similarly to <code class="language-js">MeshBasicMaterial</code>. There is also a <code class="language-js">LineDashedMaterial</code>, which allows you to set the dashSize and gapSize on your line. For dashed lines to work however you need to call a method on your geometry called <code class="language-js">computeLineDistances()</code> which uses the distance of the line to draw the dashes the correct size.
 </p>
 <pre><code class="language-js">var material = new THREE.LineDashedMaterial({dashSize: 2, gapSize: 2});
 geometry.computeLineDistances();
+
+var line = new THREE.Line(geometry, material);
 </code></pre>
+
+<h3>Points Material</h3>
 <p>
-Similar to lines, Points can be drawn using <code class="language-js">PointsMaterial</code>.
+Similar to drawing a <code class="language-js">Line</code>, <code class="language-js">Points</code> require the use of <code class="language-js">PointsMaterial</code>.
 </p>
+<pre><code class="language-js">var material = new THREE.PointsMaterial({color: 0xF3FFE2});
+var points = new THREE.Points(geometry, material);
+</code></pre>
+
+<h3>Sprite Material</h3>
 <p>
 Another special kind of material is <code class="language-js">SpriteMaterial</code>, which can take a texture map and be applied to a Sprite.  Sprite's are a special kind of plane that is always facing the camera.
 </p>
 <pre><code class="language-js">var material = new THREE.SpriteMaterial({map: "mytexture.png"});
-var mesh = new THREE.Sprite(material);
+var sprite = new THREE.Sprite(material);
 </code></pre>
 <p>
 Materials and their parameters combined with lights add a lot to the look and feel of 3D content. Playing around with these alone can create some amazing visuals.
