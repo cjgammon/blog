@@ -26,12 +26,70 @@ comments: []
 ---
 <iframe width="100%" height="415" class="youtube" src="https://www.youtube.com/embed/ABV1mK1CGOY" frameborder="0" allowfullscreen></iframe><br/>
 <p>
-Post-Processing is the addition of image effects or filters to your entire scene. This can effect the style and simulate other visual effects on the scene. Some examples are applying a sepia tone, or animated static effect to the rendered scene, giving it the feel of an older television set.
+Post-Processing is the addition of image effects or filters to your entire scene. This can effect the style and simulate other visual effects on the scene. Some examples are applying a sepia tone, or animated static effect to the rendered scene, giving it the feel of an older television set. To achieve this in Three.js we utilize shaders to create these effects. The process involves creating an <code class="language-js">EffectComposer</code> and then chaining together the rendering and effects by adding <em>passes</em> to it. <em>Passes</em> are how we define the sequence of the rendering and effects occurring in the composer. There are different kinds of passes that achieve different results in the composer. I should also not that the classes and files used such as <code class="language-js">EffectComposer</code> and the built in passes are not technically part of Three.js, but can be found in <a href="https://github.com/mrdoob/three.js/tree/dev/examples/js/postprocessing">the examples included with the library</a>.
 </p>
 
-<h5>compositor</h5>
+<h2>Effect Composer</h2>
 <p>
+The <code class="language-js">EffectComposer</code> is where you are going to add all your passes by calling <code class="languat-js">addPass()</code>. The first parameter it takes is your renderer. The second parameter is optional but takes a render target that allows you to specify different settings from your renderer, such as size, or other parameters. This composer will actually replace how we update the rendering of our application. Where we normally call <code class="languat-js">renderer.render(scene, camera);</code> to render our scene. We will instead call <code class="languat-js">composer.render();</code> in our render loop to redraw our composited scene.
+</p>
+<pre><code class="language-js">var composer = new THREE.EffectComposer(renderer, renderTarget);
 
+//NOTE: this goes in your render loop
+composer.render();</code></pre>
+
+<h3>Render Pass</h3>
+<p>
+The <code class="language-js">RenderPass</code> is a pass for our composer that draws our scene and objects as they normally would be drawn in our renderer, with no effects. This will typically be the first pass you add to your composer. The <code class="language-js">RenderPass</code> takes two parameters, just like your render call, the parameters are your <code class="language-js">scene</code>, and <code class="language-js">camera</code> objects.
+</p>
+<pre><code class="language-js">var renderPass = new THREE.RenderPass(scene, camera);
+composer.addPass(renderPass);</code></pre>
+
+<h3>Shader Pass</h3>
+<p>
+The <code>ShaderPass</code> is a shader that provides a processing effect to the preceding texture provided in the composer sequence. This texture is the results from the previous pass. The <a href="https://github.com/mrdoob/three.js/tree/dev/examples/js/shaders">examples include some shaders</a> that you can use with the composer and are normally formatted to work with the <code class="language-js">ShaderPass</code> class.
+</p>
+<pre><code class="language-js">var shaderPass = new THREE.ShaderPass(THREE.SepiaShader);
+composer.addPass(shaderPass);</code></pre>
+<p>
+You can also pass in your own effects to the <code class="language-js">ShaderPass</code>. The structure it takes is simply an object with three properties, the <code class="language-js">uniforms, <code class="language-js">vertexShader</code>, and <code class="language-js">fragmentShader</code>. If you checked out the post on <a href="/threejs-custom-shader-material">Custom Shader Materials</a>, these should look familiar. You can see <code class="language-js">THREE.SepiaShader</code> contents below. The <code class="language-js">uniforms</code> property is just an object that has each uniform and it's value. The <code class="language-js">vertexShader</code> and <code class="language-js">fragmentShader</code> are simply strings containing the shader program. In the example below they are an array of strings that are joined together with line breaks, but this string content can come from anywhere. Using this as a model you can pass in your own custom shaders into a <code class="language-js">ShaderPass</code>.
+</p>
+<pre><code class="language-js">THREE.SepiaShader = {
+	uniforms: {
+		"tDiffuse": { value: null },
+		"amount":   { value: 1.0 }
+	},
+	vertexShader: [
+		"varying vec2 vUv;",
+		"void main() {",
+			"vUv = uv;",
+			"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+		"}"
+	].join( "\n" ),
+	fragmentShader: [
+		"uniform float amount;",
+		"uniform sampler2D tDiffuse;",
+		"varying vec2 vUv;",
+		"void main() {",
+			"vec4 color = texture2D( tDiffuse, vUv );",
+			"vec3 c = color.rgb;",
+			"color.r = dot( c, vec3( 1.0 - 0.607 * amount, 0.769 * amount, 0.189 * amount ) );",
+			"color.g = dot( c, vec3( 0.349 * amount, 1.0 - 0.314 * amount, 0.168 * amount ) );",
+			"color.b = dot( c, vec3( 0.272 * amount, 0.534 * amount, 1.0 - 0.869 * amount ) );",
+			"gl_FragColor = vec4( min( vec3( 1.0 ), color.rgb ), color.a );",
+		"}"
+	].join( "\n" )
+};</code></pre>
+
+<h3>Texture Pass</h3>
+<p>
+<code>TexturePass</code> simply allows you to render a texture to your composer by taking in the texture itself as the map and the opacitcy of the texture.
+</p>
+<pre><code class="language-js">var texturePass = new THREE.TexturePass(map, opacity);
+composer.addPass(texturePass);</code></pre>
+
+<p>
+Many other passes can be found in the <a href="https://github.com/mrdoob/three.js/tree/dev/examples/js/postprocessing">examples</a>. Like <code class="language-js">ClearPass</code>, <code class="language-js">MaskPass</code>, and <code class="language-js">SavePass</code>. Which all perform different operations on the composer to achieve different results. Examples how they are used can be found in the source code or the Three.js <a href="http://threejs.org/examples/">example projects</a>.
 </p>
 
 <a href="https://github.com/cjgammon/diving-in/blob/master/threejs/threejs-6_postprocessing.zip?raw=true" download>Click here to download the demo.</a>

@@ -50,11 +50,17 @@ Point lights are like light bulbs in your scene. They are positioned at a specif
 <p>
 Direcional lights resemble the Sun. They're a distant powerful light source pointing in one direction.
 </p>
+<p>
+An important thing to note about directional lights is that its object rotation does not actually influence where it is pointing, instead it uses a target property which is an <code class="language-js">Object3D</code>. This allows you to influence the direction of the light. Note this may change in the future, as of version 79 there are some issues filed <a href="https://github.com/mrdoob/three.js/issues/5555">here</a> and <a href="https://github.com/mrdoob/three.js/issues/5870">here</a> around target and the reflected matrix in the light object.
+</p>
 <pre><code class="language-js">var light = new THREE.DirectionalLight(color, intensity);</code></pre>
 
 <h3>SpotLight</h3>
 <p>
 Spotlights are just that, spotlights. They are lights that point in one direction radiating out in a cone shape. We can pass an angle to the light as a parameter which is the maximum angle of the light cone in radians. Penumbra affects the intensity or softness of outer shadow or light fall-off as it fades to darkness.
+</p>
+<p>
+Because spotlights have a direction they suffer from the same rotation behavior as directional lights, requiring them to point to a target object's position.
 </p>
 <pre><code class="language-js">var light = new THREE.SpotLight(color, intensity, distance, angle, penumbra, decay);</code></pre>
 
@@ -73,11 +79,11 @@ Shadows occur when certain kinds of lights are blocked by an object. They can be
 renderer.shadowMap.type = THREE.PCFShadowMap;</code></pre>
 
 <p>
-We then need to set up some properties on the light that will cast shadows. The first is to set the <code class="language-js">castShadow</code> property to true.
+We then need to set up some properties on the light that will cast shadows. The first is to set the <code class="language-js">castShadow</code> property to true. Then we set the shadow object which is a <code class="language-js">LightShadow</code> that takes in a camera object defining the field of view, aspect ratio, near and far frustum planes. Then we can set other properties like the resolution of the shadows in the <code class="language-js">mapSize</code>. And the <code class="language-js">bias</code> which determines how much to add or subtract from the normalized depth to determine if a surface is in a shadow.
 </p>
 
 <pre><code class="language-js">light.castShadow = true;
-light.shadow = new THREE.LightShadow( new THREE.PerspectiveCamera( 50, 1, 1200, 2500 ) );
+light.shadow = new THREE.LightShadow( new THREE.PerspectiveCamera( 50, 1, 10, 2500 ) );
 light.shadow.bias = 0.0001;
 light.shadow.mapSize.width = 2048;
 light.shadow.mapSize.height = 1024;
