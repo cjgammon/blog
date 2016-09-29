@@ -2,7 +2,7 @@
 layout: post
 status: publish
 published: false
-title: Three.js Models
+title: Three.js Loading Models
 author:
   display_name: cjgammon
   login: cjgammon
@@ -34,17 +34,37 @@ In my post on <a href="/threejs-geometry">Geometry in Three.js</a> I discussed t
 There are many 3D modeling applications like Maya and Cinema 4D. But in this post we are going to focus on Blender because it is free and open-sourced. Also Three.js comes bundled with a plug-in that allows you to export content directly from Blender into a JSON format which can be loaded into Three.js. You can download Blender at <a href="https://www.blender.org/">blender.org</a>, the version we are going to use is 2.77a.
 </p>
 <p>
-To install the plug-in...
+The version of blender you are using is very important, as of Three.js v79 the plug-in packaged is recommended for Blender versions greater than or equal to 2.73. The exporter can be found in the <a href="https://github.com/mrdoob/three.js/tree/dev/utils/exporters/blender">utils directory on github</a>. Copy the <code>io_three</code> directory into the <code>scripts/addons</code> folder of your Blender installation. This can be found in the following locations depending on your operating system.
+</p>
+<h5>Windows</h5>
+<pre><code class="language-vim">C:\Program Files\Blender Foundation\Blender\2.7X\scripts\addons</code></pre>
+<h5>OSX</h5>
+<pre><code class="language-vim">/Users/(myuser)/Library/Application Support/Blender/2.7X/scripts/addons</code></pre>
+<h5>Linux</h5>
+<pre><code class="language-vim">/home/USERNAME/.config/blender/2.6X/scripts/addons</code></pre>
+<p>
+For it to be available, the exporter needs to be activated. This can be done by going into the File menu to User Preferences then selecting the Add-ons tab. Then check "Import-Export: Three.js Format". You can then use it by going to File>Export>Three.js to generate the JSON format.
 </p>
 
 <h2>Loading</h2>
 <p>
+So now that you have your JSON file you need to load it into your Three.js application. You can do this using the <code class="language-js">JSONLoader</code> class. You then call <code class="language-js">load()</code> on the object passing in the url to the file as well as a callback method for when the file has loaded.
+</p>
+<pre><code class="language-js">var loader = new THREE.JSONLoader();
+loader.load('monkey.json', handle_LOADED);</code></pre>
+<p>
+The callback returns with two values. The geometry from your model and any materials in the model. Because the materials come back as an array of materials you can use them by passing them into the <code class="language-js">MultiMaterial</code> class. Now you can continue to create your mesh with the geometry and your new material as you would normally.
+</p>
+<pre><code class="language-js">function handle_LOADED(geometry, materials) {
+	var material = new THREE.MultiMaterial(materials);
+	mesh = new THREE.Mesh(geometry, material);
+	scene.add(mesh);
+}</code></pre>
+
+<h2>Animation</h2>
+<p>
 
 </p>
-<pre><code class="language-js">
-
-</code></pre>
-
 
 <a href="https://github.com/cjgammon/diving-in/blob/master/threejs/threejs-
 .zip?raw=true" download>Click here to download the demo.</a>
