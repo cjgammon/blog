@@ -39,12 +39,14 @@ Lights are often an after thought, but lighting can really be the most important
 The ambient light gets applied to all the objects in your scene globally. Ambient lights are often useful for filling parts of your scene not hit by other lights. This is because there's no relevant position or direction, it lights everything equally. You can set the color and the intensity of the ambient light.
 </p>
 <pre><code class="language-js">var light = new THREE.AmbientLight(color, intensity);</code></pre>
+<img style="width: auto; max-width: 100%" src="img/2016/2016-10-05-threejs-lights/ambient.png"/><br/>
 
 <h3>PointLight</h3>
 <p>
 Point lights are like light bulbs in your scene. They are positioned at a specific location and radiate light outwards in all directions from that postion. They have a color and intensity. Point lights allow you to set the distance from the light at which point it's intensity is zero. You can also set the decay which is the amount the light dims along the distance.
 </p>
 <pre><code class="language-js">var light = new THREE.PointLight(color, intensity, distance, decay);</code></pre>
+<img style="width: auto; max-width: 100%" src="img/2016/2016-10-05-threejs-lights/point.png"/><br/>
 
 <h3>DirectionalLight</h3>
 <p>
@@ -54,6 +56,7 @@ Direcional lights resemble the Sun. They're a distant powerful light source poin
 An important thing to note about directional lights is that its object rotation does not actually influence where it is pointing, instead it uses a target property which is an <code class="language-js">Object3D</code>. This allows you to influence the direction of the light. Note this may change in the future, as of version 79 there are some issues filed <a href="https://github.com/mrdoob/three.js/issues/5555">here</a> and <a href="https://github.com/mrdoob/three.js/issues/5870">here</a> around target and the reflected matrix in the light object.
 </p>
 <pre><code class="language-js">var light = new THREE.DirectionalLight(color, intensity);</code></pre>
+<img style="width: auto; max-width: 100%" src="img/2016/2016-10-05-threejs-lights/direction.png"/><br/>
 
 <h3>SpotLight</h3>
 <p>
@@ -63,12 +66,14 @@ Spotlights are just that, spotlights. They are lights that point in one directio
 Because spotlights have a direction they suffer from the same rotation behavior as directional lights, requiring them to point to a target object's position.
 </p>
 <pre><code class="language-js">var light = new THREE.SpotLight(color, intensity, distance, angle, penumbra, decay);</code></pre>
+<img style="width: auto; max-width: 100%" src="img/2016/2016-10-05-threejs-lights/spot.png"/><br/>
 
 <h3>HemisphereLight</h3>
 <p>
 Like ambient light, hemisphere light has no position or direction. But unlike ambient light it has two colors. One to simulate the color coming from above, like a sun or ceiling light source. The other is the color of light coming from below, to simulate the light reflected off the floor or ground surface. This is to provide a bit more realism than a globally applied ambient light.
 </p>
 <pre><code class="language-js">var light = new THREE.HemisphereLight(skyColor, groundColor, intensity);</code></pre>
+<img style="width: auto; max-width: 100%" src="img/2016/2016-10-05-threejs-lights/hemisphere.png"/><br/>
 
 <h3>Shadows</h3>
 <p>
@@ -100,6 +105,7 @@ sphere.receiveShadow = true;
 
 floor.receiveShadow = true;
 </code></pre>
+<img style="width: auto; max-width: 100%" src="img/2016/2016-10-05-threejs-lights/shadows.png"/><br/>
 
 <p>
 Three.js also has a helper utility for visualizing what the shadow camera sees called <code class="language-js">ShadowMapViewer</code>. Which can be found <a href="https://github.com/mrdoob/three.js/blob/dev/examples/js/utils/ShadowMapViewer.js">in their github repository</a>. It's usage will also require the inclusion of a special <code class="language-js">UnpackDepthRGBAShader</code> shader found <a href="http://threejs.org/examples/js/shaders/UnpackDepthRGBAShader.js">in the github examples</a>. You then need to set up the viewer object by passing it a reference to your light and setting the position and size of the viewer. You then call the update method and add its render call, passing in your renderer, inside your render loop.
@@ -127,13 +133,14 @@ Cameras are a key tool for 3D influencing the user's vantage point and the range
 This creates a camera with perspective projection. This is a normal camera type where objects get smaller the further away they are. The first parameter is the camera's vertical field of view, from the bottom to top in degrees. The next is the aspect ratio of the camera so the viewport width divided by the height. The near and far plane determine the planes at which clipping occurs when objects are too close or too far away from the camera.
 </p>
 <pre><code class="language-js">var camera = new THREE.PerspectiveCamera(fov, aspect, near, far);</code></pre>
+<img style="width: auto; max-width: 100%" src="img/2016/2016-10-05-threejs-lights/perspective.png"/><br/>
 
 <h3>OrthographicCamera</h3>
 <p>
 An <code class="language-js">OrthographicCamera</code> creates a camera with an orthographic projection, with no visible perspective. The result is an isometric view. This means that all lines along the z-axis of a cube will be drawn parallel. The properties passed here are the left, right, top, bottom, near and far frustum planes. So we're defining the visible area of our viewport.
 </p>
 <pre><code class="language-js">var camera = new THREE.OrthographicCamera(left, right, top, bottom, near, far);</code></pre>
-
+<img style="width: auto; max-width: 100%" src="img/2016/2016-10-05-threejs-lights/ortho.png"/><br/>
 
 <h3>CameraHelper</h3>
 <p>
@@ -142,6 +149,7 @@ Cameras can be difficult to test and debug. Because of this Three.js has a <code
 <pre><code class="language-js">let helper = new THREE.CameraHelper(camera);
 scene.add(helper);</code></pre>
 <br/>
+<img style="width: auto; max-width: 100%" src="img/2016/2016-10-05-threejs-lights/camerahelper.png"/><br/>
 
 <a href="https://github.com/cjgammon/diving-in/blob/master/threejs/threejs-5_lightscamera.zip?raw=true" download>Click here to download the demo.</a>
 <br/><br/>
