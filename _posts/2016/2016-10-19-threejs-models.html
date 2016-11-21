@@ -62,8 +62,27 @@ The callback returns with two values. The geometry from your model and any mater
 
 <h2>Animation</h2>
 <p>
-
+We can also build animations in Blender with the timeline and keyframes. These animations can then be exported for Three.js as well. When you export your blender animation be sure that you have <code class="language-js">Morph Animation</code> checked in the Export Settings.
 </p>
+<img style="width: auto; max-width: 100%" src="img/2016/2016-11-21-threejs-models/morph-animations.png"/><br/>
+
+<p>
+To animate our mesh in Three.js we need to create a new material that has <code class="language-js">morphTargets</code> set to true.
+</p>
+<pre><code class="language-js">var material = new THREE.MeshLambertMaterial({morphTargets: true});</code></pre>
+<p>
+We then need to create an animation mixer, passing in the mesh. Then we create an animation clip using the <code class="language-js">morphTargets</code> in the geometry, passing in a label and fps of the animation. Then in the last line of the following code we are setting the duration of the clip to 1 and telling it to play.
+</p>
+<pre><code class="language-js">var mixer = new THREE.AnimationMixer(mesh);
+var clip = THREE.AnimationClip.CreateFromMorphTargetSequence('talk', geometry.morphTargets, 30);
+mixer.clipAction(clip).setDuration(1).play();</code></pre>
+<p>
+We then call update on our mixer in our animation loop, passing in the amount of time to increment the animation by.
+</p>
+<pre><code class="language-js">
+mixer.update(timeinc);
+</code></pre>
+
 
 <a href="https://github.com/cjgammon/diving-in/blob/master/threejs/threejs-
 .zip?raw=true" download>Click here to download the demo.</a>
