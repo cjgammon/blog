@@ -32,7 +32,7 @@ Post-Processing is the addition of image effects or filters to your entire scene
 <p>
 The <code class="language-js">EffectComposer</code> is where you are going to add all your passes by calling <code class="languat-js">addPass()</code>. The first parameter it takes is your renderer. The second parameter is optional but takes a render target that allows you to specify different settings from your renderer, such as size. This composer will actually replace how we update the rendering of our application. Where we normally call <code class="languat-js">renderer.render(scene, camera);</code> to render our scene. We will instead call <code class="languat-js">composer.render();</code> in our render loop to draw our scene.
 </p>
-<pre><code class="language-js">var composer = new THREE.EffectComposer(renderer, renderTarget);
+<pre><code class="language-js">var composer = new THREE.EffectComposer(renderer);
 
 //NOTE: this goes in your render loop
 composer.render();</code></pre>
