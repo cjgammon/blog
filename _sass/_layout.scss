@@ -2,74 +2,58 @@
 * Site header
 */
 
-.top-section{
-    display: flex;
 
-    @include media-query($on-palm) {
-        display: block;
-    }
+#header{
+    position: relative;
 }
 
-nav{
-    flex: 1;
-    padding-left: 1em;
-    text-align: right;
- 
-    @include media-query($on-palm) {
-        padding-left: 0;
-        text-align: left;
-        margin-bottom: 2rem;
-    }
+#title {
+    height: 45px;
+    padding: .3em .5em;
+    transform: translateZ(0);
+    overflow: visible;
+    cursor: pointer;
+}
+
+.main{
+    max-width: 40em;
+}
+
+#main-nav{
+    position: relative;
+    float: right;
+    font-size: 1rem;
+    display: inline;
+    padding: .3em .5em;
+    text-transform: uppercase;
+    z-index: 100;
 
     li{
         list-style: none;
-        border-bottom: 1px solid #dddddd;
+        display: inline-block;
+        margin: 0 .2em;
     }
 
-    a{
-        display: block;
-        padding: .5em .5em;
-        line-height: 1;
-        margin: .2em;
-        font-weight: 800;
-        transition: all .2s;
+    a.nav{
+      display: inline-block;
+      text-decoration: none;
+      color: #4aadad;
+      font-weight: 600;
+      line-height: 1em;
+      padding: .25em .3em;
+      transition: transform .2s;
+      will-change: transform;
+      cursor: pointer;
 
-        &,
-        &:visited{
-            color: black;
-        }
-
-        &.active{
-            color: $callout-color;
-        }
-
-        &:hover{
-            color: darken($link-color, 20%);
-            transform: translateX(2px) skew(-10deg);
-        }
-
+      &:hover{
+        color: #e9edef;
+        background: #4aadad;
+        //background: #8cad34;
+        transform: scale(1.1) skew(-10deg);
+      }
     }
 }
 
-.about{
-    flex: 2;
-    padding-top: 1rem;
-    margin-bottom: 3rem;   
-
-    @include media-query($on-palm) {
-        margin-bottom: 1rem;   
-    }
-
-}
-
-.about-content{
-    width: 40vw;
-    max-width: 35em;
-    
-    @include media-query($on-palm) {
-        width: 100%;
-    }
-}
 
 .site-title {
     font-size: 26px;
@@ -90,7 +74,7 @@ nav{
     line-height: 1;
     border-radius: .2em;
     transition: color .4s, background .4s;
-    
+
     &,
     &:visited{
         color: white;
@@ -265,7 +249,7 @@ nav{
     margin-top: 50px;
 
     a{
-        font-weight: bold;        
+        font-weight: bold;
         text-decoration: underline;
     }
 }

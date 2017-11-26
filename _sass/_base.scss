@@ -30,16 +30,7 @@ body {
 .main{
     position: relative;
     margin: auto;
-    max-width: 45em;
-
-    @include media-query(1024px) {
-        margin-left: 10vw;
-        margin-right: 10vw;
-    }
-
-    @include media-query($on-palm) {
-        margin: 2em;
-    }
+    padding: 2em;
 }
 
 
@@ -66,11 +57,11 @@ a {
 
     &,
     &:visited {
-        color: darken($link-color, 20%);
+        color: $link-color;
     }
 
     &:hover {
-        color: $link-color;
+        color: lighten($link-color, 20%);
     }
 }
 
@@ -125,5 +116,3 @@ pre {
     }
 }
 */
-
-

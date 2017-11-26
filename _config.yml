@@ -16,6 +16,7 @@ homepage: "http://www.cjgammon.com"
 twitter_username: cjgammon
 github_username:  cjgammon
 permalink: :title
+exclude: [_site, README.md]
 paginate: 10
 # Build settings
 markdown: kramdown
