@@ -264,8 +264,6 @@
 .talk{
     line-height: 1;
     margin: 2em 0;
-    border-left: 2px solid darken($link-color, 20%);
-    padding-left: .5em;
 
     h2{
         margin-bottom: .2em;
@@ -277,7 +275,7 @@
 }
 
 .events{
-    margin-bottom: 1em;
+    margin-bottom: 0.2em;
 }
 
 .event{
