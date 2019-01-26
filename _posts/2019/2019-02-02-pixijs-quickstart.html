@@ -1,0 +1,50 @@
+---
+layout: post
+status: publish
+published: false
+title: Pixi.js Getting Started
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+date: '2019-01-08 13:44:00 -0500'
+date_gmt: '2019-01-08 01:44:00 -0500'
+image: img/covers/2016-10-19-threejs-intro.png
+categories:
+- design
+- web
+tags:
+- webgl
+- pixijs
+- web
+- development
+comments: []
+---
+<iframe width="100%" height="415" class="youtube" src="https://www.youtube.com/embed/X3JPtUwZflg" frameborder="0" allowfullscreen></iframe><br/>
+<p>
+  To download the latest version of pixi.js you can check the releases tab of the github repository <a href="https://github.com/pixijs/pixi.js/releases">here</a>.
+</p>
+<p>
+  Because of browser security restrictions loading local assets directly will result in CORS errors. We'll need to get around this in Pixi.js because you can't do much without loading textures. The easiest way to avoid this is to run your code on a server. You can run a local server if you have python installed by opening terminal navigating to your project directory and running <code>python -m SimpleHTTPServer 8000</code> which will run a local server at localhost with the port defined: <code>localhost:8000</code>. Now simply loading this page should run the index.html file at your project directory without any issues.
+</p>
+<p>
+  The quickest way to get started with Pixi.js is with a helper class called <code>PIXI.Application</code>. This class combines and abstracts a bunch of common utilities used when making content with Pixi.js.
+</p>
+<pre><code class="language-js">
+const app = new PIXI.Application({
+  view: canvas,
+  width: window.innerWidth,
+  height: window.innerHeight,
+  resolution: window.devicePixelRatio
+});
+</code></pre>
+<p>It can take a number of parameters including width, height, and resolution for higher density displays. You can also provide your own canvas element as the rendering surface. If you do not provide a canvas as the view, you can append the canvas created for you to the DOM using <code>document.body.appendChild(app.view)</code>.
+</p>
+
+<a href="https://github.com/diving-in/pixijs/blob/master/pixijs-1_quick
+.zip?raw=true" download>Click here to download the demo.</a>
+<br/><br/>
