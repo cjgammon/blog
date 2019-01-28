@@ -24,7 +24,7 @@ tags:
 - development
 comments: []
 ---
-<iframe width="100%" height="415" class="youtube" src="https://www.youtube.com/embed/X3JPtUwZflg" frameborder="0" allowfullscreen></iframe><br/>
+<iframe width="100%" height="415" class="youtube" src="https://www.youtube.com/embed/GuY_PROTr0I" frameborder="0" allowfullscreen></iframe><br/>
 <p>
   To download the latest version of pixi.js you can check the releases tab of the github repository <a href="https://github.com/pixijs/pixi.js/releases">here</a>.
 </p>
@@ -38,11 +38,52 @@ comments: []
 const app = new PIXI.Application({
   view: canvas,
   width: window.innerWidth,
-  height: window.innerHeight,
-  resolution: window.devicePixelRatio
+  height: window.innerHeight
 });
 </code></pre>
-<p>It can take a number of parameters including width, height, and resolution for higher density displays. You can also provide your own canvas element as the rendering surface. If you do not provide a canvas as the view, you can append the canvas created for you to the DOM using <code>document.body.appendChild(app.view)</code>.
+<p>It can take a number of parameters including width and height. You can also provide your own canvas element as the rendering surface as the view. If you do not provide a view, you can append the canvas created for you to the DOM using <code>document.body.appendChild(app.view)</code>.
+</p>
+<p>
+  Next we need to load a texture into webGL. `Pixi.Texture` has a `from()` method which takes the path to the image as a prameter. Calling this returns the instance of our texture.
+</p>
+<pre><code class="language-js">
+const texture = PIXI.Texture.from('sprite.png');
+</code></pre>
+<p>
+  Now that we have our texture we can use it to create a sprite. `PIXI.Sprite()` takes a single parameter of a texture instance.
+</p>
+<pre><code class="language-js">
+const img = new PIXI.Sprite(texture);
+</code></pre>
+<p>
+  Now that we have our sprite we can set properties of it, like the x and y position. We can also set the anchor position to the center. Since it is a webGL quad the anchor coordinates for the center are 0.5 on the x and y axis. After we have it set up the way we want we can add it to the stage. The stage is also created for us with `PIXI.Application` and can be referenced by `app.stage`. By calling `addChild()` we can add objects to the stage.
+</p>
+<pre><code class="language-js">
+img.x = app.screen.width / 2;
+img.y = app.screen.height / 2;
+img.anchor.x = 0.5;
+img.anchor.y = 0.5;
+app.stage.addChild(img);
+</code></pre>
+<p>
+Now you should have an image at the center of the screen.
+</p>
+<p>
+Now we need to add some animation. Again `PIXI.Application` helps us out here by creating a `ticker` for us, which is a render loop running utilizing `requestAnimationFrame`. We can access this through `app.ticker`. Then we simply call `add()`, passing in the method that we want it to call for each animation loop.
+</p>
+<pre><code class="language-js">
+app.ticker.add(animation);
+</code></pre>
+<p>
+Then we can update properties of our scene inside the animation method.
+</p>
+<pre><code class="language-js">
+function animation() {
+  img.rotation += 0.1;
+}
+</code></pre>
+<p>
+This should have your sprite rotating in a circle around the center axis.
 </p>
 
 <a href="https://github.com/diving-in/pixijs/blob/master/pixijs-1_start
