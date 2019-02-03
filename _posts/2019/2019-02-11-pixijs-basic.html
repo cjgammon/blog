@@ -11,8 +11,8 @@ author:
 author_login: cjgammon
 author_email: cj.gammon@gmail.com
 author_url: http://www.cjgammon.com
-date: '2019-01-08 13:44:00 -0500'
-date_gmt: '2019-01-08 01:44:00 -0500'
+date: '2019-02-09 13:44:00 -0500'
+date_gmt: '2019-02-09 01:44:00 -0500'
 image: img/covers/2016-10-19-threejs-intro.png
 categories:
 - design
@@ -25,20 +25,40 @@ tags:
 comments: []
 ---
 <iframe width="100%" height="415" class="youtube" src="https://www.youtube.com/embed/iPtlShz9i9A" frameborder="0" allowfullscreen></iframe><br/>
+
 <p>
-  The quickest way to get started with Pixi.js is with a helper class called <code>PIXI.Application</code>. This class combines and abstracts a bunch of common utilities used when making content with Pixi.js.
+In the last episode I showed you how to get up and running quickly in pixi.js. In this episode I want spend some time diving a bit deeper into the basics of pixi.js. To do this we have to look a bit at the history of pixi.js to understand where it's been and where it's heading.
 </p>
-<pre><code class="language-js">
-const app = new PIXI.Application({
-  view: canvas,
-  width: window.innerWidth,
-  height: window.innerHeight,
-  resolution: window.devicePixelRatio
-});
-</code></pre>
-<p>It can take a number of parameters including width, height, and resolution for higher density displays. You can also provide your own canvas element as the rendering surface. If you do not provide a canvas as the view, you can append the canvas created for you to the DOM using <code>document.body.appendChild(app.view)</code>.
+<p>
+Around the time pixi.js first came out canvas everywhere and webGL was starting to spread to other browsers, but there were still some hold outs, particularly on mobile. Because of this it was really important for it to work on both. If we compare this with the current state of the web, webGL is pretty ubiquitous, even going back a couple browser versions. Also webGL2 is starting to spread across browsers. Given that Pixi is all about performance, it seems clear that the future of high performance graphics on the web is with webGL and webGL2. They've reflected this in their version 5 roadmap by making the default build and Renderer to exclusively webGL or webGL2 where supported. The canvas renderer is still available in a separate legacy build. We'll be using v5 for this example.
+</p>
+<p>
+So now that we understand the roadmap of Pixi.js let's take a deeper look at the components of a pixi.js scene. In our last example we used the Pixi.Application helper class. This is great because it creates a lot of commonly used components for us, but we're going to skip Pixi.Application so we can talk about each of these components separately and what they do.
+</p>
+<h3>Renderer</h3>
+<p>
+The first item created is a Renderer, the renderer is what draws content onto our screen.  As we mentioned this is a webGL renderer.  It can take a number of parameters to customize the renderer, these parameters can also be passed into the Pixi.Application class.  The most commonly used are width and height. transparent can also be set to true so that content below the canvas can still be visible.  You can alternatively set the backgroundColor as well. You can also specify the view so it renders to an existing canvas element.  You can also set transparent to true so that you can see content behind the canvas element. autoDensity is another parameter which resizes the canvas in css pixels to allow higher density resolutions. antialias can be set to true to allow antialiasing where supported. You can also define the resolution of the renderer to window.devicePixelRatio to render higher resolution for retina screens. preserveDrawingBuffer can be set to true which allows you to call toDataUrl on the gl context to save an image from your scene. clearBeforeRender is a parameter which defaults to true, clearing the drawing context before each render.
+</p>
+<p>
+To resize your renderer you can add a listener to the window's resize event which will allow you to call 'resize()' on the renderer passing in the new width and height.
+To draw content in your renderer, you call the <code>render()</code> method passing in your stage.
+</p>
+<h3>Stage</h3>
+<p>
+Speaking of the stage, The stage is also created automatically with Pixi.Application it's just a container that contains all the items you want rendered. We can create this with <code>new PIXI.Container()</code>.
+</p>
+<h3>Ticker</h3>
+<p>
+Pixi.Application also creates a ticker for you. A ticker is an animation loop that you can add callbacks to.  It utilizes requestAnimationFrame under the hood. You can create a new ticker with 'new PIXI.Ticker()'.  It has a 'start()' method but will start automatically whenever it has listeners added to it, unless 'autoStart' is set to false. The ticker can also be paused with the 'stop()' method. You can add listeners to a ticker with 'add()', passing in the callback method. It also has an 'addOnce()' method if you want to fire a method only once on the next animation frame.  To remove methods you can call 'remove()' passing in the callback to be removed. You can also call 'destroy()' to completely destroy the ticker and all the listeners contained in it.
+</p>
+<h3>Loader</h3>
+<p>
+Another useful utility Pixi has is the <code>Loader</code> class. This allows you to preload assets along with progress callbacks. There is a premade instance of a loader you can use on <code>PIXI.Loader.shared</code>. Otherwise you can create your own instance of a loader by calling <code>new PIXI.Loader()</code>.
+</p>
+<p>
+
 </p>
 
-<a href="https://github.com/diving-in/threejs/blob/master/threejs-7b_models
+<a href="https://github.com/diving-in/pixijs/blob/master/pixijs-2_
 .zip?raw=true" download>Click here to download the demo.</a>
 <br/><br/>
