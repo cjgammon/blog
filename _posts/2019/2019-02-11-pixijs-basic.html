@@ -40,8 +40,7 @@ So now that we understand the roadmap of Pixi.js let's take a deeper look at the
 The first item created is a Renderer, the renderer is what draws content onto our screen.  As we mentioned this is a webGL renderer.  It can take a number of parameters to customize the renderer, these parameters can also be passed into the Pixi.Application class.  The most commonly used are width and height. transparent can also be set to true so that content below the canvas can still be visible.  You can alternatively set the backgroundColor as well. You can also specify the view so it renders to an existing canvas element.  You can also set transparent to true so that you can see content behind the canvas element. autoDensity is another parameter which resizes the canvas in css pixels to allow higher density resolutions. antialias can be set to true to allow antialiasing where supported. You can also define the resolution of the renderer to window.devicePixelRatio to render higher resolution for retina screens. preserveDrawingBuffer can be set to true which allows you to call toDataUrl on the gl context to save an image from your scene. clearBeforeRender is a parameter which defaults to true, clearing the drawing context before each render.
 </p>
 <p>
-To resize your renderer you can add a listener to the window's resize event which will allow you to call 'resize()' on the renderer passing in the new width and height.
-To draw content in your renderer, you call the <code>render()</code> method passing in your stage.
+To resize your renderer you can add a listener to the window's resize event which will allow you to call `resize()` on the renderer passing in the new width and height. It also has a `resizeTo` property which will map its size to a specific DOM element. To draw content in your renderer, you call the <code>render()</code> method passing in your stage.
 </p>
 <h3>Stage</h3>
 <p>
