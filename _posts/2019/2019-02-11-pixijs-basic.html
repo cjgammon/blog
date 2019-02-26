@@ -1,8 +1,8 @@
 ---
 layout: post
 status: publish
-published: false
-title: Pixi.js Getting Started
+published: true
+title: Pixi.js Renderer, Ticker & Stage
 author:
   display_name: cjgammon
   login: cjgammon
@@ -24,7 +24,7 @@ tags:
 - development
 comments: []
 ---
-<iframe width="100%" height="415" class="youtube" src="https://www.youtube.com/embed/iPtlShz9i9A" frameborder="0" allowfullscreen></iframe><br/>
+<iframe width="100%" height="415" class="youtube" src="https://www.youtube.com/embed/2J0VUiozAVM" frameborder="0" allowfullscreen></iframe><br/>
 
 <p>
 In the last episode I showed you how to get up and running quickly in pixi.js. In this episode I want spend some time diving a bit deeper into the basics of pixi.js. To do this we have to look a bit at the history of pixi.js to understand where it's been and where it's heading.
@@ -51,13 +51,7 @@ Speaking of the stage, The stage is also created automatically with Pixi.Applica
 <p>
 Pixi.Application also creates a ticker for you. A ticker is an animation loop that you can add callbacks to.  It utilizes requestAnimationFrame under the hood. You can create a new ticker with 'new PIXI.Ticker()'.  It has a 'start()' method but will start automatically whenever it has listeners added to it, unless 'autoStart' is set to false. The ticker can also be paused with the 'stop()' method. You can add listeners to a ticker with 'add()', passing in the callback method. It also has an 'addOnce()' method if you want to fire a method only once on the next animation frame.  To remove methods you can call 'remove()' passing in the callback to be removed. You can also call 'destroy()' to completely destroy the ticker and all the listeners contained in it.
 </p>
-<h3>Loader</h3>
-<p>
-Another useful utility Pixi has is the <code>Loader</code> class. This allows you to preload assets along with progress callbacks. There is a premade instance of a loader you can use on <code>PIXI.Loader.shared</code>. Otherwise you can create your own instance of a loader by calling <code>new PIXI.Loader()</code>.
-</p>
-<p>
 
-</p>
 
 <a href="https://github.com/diving-in/pixijs/blob/master/pixijs-2_
 .zip?raw=true" download>Click here to download the demo.</a>
