@@ -29,8 +29,7 @@ comments: []
 PixiJS stores all its textures inside a texture cache which can be accessed in <code class="language-js">PIXI.utils.TextureCache</code>. To load textures into the cache you need to use a loader. This can be done by creating a new Loader instance or by utilizing a pre-made shared loader.
 </p>
 
-<pre><code class="language-js">
-let loader = new PIXI.Loader();
+<pre><code class="language-js">let loader = new PIXI.Loader();
 let loader = PIXI.Loader.shared;
 </code></pre>
 
@@ -38,8 +37,7 @@ let loader = PIXI.Loader.shared;
 Now you can add assets to the loader by calling the <code class="language-js">add()</code> method on your loader, passing in the path to the asset you want to load. To respond to complete events you call the <code class="language-js">add()</code> method on the loader's onComplete property, passing in the handler method. Then you can initiate the load by calling <code class="language-js">load()</code> on your loader object.
 </p>
 
-<pre><code class="language-js">
-loader.add("path/to/my/texture.png");
+<pre><code class="language-js">loader.add("path/to/my/texture.png");
 loader.onComplete.add(handleLoadComplete);
 loader.load();
 </code></pre>
@@ -48,8 +46,7 @@ loader.load();
 Once your load complete handler is called, you can get a reference to the texture in the loader object's resorces property. It can be referenced by the same path you used to load it. Then by access its property called texture.
 </p>
 
-<pre><code class="language-js">
-function handleLoadComplete() {
+<pre><code class="language-js">function handleLoadComplete() {
 	let texture = loader.resources["path/to/my/texture.png"].texture;
 }
 </code></pre>
@@ -58,16 +55,13 @@ function handleLoadComplete() {
 You can then use this texture object and pass it into a new Sprite instance.
 </p>
 
-<pre><code class="language-js">
-let sprite = new PIXI.Sprite(texture);
-</code></pre>
+<pre><code class="language-js">let sprite = new PIXI.Sprite(texture);</code></pre>
 
 <p>
 Loaders have a few other events you can listen to. The onLoad event will trigger each time an asset completes loading. The onError event will trigger if an asset fails to load. The onProgress event will give you progress updates on the status of your loader.
 </p>
 
-<pre><code class="language-js">
-loader.onLoad.add(handleLoad);
+<pre><code class="language-js">loader.onLoad.add(handleLoad);
 loader.onError.add(handleError);
 loader.onProgress.add(handleProgress);
 </code></pre>
