@@ -1,8 +1,8 @@
 ---
 layout: post
 status: publish
-published: false
-title: Pixi.js Texture Loading
+published: true
+title: Pixi.js Sprites
 author:
   display_name: cjgammon
   login: cjgammon
@@ -11,8 +11,8 @@ author:
 author_login: cjgammon
 author_email: cj.gammon@gmail.com
 author_url: http://www.cjgammon.com
-date: '2019-02-09 13:44:00 -0500'
-date_gmt: '2019-02-09 01:44:00 -0500'
+date: '2019-03-01 13:44:00 -0500'
+date_gmt: '2019-03-01 01:44:00 -0500'
 image: img/covers/2016-10-19-threejs-intro.png
 categories:
 - design
@@ -24,11 +24,56 @@ tags:
 - development
 comments: []
 ---
-<iframe width="100%" height="415" class="youtube" src="https://www.youtube.com/embed/EDEUsXqPTI0" frameborder="0" allowfullscreen></iframe><br/>
+<iframe width="100%" height="415" class="youtube" src="https://www.youtube.com/embed/99O671QWL9o" frameborder="0" allowfullscreen></iframe><br/>
 
 <p>
-
+Sprites are display objects that render a texture. They take a single texture as a parameter. Like all display objects they need to be added to our stage in order to render.
 </p>
+
+<pre><code class="language-js">let sprite = new PIXI.Sprite(texture);
+stage.addChild(sprite);</code></pre>
+
+<p>
+Like all display objects in PixiJS you can update their position with their <code class="language-js">x</code> and <code class="language-js">y</code> properties. This can also be done by calling <code class="language-js">set()</code> on the sprite's position property.
+</p>
+
+<pre><code class="language-js">sprite.position.set(100, 100);</code></pre>
+
+<p>
+You can also set the anchor the same way as position. This way if we scale our sprite it will scale it from this anchor point. Allowing us to scale it form center or any other point on the texture. Scaling is a property that takes a <code class="language-js">PIXI.Point()</code> object, that has x and y values.
+</p>
+
+<pre><code class="language-js">sprite.anchor.set(0.5);
+sprite.scale = new PIXI.Point(0.5, 0.5);</code></pre>
+
+<p>
+Similar to anchor, pivot allows you to rotate around an arbitrary point.
+</p>
+
+<pre><code class="language-js">sprite.pivot.set(100, 100);
+sprite.rotation = 1.5;</code></pre>
+
+<p>
+You can also set the sprite's alpha position which takes a value between 0 and 1. As well as, set a tint to the sprite which takes a hexidecimal color value. PixiJS also has some blend modes available which can be set through the blendModes property on the sprite. You can access the available blend modes through <code class="language-js">PIXI.BLEND_MODES</code>. Sprites also have a visible property which is a quick way of hiding or revealing a sprite.
+</p>
+
+<pre><code class="language-js">sprite.alpha = 0.5;
+sprite.tint = 0xff0000;
+sprite.blendMode = PIXI.BLEND_MODES.MULTIPLY;
+sprite.visible = false;</code></pre>
+
+<p>
+We can also make our sprites interactive by using the interactive and buttonMode properties of our sprite. These are simply booleans that can be set to true. This will allow the users mouse to interact with the sprite for things like click events while showing a pointer indicating the sprite can be interacted with.
+</p>
+
+<pre><code class="language-js">sprite.interactive = true;
+sprite.buttonMode = true;</code></pre>
+
+<p>
+Sprites also have a mask property which can be set to another display object which is then used as the mask.
+</p>
+
+<pre><code class="language-js">sprite.mask = myMaskSprite;</code></pre>
 
 
 <a href="https://github.com/diving-in/pixijs/blob/master/pixijs-4_sprites.zip?raw=true" download>Click here to download the demo.</a>
