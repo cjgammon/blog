@@ -1,8 +1,8 @@
 ---
 layout: post
 status: publish
-published: false
-title: Pixi.js Graphics API
+published: true
+title: PixiJS Graphics API
 author:
   display_name: cjgammon
   login: cjgammon
@@ -11,8 +11,8 @@ author:
 author_login: cjgammon
 author_email: cj.gammon@gmail.com
 author_url: http://www.cjgammon.com
-date: '2019-02-09 13:44:00 -0500'
-date_gmt: '2019-02-09 01:44:00 -0500'
+date: '2019-04-09 13:44:00 -0500'
+date_gmt: '2019-04-09 01:44:00 -0500'
 image: img/covers/2016-10-19-threejs-intro.png
 categories:
 - design
@@ -24,11 +24,72 @@ tags:
 - development
 comments: []
 ---
-<iframe width="100%" height="415" class="youtube" src="https://www.youtube.com/embed/EDEUsXqPTI0" frameborder="0" allowfullscreen></iframe><br/>
+<iframe width="100%" height="415" class="youtube" src="https://www.youtube.com/embed/mCbyr8mGNRE" frameborder="0" allowfullscreen></iframe><br/>
 
 <p>
-
+For dynamically drawing content PixiJS has a Graphics display object with a drawing API. This allows us to draw 2D graphics with commands similar to the 2D canvas API. The graphics object needs to be added to the stage like any display object.
 </p>
+
+<pre><code class="language-js">let graphic = new PIXI.Graphics();
+stage.addChild(graphic);</code></pre>
+
+<p>
+You can set the line style of the shapes you draw by calling <code class="language-js">lineStyle()</code>, passing in the line width and the color. You can also pass in a fill color by calling <code class="language-js">beginFill()</code>.
+</p>
+
+<p>
+We can now draw on our graphics object using drawing commands, like <code class="language-js">drawCircle()</code>, which takes the x, y, and radius of the circle to be drawn. We then need to call <code class="language-js">endFill()</code> to apply our fill to the shape.
+</p>
+
+<pre><code class="language-js">graphic.lineStyle(5, 0x00ff00);
+graphic.beginFill(0xff0000);
+graphic.drawCircle(0, 0, 100);
+graphic.endFill();</code></pre>
+
+<p>
+PixiJS has many methods for simple shapes just like <code class="language-js">drawCircle()</code>. <code class="language-js">drawEllipse()</code> takes the x and y position of the ellipse as well as the radial width and radial height. <code class="language-js">drawRect()</code> takes the x and y positions as well as the width and height of the rectangle to be drawn. <code class="language-js">drawRoundedRect()</code> takes the x and y position, as well as the width and height of the rectangle, along with the radius of the corners. <code class="language-js">drawStar()</code> takes the number of points, the radius, the size of the inner radius and finally the rotation of the star in radians.
+</p>
+
+<pre><code class="language-js">graphic.drawCircle(0, 0, 100);
+graphic.drawEllipse(200, 200, 50, 100);
+graphic.drawRect(100, 100, 200, 50);
+graphic.drawRoundedRect(100, 100, 200, 50, 10);
+grpahic.drawStar(5, 200, 50, 0.5);</code></pre>
+
+<p>
+PixiJS also has some useful methods for drawing arbitrary shapes. <code class="language-js">drawShape()</code> allows you to pass in a PixiJS shape object to be drawn, which can be defined like <code class="language-js">new PIXI.Circle(100, 100, 200)</code>. <code class="language-js">drawPolygon()</code> takes an array of <code class="language-js">PIXI.Point()</code> objects. These take an x and y value. The array of points then define the points of the polygon.
+</p>
+
+<pre><code class="language-js">graphic.drawShape(new PIXI.Circle(100, 100, 200));
+graphic.drawPolygon([
+	new PIXI.Point(100, 100), 
+	new PIXI.Point(100, 200), 
+	new PIXI.Point(200, 200)
+]);</code></pre>
+
+<p>
+You can also draw lines and polygons with classic drawing commands like <code class="language-js">moveTo()</code>, which moves the current drawing position to the x and y position.  Similarly, <code class="language-js">lineTo()</code> draws a line from the current drawing position to the defined x and y. <code class="language-js">closePath()</code> can be used to close the shape from the current drawing position to the initial position.
+</p>
+
+<pre><code class="language-js">graphic.moveTo(100, 100);
+graphic.lineTo(200, 300);
+graphic.closePath();</code></pre>
+
+<p>
+There are also a number of ways to draw curves. <code class="language-js">quadraticCurveTo()</code> draws a curve by taking four parameters the first two are the x and y positions of the control point and the x and y position of the destination point. <code class="language-js">bezierCurveTo()</code> takes six parameters, three sets of x and y coordinates. Two control points of the curve and finally the destination point.
+</p>
+
+<pre><code class="language-js">graphic.quadraticCurveTo(200, 200, 100, 100);
+graphic.bezierCurveTo(-200, 200, -200, 100, -100, 0);</code></pre>
+
+<p>
+PixiJS also has some special methods for drawing arcs. <code class="language-js">arcTo()</code> takes five parameters.  The first four are two sets of x and y coordinates. The position of the start of the arc and the position of the end of the arc. The last parameter is the radius of the arc between the two points. The <code class="language-js">arc()</code> method works a little different, it takes up to 6 parameters. The first two are the center x and y position of the arc. Then the radius of the arc. Next the start and end angle in radians. Finally, a boolean of whether you want the arc to go clockwise or counterclockwise.
+</p>
+
+<pre><code class="language-js">graphic.arcTo(100, 200, 700, 200, 100);
+graphic.arc(100, 100, 50, 0, Math.PI);</code></pre>
+
+
 
 
 <a href="https://github.com/diving-in/pixijs/blob/master/pixijs-5_graphics.zip?raw=true" download>Click here to download the demo.</a>
