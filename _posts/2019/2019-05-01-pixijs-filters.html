@@ -1,8 +1,8 @@
 ---
 layout: post
 status: publish
-published: false
-title: Pixi.js Filters
+published: true
+title: PixiJS Filters
 author:
   display_name: cjgammon
   login: cjgammon
@@ -11,8 +11,8 @@ author:
 author_login: cjgammon
 author_email: cj.gammon@gmail.com
 author_url: http://www.cjgammon.com
-date: '2019-02-09 13:44:00 -0500'
-date_gmt: '2019-02-09 01:44:00 -0500'
+date: '2019-05-09 13:44:00 -0500'
+date_gmt: '2019-05-09 01:44:00 -0500'
 image: img/covers/2016-10-19-threejs-intro.png
 categories:
 - design
@@ -24,11 +24,122 @@ tags:
 - development
 comments: []
 ---
-<iframe width="100%" height="415" class="youtube" src="https://www.youtube.com/embed/EDEUsXqPTI0" frameborder="0" allowfullscreen></iframe><br/>
+<iframe width="100%" height="415" class="youtube" src="https://www.youtube.com/embed/wIC-CqsUplw" frameborder="0" allowfullscreen></iframe><br/>
+<p>
+Filters allow you to apply post processing effect on objects. These allow you to apply many different pixel based effects similar to filters in tools like photoshop, such as blur.
+</p>
 
 <p>
-
+To apply filters to a display object we simply have to add it to the object's <code class="language-js">filters</code> property which is an array.  This means we can apply multiple filters to a single object.
 </p>
+
+<pre><code class="language-js">sprite.filters = [];</code></pre>
+
+<p>
+PixiJS has some built in filters that we can apply to our objects, like <code class="language-js">BlurFilter</code> and <code class="language-js">AlphaFilter</code>. These each have a number of properties you can adjust. Their constructors can be accessed through the global <code class="language-js">PIXI.filters</code> property. All the built in filterss can be found in their <a href="http://pixijs.download/dev/docs/PIXI.filters.html">documentation</a>.
+</p>
+
+<pre><code class="language-js">let blurFilter = new PIXI.filters.BlurFilter();
+sprite.filters.push(blurFilter);</code></pre>
+
+<h2>Custom Filters</h2>
+
+<p>
+The real power of filters comes when you discover they are simply GLSL shaders and you can create your own custom filters. GLSL shaders are their own thing and writing them is a bit beyond the scope of this article, but I will show you a bit about how to get started writing your own filters for PixiJS.
+</p>
+
+<p>
+You can create your own filter using the <code class="language-js">Filter</code> class. This allows you to use GLSL shaders to define the filter. GLSL is its own shading language with a C-like syntax. It consists of two different types of shaders. A vertex shader, which defines the geometry and a fragment shader which draws the pixels and colors.
+</p>
+
+<h3>Vertex Shader</h3>
+
+<p>
+Because we're working in 2D and not concerned with 3D geometry we can simply re-use the default vertex shader provided by PixiJS. This can be found at <code>https://github.com/pixijs/pixi.js/dev/packages/core/src/fragments/default.vert</code>. If you're curious how this works you can play around with the values. Essentially it's creating a position for each vertex in our quad or display object. Using the camera's projection matrix provided by PixiJS and multiplying it by the vertex position in space. It also creates a variable <code>vTextureCoord</code> to pass into the fragment shader.
+</p>
+
+<pre><code class="language-c">attribute vec2 aVertexPosition;
+attribute vec2 aTextureCoord;
+uniform mat3 projectionMatrix;
+varying vec2 vTextureCoord;
+void main(void)
+{
+    gl_Position = vec4((projectionMatrix * vec3(aVertexPosition, 1.0)).xy, 0.0, 1.0);
+    vTextureCoord = aTextureCoord;
+}</code></pre>
+
+<h3>Fragment Shader</h3>
+
+<p>
+The fragment shader is where you'll want to do your primary work in PixiJS. Your basic shader will take the <code>vTextureCoord</code> we created in the vertex shader and use that along with <code>uSampler</code>, also provided by PixiJS, to create a texture2D. This is of type <code>vec4</code> which represents the rgba values of each pixel. The fragment shader below will simply draw the display object as it would normally.
+</p>
+
+<pre><code class="language-c">varying vec2 vTextureCoord;
+uniform sampler2D uSampler;
+void main(void)
+{
+    vec4 color = texture2D(uSampler, vTextureCoord);
+    gl_FragColor = color;
+}</code></pre>
+
+<h3>Putting It Together</h3>
+
+<p>
+If we take the above shaders and wrap them in <code>&lt;script&gt;</code> tags with unique ids <code>vertShader</code> and <code>fragShader</code>. And respective types <code>x-shader/x-vert</code> and <code>x-shader/x-frag</code>. We can then access them as strings in javascript to create our custom filter. The <code>Filter</code> class takes 3 parameters, the vertex shader, the fragment shader, and uniforms. Uniforms is an object which contains variables we can pass into and update in our shaders.
+</p>
+
+<pre><code class="language-js">const vShader = vertShader.innerText;
+const fShader = fragShader.innerText;
+const uniforms = {};
+
+const myFilter = new PIXI.Filter(vShader, fShader, uniforms);</code></pre>
+
+<p>
+We can update our code to animate properties of our shader by creating a value inside our uniform object.
+</p>
+
+<pre><code class="language-js">const uniforms = {
+	delta: 0
+};</code></pre>
+
+<p>
+This value can be updated in our animation loop.
+</p>
+
+<pre><code class="language-js">let delta = 0;
+function animate() {
+    delta += 0.1;
+    uniforms.delta = 0.5 + Math.sin(delta) * 0.5;
+}</code></pre>
+
+<p>
+We can then update our fragment shader to use this uniform to manipulate pixel values.
+</p>
+
+<pre><code class="language-c">varying vec2 vTextureCoord;
+uniform sampler2D uSampler;
+uniform float delta;
+void main(void)
+{
+    vec4 color = texture2D(uSampler, vTextureCoord);
+    if (color.a != 0.0){
+        color.r = delta;
+        color.g -= delta;
+        color.b -= delta;
+    }
+    gl_FragColor = color;
+}</code></pre>
+
+<p>
+This code will apply a red filter on our sprite that will animate in and out. In our shader you can see we're also ignoring pixels where the alpha is zero. This allows transparent pixels to remain transparent.
+</p>
+
+<p class="codepen" data-height="462" data-theme-id="0" data-default-tab="html,result" data-user="cjgammon" data-slug-hash="VOGJZj" style="height: 462px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="PixiJS Part 7: Filters">
+  <span>See the Pen <a href="https://codepen.io/cjgammon/pen/VOGJZj/">
+  PixiJS Part 7: Filters</a> by CJ Gammon (<a href="https://codepen.io/cjgammon">@cjgammon</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
 
 
 <a href="https://github.com/diving-in/pixijs/blob/master/pixijs-6_filters.zip?raw=true" download>Click here to download the demo.</a>
