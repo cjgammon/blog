@@ -55,7 +55,7 @@ You can create your own filter using the <code class="language-js">Filter</code>
 <h3>Vertex Shader</h3>
 
 <p>
-Because we're working in 2D and not concerned with 3D geometry we can simply re-use the default vertex shader provided by PixiJS. This can be found at <code>https://github.com/pixijs/pixi.js/dev/packages/core/src/fragments/default.vert</code>. If you're curious how this works you can play around with the values. Essentially it's creating a position for each vertex in our quad or display object. Using the camera's projection matrix provided by PixiJS and multiplying it by the vertex position in space. It also creates a variable <code>vTextureCoord</code> to pass into the fragment shader.
+Because we're working in 2D and not concerned with 3D geometry we can simply re-use the default vertex shader provided by PixiJS. This can be found at <code class="language-c">https://github.com/pixijs/pixi.js/dev/packages/core/src/fragments/default.vert</code>. If you're curious how this works you can play around with the values. Essentially it's creating a position for each vertex in our quad or display object. Using the camera's projection matrix provided by PixiJS and multiplying it by the vertex position in space. It also creates a variable <code>vTextureCoord</code> to pass into the fragment shader.
 </p>
 
 <pre><code class="language-c">attribute vec2 aVertexPosition;
