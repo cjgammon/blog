@@ -36,7 +36,7 @@ To apply filters to a display object we simply have to add it to the object's <c
 <pre><code class="language-js">sprite.filters = [];</code></pre>
 
 <p>
-PixiJS has some built in filters that we can apply to our objects, like <code class="language-js">BlurFilter</code> and <code class="language-js">AlphaFilter</code>. These each have a number of properties you can adjust. Their constructors can be accessed through the global <code class="language-js">PIXI.filters</code> property. All the built in filterss can be found in their <a href="http://pixijs.download/dev/docs/PIXI.filters.html">documentation</a>.
+PixiJS has some built in filters that we can apply to our objects, like <code class="language-js">BlurFilter</code> and <code class="language-js">AlphaFilter</code>. These each have a number of properties you can adjust. Their constructors can be accessed through the global <code class="language-js">PIXI.filters</code> property. All the built in filters can be found in their <a href="http://pixijs.download/dev/docs/PIXI.filters.html">documentation</a>.
 </p>
 
 <pre><code class="language-js">let blurFilter = new PIXI.filters.BlurFilter();
@@ -55,7 +55,7 @@ You can create your own filter using the <code class="language-js">Filter</code>
 <h3>Vertex Shader</h3>
 
 <p>
-Because we're working in 2D and not concerned with 3D geometry we can simply re-use the default vertex shader provided by PixiJS. This can be found at <code class="language-http" style="word-break: break-all">https://github.com/pixijs/pixi.js/dev/packages/core/src/fragments/default.vert</code>. If you're curious how this works you can play around with the values. Essentially it's creating a position for each vertex in our quad or display object. Using the camera's projection matrix provided by PixiJS and multiplying it by the vertex position in space. It also creates a variable <code>vTextureCoord</code> to pass into the fragment shader.
+Because we're working in 2D and not concerned with 3D geometry we can simply re-use the default vertex shader provided by PixiJS. This can be found at <code class="language-http" style="word-break: break-all">https://github.com/pixijs/pixi.js/dev/packages/core/src/fragments/default.vert</code>. If you're curious how this works you can play around with the values. Essentially it's creating a position for each vertex in our quad or display object. Using the camera's projection matrix provided by PixiJS and multiplying it by the vertex position in space. It also creates a variable <code class="language-js">vTextureCoord</code> to pass into the fragment shader.
 </p>
 
 <pre><code class="language-c">attribute vec2 aVertexPosition;
@@ -71,7 +71,7 @@ void main(void)
 <h3>Fragment Shader</h3>
 
 <p>
-The fragment shader is where you'll want to do your primary work in PixiJS. Your basic shader will take the <code>vTextureCoord</code> we created in the vertex shader and use that along with <code>uSampler</code>, also provided by PixiJS, to create a texture2D. This is of type <code>vec4</code> which represents the rgba values of each pixel. The fragment shader below will simply draw the display object as it would normally.
+The fragment shader is where you'll want to do your primary work in PixiJS. Your basic shader will take the <code class="language-js">vTextureCoord</code> we created in the vertex shader and use that along with <code class="language-js">uSampler</code>, also provided by PixiJS, to create a texture2D. This is of type <code class="language-js">vec4</code> which represents the rgba values of each pixel. The fragment shader below will simply draw the display object as it would normally.
 </p>
 
 <pre><code class="language-c">varying vec2 vTextureCoord;
@@ -85,7 +85,7 @@ void main(void)
 <h3>Putting It Together</h3>
 
 <p>
-If we take the above shaders and wrap them in <code>&lt;script&gt;</code> tags with unique ids <code>vertShader</code> and <code>fragShader</code>. And respective types <code>x-shader/x-vert</code> and <code>x-shader/x-frag</code>. We can then access them as strings in javascript to create our custom filter. The <code>Filter</code> class takes 3 parameters, the vertex shader, the fragment shader, and uniforms. Uniforms is an object which contains variables we can pass into and update in our shaders.
+If we take the above shaders and wrap them in <code class="language-html">&lt;script&gt;</code> tags with unique ids <code>vertShader</code> and <code class="language-js">fragShader</code>. And respective types <code class="language-js">x-shader/x-vert</code> and <code class="language-js">x-shader/x-frag</code>. We can then access them as strings in javascript to create our custom filter. The <code class="language-js">Filter</code> class takes 3 parameters, the vertex shader, the fragment shader, and uniforms. Uniforms is an object which contains variables we can pass into and update in our shaders.
 </p>
 
 <pre><code class="language-js">const vShader = vertShader.innerText;

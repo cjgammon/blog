@@ -25,9 +25,60 @@ tags:
 comments: []
 ---
 <p>
+Often with 2D graphics you want to swap out a series of images quickly to create an animation. To help with this PixiJS has a class called AnimatedSprite. In order to use this you first need to generate a sprite sheet. This can be done with a number of tools. <a href="https://www.codeandweb.com/texturepacker/download">TexturePacker</a> is free for basic useage and works well if you already have the images for your animation. <a href="https://www.adobe.com/products/animate.html">Adobe Animate</a> is a more robust animation tool that can also generate sprite sheets. When you generate sprite sheets for PixiJS you'll want them exported with an image and a json file.
+</p>
+
+<h3>JSON Format</h3>
+<p>
+The structure of the json file will have a few properties. These will be useful for understanding how to animate the sprite. The first property will be <code class="language-js">frames</code> which is an array of the frames of the sprite sheet, describing their properties within the sheet. Each of these frames has a name which can often be defined when generating the file.
+</p>
+
+<p>
 
 </p>
 
+<pre><code class="language-js">app.loader
+    .add('sprite_sheets/bubble_bobby.json')
+    .load(onAssetsLoaded);</code></pre>
 
+<p>
+
+</p>
+
+<pre><code class="language-js">const sheet = app.loader.resources[sheetURL];
+const frames = [];
+for (i in sheet.data.frames) {
+    frames.push(PIXI.Texture.from(i));
+}</code></pre>
+
+<p>
+
+</p>
+
+<pre><code class="language-js">const anim = new PIXI.AnimatedSprite(frames);
+app.stage.addChild(anim);</code></pre>
+
+<p>
+
+</p>
+
+<pre><code class="language-js">anim.animationSpeed = 0.5;
+anim.loop = true;
+anim.play();</code></pre>
+
+<pre><code class="language-js">console.log(anim.currentFrame);
+console.log(anim.playing);</code></pre>
+
+<pre><code class="language-js">anim.onLoop(handleLoop);
+anim.onFrameChange(handleFrameChange);
+anim.onComplete(handleComplete);</code></pre>
+
+<pre><code class="language-js">anim.stop();
+anim.gotoAndPlay(10);
+anim.gotoAndStop(10);</code></pre>
+
+<p>
+
+</p>
 
 <br/><br/>
