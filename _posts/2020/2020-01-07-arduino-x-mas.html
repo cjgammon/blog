@@ -1,0 +1,54 @@
+---
+layout: post
+status: publish
+published: true
+title: Multiplayer Christmas Lights with Arduino and Socket.io
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+date: '2020-01-07 13:44:00 -0500'
+date_gmt: '2020-01-07 01:44:00 -0500'
+image: img/covers/2016-10-19-threejs-intro.png
+categories:
+- design
+- web
+- hardware
+tags:
+- arduino
+- socket.io
+- web
+- development
+- holidays
+comments: []
+---
+<iframe width="100%" height="415" class="youtube" src="https://www.youtube.com/embed/7OyWGEgQoOc frameborder="0" allowfullscreen></iframe><br/>
+
+<p>
+    I've always wanted to do stuff with arduino and the challenge is normally finding something I'm interested in making. I always thought christmas lights would be a good use for it since they're literally just led's. However I wanted to do something custom rather than something that had been done over and over.  I also wanted to make something the kids could have fun playing with.
+</p>
+
+<h2>Hardware</h2>
+<p>
+    What I ended up making was a multiplayer webapp game that changes the color of the lights. I used an Arduino Nano with an ESP8266 01 module to connect to Wi-fi along with a couple strands of 5v WS8211 individually addressable led's.
+</p>
+
+<h2>Wep</h2>
+<p>
+    The game is just a node app using socket.io that allows people to hop on and join a game, assigning them a color. Then it simply keeps track of the users taps and calculates it's percentage relative to the total and then draws the lights their color based on their percentage of taps. When the game is done the lights glitter the winner's color and then stays that color until the next game.
+</p>
+<p>
+    It's a really simple game, but it was fun learning and putting it together to play with friends and neighbors for a little bit.
+</p>
+
+<p>
+    You can find the code for the webapp at <a href="https://github.com/cjgammon/led-game-server">https://github.com/cjgammon/led-game-server</a>
+</p>
+
+<br/>
+<br/>
+
