@@ -1,0 +1,46 @@
+---
+layout: post
+status: publish
+published: true
+title: My First Ludum Dare: Fussy Kitty
+author:
+  display_name: cjgammon
+  login: cjgammon
+  email: cj.gammon@gmail.com
+  url: http://www.cjgammon.com
+author_login: cjgammon
+author_email: cj.gammon@gmail.com
+author_url: http://www.cjgammon.com
+date: '2020-01-07 13:44:00 -0500'
+date_gmt: '2020-01-07 01:44:00 -0500'
+image: img/covers/2016-10-19-threejs-intro.png
+categories:
+- design
+- game
+- hardware
+tags:
+- arduino
+- development
+- game design
+comments: []
+---
+<p>Ludum Dare is a global game jam where people all over the world try to build a game over the course of a weekend.</p>
+
+<p>I've never done a Ludum Dare mostly because it's hard to find the time and dedicate a weekend to something like this when you have a family and other responsibilities. But I figured this time I'd give it a shot.</p>
+
+<p>Ludum Dare comes in two varieties, a competition and a jam, the competition being a bit more strict and the jam being more for fun. I entered in the jam, which gave me 72 hours to finish a game, pretty much however you want. Every Ludum Dare has a theme and this one's theme was <b>Keep it alive</b>.</p>
+
+<p>Around this time I'd been playing around with arduino and built my own <a href="https://arduboy.com/">Arduboy</a>. Which is sort of a gameboy built on the arduino platform. I made it from a custom PCB I designed and had printed as well as some parts I ordered like buttons and an LCD screen.</p>
+
+<p>Given the theme and that I wanted to keep it super simple given the time constraints and the platform, I decided I wanted to make a <a href="https://tamagotchi.com/">Tamagotchi</a>. Tamagotchi is a virtual pet that you need to keep alive and happy by performing various tasks, like feeding it, playing with it, etc.  I thought this would be a simple scalable sort of game and a good first arduboy game for me to try and make.</p>
+
+<p>I put together some simple graphics in photoshop which I converted into spritesheets for the different moods. The UI is basic text and shapes drawn using the arduboy api which gives you a menu showing actions you can take. I first added the basics, feed, play, pet. The cat has values of hunger, boredom and sadness which go up at varying intervals. When they reach a threshold the cat starts to show its need and performing the appropriate action will set it back to zero. If you don't perform the action and the need goes unmet for too long the cat will become sick. If the cat remains sick for too long it dies. That's pretty much it. I got this functionality in and decided to add leveling up, which makes the cat grow up after a period of time and speeds up all the intervals. I also added a win condition so that after a while the cat just dies of old age anyways. Then for kicks I threw in a whole bunch of random menu items just for filler and to confuse people playing the game.</p>
+
+<p>It's not great, in fact it's not even that good or even mediocre, but it is a thing that I made in a weekend between doing other things. It works on my arduboy, so that's cool. Maybe eventually I'll dedicate some time to making something more worthwhile for the arduboy.</p>
+
+<p>Check out <b>Fussy Kitty</b> below.</p>
+<iframe src="https://felipemanga.github.io/ProjectABE/?url=https://raw.githubusercontent.com/cjgammon/ld46-fussy-kitty/master/ld46-fussy-kitty.ino.leonardo.hex&color=FFFFFF"></iframe>
+
+<p>Download the source code on <a href="https://github.com/cjgammon/ld46-fussy-kitty">github</a>.</p>
+
+<p>Check out the game jam submission and sign up to join the next Ludum Dare here: <a href="https://ldjam.com/events/ludum-dare/46/fussy-kitty">Fussy Kitty</a>.</p>
