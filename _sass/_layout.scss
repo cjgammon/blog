@@ -7,62 +7,19 @@
     position: relative;
 }
 
-#title {
-    height: 45px;
-    padding: .3em .5em;
-    transform: translateZ(0);
-    overflow: visible;
-    cursor: pointer;
-}
-
 .main{
     max-width: 40em;
 }
 
-#main-nav{
-    position: relative;
-    float: right;
-    font-size: 1rem;
-    display: inline;
-    padding: .3em .5em;
-    text-transform: uppercase;
-    z-index: 100;
-
-    li{
-        list-style: none;
-        display: inline-block;
-        margin: 0 .2em;
-    }
-
-    a.nav{
-      display: inline-block;
-      text-decoration: none;
-      color: #4aadad;
-      font-weight: 600;
-      line-height: 1em;
-      padding: .25em .3em;
-      transition: transform .2s;
-      will-change: transform;
-      cursor: pointer;
-
-      &:hover{
-        color: #e9edef;
-        background: #4aadad;
-        //background: #8cad34;
-        transform: scale(1.1) skew(-10deg);
-      }
-    }
-}
-
-
 .site-title {
-    font-size: 26px;
+    display: block;
+    font-size: 1rem;
     font-family: $header-font-family;
     font-weight: $bold-font-weight;
     line-height: 56px;
-    text-transform: uppercase;
-    letter-spacing: -1px;
     margin-bottom: 0;
+    margin: 20px;
+    color: black !important;
 }
 
 .hire-link{

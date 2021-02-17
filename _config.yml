@@ -20,7 +20,7 @@ exclude: [_site, README.md]
 paginate: 10
 # Build settings
 markdown: kramdown
-gems:
+plugins:
 - jekyll-paginate
 - jekyll-babel
 - jekyll-redirect-from
