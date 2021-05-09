@@ -19,7 +19,7 @@
     line-height: 56px;
     margin-bottom: 0;
     margin: 20px;
-    color: black !important;
+    color: $text-color !important;
 }
 
 .hire-link{
@@ -281,4 +281,10 @@
   iframe{
     height: 80%;
   }
+}
+
+@media (prefers-color-scheme: dark) {
+    .site-title {
+        color: $text-color-dark !important;
+    }
 }

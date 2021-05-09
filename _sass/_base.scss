@@ -88,6 +88,12 @@ blockquote {
 }
 
 
+@media (prefers-color-scheme: dark) {
+    body {
+        color: $text-color-dark;
+        background-color: $background-color-dark;
+    }
+}
 
 /**
  * Code formatting
